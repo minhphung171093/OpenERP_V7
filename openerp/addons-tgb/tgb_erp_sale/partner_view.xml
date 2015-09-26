@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_property_form_account_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.account.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//page[@string='Accounting']" position="inside">
+          			<group string="Partner Multi Company">
+	                    <field name="partner_multi_company_line" nolabel='1'>
+	                    	<tree editable='bottom'>
+	                    		<field name="company_id" domain="[('id','!=',parent.company_id)]"/>
+	                    		<field name="receivable_acc_id" domain="[('type','=','receivable'),('company_id','=',company_id)]"/>
+	                    		<field name="payable_acc_id" domain="[('type','=','payable'),('company_id','=',company_id)]"/>
+	                    	</tree>
+	                    </field>
+	                </group>
+            	</xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

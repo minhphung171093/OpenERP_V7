@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tgb_erp_sale_1,partner.multi.company,tgb_erp_sale.model_partner_multi_company,base.group_user,True,True,True,True
+access_tgb_erp_sale_2,product.multi.company,tgb_erp_sale.model_product_multi_company,base.group_user,True,True,True,True
+
+
+
+
+
+
+
+
+
+

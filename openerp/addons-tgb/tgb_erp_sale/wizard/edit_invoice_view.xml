@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <record id="edit_invoice_form" model="ir.ui.view">
+            <field name="name">edit.invoice.form</field>
+            <field name="model">edit.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Update Invoice Line" version="7.0">
+                	<group col="4">
+                		<field name="edit_invoice_line" nolabel='1'>
+                			<tree editable='top' create='false' delete='false'>
+                				<field name="product_id"/>
+                				<field name="name"/>
+                				<field name="account_id"/>
+                				<field name="uos_id"/>
+                				<field name="quantity"/>
+                				<field name="price_unit"/>
+                				<field name="invoice_line_tax_id" widget="many2many_tags" domain="[('type_tax_use','in',['sale','all']),('company_id','=',company_id)]"/>
+                				<field name="company_id" invisible='1'/>
+                				<field name="invoice_line_id" invisible='1'/>
+                			</tree>
+                		</field>
+                    </group>
+	                <footer>
+                        <button string="Update" type="object" name="update_invoice_line" icon='gtk-execute'/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_edit_invoice" model="ir.actions.act_window">
+            <field name="name">Update Invoice Line</field>
+            <field name="res_model">edit.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="edit_invoice_form"/>
+        </record>
+		
+   </data>
+</openerp>
+        
+        
