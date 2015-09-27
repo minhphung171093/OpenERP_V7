@@ -333,6 +333,40 @@ class sale_order(osv.osv):
         wf_service = netsvc.LocalService('workflow')
         wf_service.trg_validate(uid, 'sale.order', ids[0], 'order_confirm', cr)
         return True
+    
+    def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
+        shop_obj = self.pool.get('sale.shop')
+        shop_ids = shop_obj.search(cr, uid, [('company_id','=',line.product_id.company_id.id)])
+        if not shop_ids:
+            raise osv.except_osv(_('Error!'),
+                            _('Please define shop for this company: "%s"') % \
+                                (line.product_id.company_id.name))
+        shop = shop_obj.browse(cr, uid, shop_ids[0])
+        location_id = shop.warehouse_id.lot_stock_id.id
+        output_id = shop.warehouse_id.lot_output_id.id
+        return {
+            'name': line.name,
+            'picking_id': picking_id,
+            'product_id': line.product_id.id,
+            'date': date_planned,
+            'date_expected': date_planned,
+            'product_qty': line.product_uom_qty,
+            'product_uom': line.product_uom.id,
+            'product_uos_qty': (line.product_uos and line.product_uos_qty) or line.product_uom_qty,
+            'product_uos': (line.product_uos and line.product_uos.id)\
+                    or line.product_uom.id,
+            'product_packaging': line.product_packaging.id,
+            'partner_id': line.address_allotment_id.id or order.partner_shipping_id.id,
+            'location_id': location_id,
+            'location_dest_id': output_id,
+            'sale_line_id': line.id,
+            'tracking_id': False,
+            'state': 'draft',
+            #'state': 'waiting',
+            'company_id': order.company_id.id,
+            'price_unit': line.product_id.standard_price or 0.0
+        }
+    
 sale_order()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -26,7 +26,7 @@
     'website' : '',
     'description': """""",
     'version': '1.0',
-    'depends': ['sale','account','stock','account_accountant','product','account_voucher','account_cancel'],
+    'depends': ['sale','sale_stock','account','stock','account_accountant','product','account_voucher','account_cancel'],
     'data' : [
           'security/ir.model.access.csv',
           'wizard/edit_invoice_view.xml',
