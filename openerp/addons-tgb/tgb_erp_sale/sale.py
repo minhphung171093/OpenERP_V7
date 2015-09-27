@@ -204,7 +204,14 @@ class sale_order_line(osv.osv):
 sale_order_line()    
 class sale_order(osv.osv):
     _inherit = "sale.order"
-    _columns = {
+    
+    def _get_default_company(self, cr, uid, context=None):
+        company_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).company_id.id
+        return company_id
+
+    
+    _defaults = {
+        'company_id': _get_default_company,
     }
     
     def init(self, cr):
@@ -216,7 +223,7 @@ class sale_order(osv.osv):
 #         action = self.pool.get('base.config.settings')._install_modules(cr, SUPERUSER_ID, to_install,context={})
         
         cr.execute(''' select res_id from ir_model_data
-            where name in ('group_uom','group_multi_currency','group_multi_company')
+            where name in ('group_uom','group_multi_currency','group_multi_company','group_locations','group_sale_pricelist')
                 and model='res.groups' ''')
         implied_group = cr.fetchall()
         cr.execute(''' select res_id from ir_model_data
@@ -243,6 +250,9 @@ class sale_order(osv.osv):
             {'module': 'base','xml_id': 'res_users_rule'},
             {'module': 'base','xml_id': 'res_partner_rule'},
             {'module': 'account','xml_id': 'account_comp_rule'},
+            {'module': 'sale','xml_id': 'sale_shop_comp_rule'},
+            {'module': 'stock','xml_id': 'stock_warehouse_comp_rule'},
+            {'module': 'stock','xml_id': 'stock_location_comp_rule'},
         ]
         for rule in rules:
             sql = '''

@@ -4,3 +4,4 @@ import account_invoice
 import sale
 import product
 import partner
+import stock

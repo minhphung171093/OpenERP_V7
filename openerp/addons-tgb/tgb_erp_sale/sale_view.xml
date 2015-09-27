@@ -12,6 +12,20 @@
             	<xpath expr="//form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
           			<field name="cost_price"/>
             	</xpath>
+            	<xpath expr="//field[@name='partner_id']" position="replace">
+          			<field name="partner_id" on_change="onchange_partner_id(partner_id, context)" domain="[('customer','=',True),('company_id','=',company_id)]" context="{'search_default_customer':1, 'show_address': 1}" options="{&quot;always_reload&quot;: True}"/>
+            	</xpath>
+            </field>
+        </record>
+        
+        <record id="view_order_form_inherit_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='shop_id']" position="replace">
+            		<field name="shop_id" on_change="onchange_shop_id(shop_id)" domain="[('company_id','=',company_id)]" groups="stock.group_locations"/>
+            	</xpath>
             </field>
         </record>
         
