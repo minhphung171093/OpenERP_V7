@@ -6,7 +6,17 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="account.product_normal_form_view"/>
             <field name="arch" type="xml">
-            	<xpath expr="//group[@name='properties']" position="after">
+            	<xpath expr="//group[@name='properties']" position="replace">
+        			<group name="properties">
+                        <group>
+                            <field name="property_account_income" domain="[('type','=','other'),('company_id','=',company_id)]" groups="account.group_account_user"/>
+                            <field name="taxes_id" colspan="2" domain="[('parent_id','=',False),('type_tax_use','in',['sale','all']),('company_id','=',company_id)]" attrs="{'readonly':[('sale_ok','=',0)]}" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="property_account_expense" domain="[('type','=','other'),('company_id','=',company_id)]" groups="account.group_account_user"/>
+                            <field name="supplier_taxes_id" domain="[('parent_id', '=', False),('type_tax_use','in',['purchase','all']),('company_id','=',company_id)]" colspan="2" widget="many2many_tags"/>
+                        </group>
+                    </group>
           			<group string="Product Multi Company">
 	                    <field name="product_multi_company_line" nolabel='1'>
 	                    	<tree editable='bottom'>

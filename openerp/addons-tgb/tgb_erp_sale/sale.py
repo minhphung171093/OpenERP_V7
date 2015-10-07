@@ -69,7 +69,21 @@ class sale_order_line(osv.osv):
                 uos = False
         fpos = fiscal_position and self.pool.get('account.fiscal.position').browse(cr, uid, fiscal_position) or False
         if update_tax: #The quantity only have changed
-            result['tax_id'] = self.pool.get('account.fiscal.position').map_tax(cr, uid, fpos, product_obj.taxes_id)
+            #PHUNG chinh sua tax cho phu hop voi tung company
+            user = self.pool.get('res.users').browse(cr, uid, uid)
+            product_multi_company_obj = self.pool.get('product.multi.company')
+            if product_obj.company_id.id != user.company_id.id:
+                product_multi_company_ids = product_multi_company_obj.search(cr, uid, [('company_id','=',user.company_id.id),('product_id','=',product_obj.id)])
+                if not product_multi_company_ids:
+                    raise osv.except_osv(_('Error!'),
+                            _('Please define product multi company for this product: "%s" (id:%d).') % \
+                                (product_obj.name, product_obj.id,))
+                product_multi_company_id = product_multi_company_obj.browse(cr, uid, product_multi_company_ids[0])
+                taxs = [(6, 0, [x.id for x in product_multi_company_id.customer_tax_ids])]
+            else:
+                taxs = self.pool.get('account.fiscal.position').map_tax(cr, uid, fpos, product_obj.taxes_id)
+            
+            result['tax_id'] = taxs
 
         if not flag:
             result['name'] = self.pool.get('product.product').name_get(cr, uid, [product_obj.id], context=context_partner)[0][1]
@@ -157,9 +171,9 @@ class sale_order_line(osv.osv):
                                 (line.product_id.name, line.product_id.id,))
                 product_multi_company_id = product_multi_company_obj.browse(cr, uid, product_multi_company_ids[0])
                 account_id = product_multi_company_id.income_acc_id.id
-                invoice_line_tax_id = [(6, 0, [x.id for x in product_multi_company_id.customer_tax_ids])]
-            else:
-                invoice_line_tax_id = [(6, 0, [x.id for x in line.tax_id])]
+#                 invoice_line_tax_id = [(6, 0, [x.id for x in product_multi_company_id.customer_tax_ids])]
+#             else:
+            invoice_line_tax_id = [(6, 0, [x.id for x in line.tax_id])]
             if not account_id:
                 if line.product_id:
                     account_id = line.product_id.property_account_income.id
@@ -253,6 +267,10 @@ class sale_order(osv.osv):
             {'module': 'sale','xml_id': 'sale_shop_comp_rule'},
             {'module': 'stock','xml_id': 'stock_warehouse_comp_rule'},
             {'module': 'stock','xml_id': 'stock_location_comp_rule'},
+            {'module': 'account','xml_id': 'fiscal_year_comp_rule'},
+            {'module': 'account','xml_id': 'journal_period_comp_rule'},
+            {'module': 'account_voucher','xml_id': 'voucher_comp_rule'},
+            {'module': 'account_voucher','xml_id': 'voucher_line_comp_rule'},
         ]
         for rule in rules:
             sql = '''
@@ -288,9 +306,9 @@ class sale_order(osv.osv):
                         'price_unit': line.cost_price,
                         'quantity': line.product_uom_qty,
                         'discount': line.discount or 0.0,
-                        'uos_id': line.product_uos and line.product_uos.id or False,
+                        'uos_id': line.product_uom and line.product_uom.id or False,
                         'product_id': line.product_id and line.product_id.id or False,
-                        'invoice_line_tax_id': [(6, 0, [x.id for x in line.tax_id])],
+                        'invoice_line_tax_id': [(6, 0, [x.id for x in line.product_id.taxes_id])],
                         'account_analytic_id': line.order_id.project_id and line.order_id.project_id.id or False,
                         }))
             if invoice_line_vals:
@@ -334,38 +352,38 @@ class sale_order(osv.osv):
         wf_service.trg_validate(uid, 'sale.order', ids[0], 'order_confirm', cr)
         return True
     
-    def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
-        shop_obj = self.pool.get('sale.shop')
-        shop_ids = shop_obj.search(cr, uid, [('company_id','=',line.product_id.company_id.id)])
-        if not shop_ids:
-            raise osv.except_osv(_('Error!'),
-                            _('Please define shop for this company: "%s"') % \
-                                (line.product_id.company_id.name))
-        shop = shop_obj.browse(cr, uid, shop_ids[0])
-        location_id = shop.warehouse_id.lot_stock_id.id
-        output_id = shop.warehouse_id.lot_output_id.id
-        return {
-            'name': line.name,
-            'picking_id': picking_id,
-            'product_id': line.product_id.id,
-            'date': date_planned,
-            'date_expected': date_planned,
-            'product_qty': line.product_uom_qty,
-            'product_uom': line.product_uom.id,
-            'product_uos_qty': (line.product_uos and line.product_uos_qty) or line.product_uom_qty,
-            'product_uos': (line.product_uos and line.product_uos.id)\
-                    or line.product_uom.id,
-            'product_packaging': line.product_packaging.id,
-            'partner_id': line.address_allotment_id.id or order.partner_shipping_id.id,
-            'location_id': location_id,
-            'location_dest_id': output_id,
-            'sale_line_id': line.id,
-            'tracking_id': False,
-            'state': 'draft',
-            #'state': 'waiting',
-            'company_id': order.company_id.id,
-            'price_unit': line.product_id.standard_price or 0.0
-        }
+#     def _prepare_order_line_move(self, cr, uid, order, line, picking_id, date_planned, context=None):
+#         shop_obj = self.pool.get('sale.shop')
+#         shop_ids = shop_obj.search(cr, uid, [('company_id','=',line.product_id.company_id.id)])
+#         if not shop_ids:
+#             raise osv.except_osv(_('Error!'),
+#                             _('Please define shop for this company: "%s"') % \
+#                                 (line.product_id.company_id.name))
+#         shop = shop_obj.browse(cr, uid, shop_ids[0])
+#         location_id = shop.warehouse_id.lot_stock_id.id
+#         output_id = shop.warehouse_id.lot_output_id.id
+#         return {
+#             'name': line.name,
+#             'picking_id': picking_id,
+#             'product_id': line.product_id.id,
+#             'date': date_planned,
+#             'date_expected': date_planned,
+#             'product_qty': line.product_uom_qty,
+#             'product_uom': line.product_uom.id,
+#             'product_uos_qty': (line.product_uos and line.product_uos_qty) or line.product_uom_qty,
+#             'product_uos': (line.product_uos and line.product_uos.id)\
+#                     or line.product_uom.id,
+#             'product_packaging': line.product_packaging.id,
+#             'partner_id': line.address_allotment_id.id or order.partner_shipping_id.id,
+#             'location_id': location_id,
+#             'location_dest_id': output_id,
+#             'sale_line_id': line.id,
+#             'tracking_id': False,
+#             'state': 'draft',
+#             #'state': 'waiting',
+#             'company_id': order.company_id.id,
+#             'price_unit': line.product_id.standard_price or 0.0
+#         }
     
 sale_order()
 

@@ -55,9 +55,9 @@ class stock_picking(osv.osv):
                             (move_line.product_id.name, move_line.product_id.id,))
             product_multi_company_id = product_multi_company_obj.browse(cr, uid, product_multi_company_ids[0])
             account_id = product_multi_company_id.income_acc_id.id
-            invoice_line_tax_id = [(6, 0, [x.id for x in product_multi_company_id.customer_tax_ids])]
-        else:
-            invoice_line_tax_id = [(6, 0, self._get_taxes_invoice(cr, uid, move_line, invoice_vals['type']))]
+#             invoice_line_tax_id = [(6, 0, [x.id for x in product_multi_company_id.customer_tax_ids])]
+#         else:
+        invoice_line_tax_id = [(6, 0, self._get_taxes_invoice(cr, uid, move_line, invoice_vals['type']))]
         #END Phung
         
         if invoice_vals['fiscal_position']:
