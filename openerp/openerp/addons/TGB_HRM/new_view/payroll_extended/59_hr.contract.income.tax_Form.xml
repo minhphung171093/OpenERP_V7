@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_hr_contract_income_tax_form" model="ir.ui.view">
+            <field name="name">view.hr.contract.income.tax.form</field>
+            <field name="model">hr.contract.income.tax</field>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Income Tax">
+                    <group col="4" colspan="4">
+                        <field name="year_id" required="True"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="IR8A">
+                            <notebook
+                                    colspan="4"> <!--                            <page string="Details">--> <!--                                <field align="0.0" name="identification_no" />--> <!--                                <field align="0.0" name="address_type" />--> <!--                                <field align="0.0" name="empcountry_id" />--> <!--                                <field align="0.0" name="empnationality_id" />--> <!--                                <field align="0.0" name="cessation_provisions" />--> <!--                            </page>-->
+                                <page string="Income">
+                                    <separator string="Section A-C" colspan="4"/>
+                                    <group col="4"
+                                           colspan="4"> <!--                                 <field align="0.0" name="payslip_net_amount" colspan="4" invisible="1" />--> <!--                                 <field align="0.0" name="bonus_amount" colspan="2" invisible="1" />-->
+                                        <field name="director_fee" colspan="2"/>
+                                        <field name="director_fee_approval_date" colspan="2"/>
+                                    </group>
+                                    <group col="4">
+                                        <field name="gain_profit" colspan="4"/>
+                                        <field name="exempt_income" colspan="4"/>
+                                        <field align="0.0" name="exempt_remission" colspan="4"/>
+                                        <field align="0.0" name="from_ir8s" colspan="4"/>
+                                    </group>
+                                    <separator string="Section d1" colspan="4"/>
+                                    <group col="4" colspan="4">
+                                        <field align="0.0" name="transport_allowance" colspan="2"/>
+                                        <field align="0.0" name="entertainment_allowance" colspan="2"/>
+                                        <field align="0.0" name="other_allowance" colspan="2"/>
+                                        <field align="0.0" name="pension" colspan="2"/>
+                                    </group>
+                                    <separator string="Section d4" colspan="4"/>
+                                    <group col="4">
+                                        <field align="0.0" name="gratuity_payment" colspan="4"/>
+                                        <field align="0.0" name="compensation" colspan="4"/>
+                                        <field align="0.0" name="approve_obtain_iras" colspan="4"/>
+                                        <field align="0.0" name="approval_date" colspan="4"/>
+                                        <field align="0.0" name="compensation_loss_office" colspan="4"/>
+                                        <field align="0.0" name="gratuity_payment_amt" colspan="4"/>
+                                    </group>
+                                    <separator string="Section d5" colspan="4"/>
+                                    <group col="4">
+                                        <field align="0.0" name="fund_name" colspan="4"/>
+                                        <field align="0.0" name="retirement_benifit_up" colspan="4"/>
+                                        <field align="0.0" name="retirement_benifit_from" colspan="4"/>
+                                    </group>
+                                    <separator string="Section d6-9" colspan="4"/>
+                                    <group col="4">
+                                        <field align="0.0" name="benefits_kind" colspan="4"/>
+                                        <field align="0.0" name="section_applicable" colspan="4"/>
+                                        <field align="0.0" name="contribution_employer" colspan="4"/>
+                                        <field align="0.0" name="excess_voluntary_contribution_cpf_employer"
+                                               colspan="4"/>
+                                        <field align="0.0" name="gains_profit_share_option" colspan="4"/>
+                                        <field align="0.0" name="benifits_in_kinds" colspan="4"/>
+                                        <field align="0.0" name="emp_voluntary_contribution_cpf" colspan="4"/>
+                                    </group>
+                                    <separator string="Section E" colspan="4"/>
+                                    <group col="4">
+                                        <field align="0.0" name="employment_income" colspan="4"/>
+                                        <field align="0.0" name="employee_income_tax" colspan="4"/>
+                                    </group>
+                                    <!--                                <group col="2" colspan="2">--> <!--                                    <separator string="Gross" colspan="2" />--> <!--                                    <field name="gross_commission" />--> <!--                                    <field name="gross_commission_indicator" />--> <!--                                </group>--> <!--                                <group col="2" colspan="2">--> <!--                                    <separator string="Directors" colspan="2" />--> <!--                                    <field name="director_fee" />--> <!--                                    <field name="director_fee_approval_date" />--> <!--                                </group>--> <!--                                <group col="2" colspan="2">--> <!--                                    <separator string="Benifits" colspan="2" />--> <!--                                    <field name="benefits_kind" />--> <!--                                    <field name="retirement_benifit_up" />--> <!--                                    <field name="retirement_benifit_from" />--> <!--                                    <field name="benifits_in_kinds" />--> <!--                                    <field name="fund_name" />--> <!--                                </group>--> <!--                                <group col="2" colspan="2">--> <!--                                    <separator string="Lump Sum Payment" colspan="2" />--> <!--                                    <field name="gratuity_payment" />--> <!--                                    <field name="compensation" />--> <!--                                    <field name="approve_obtain_iras" />--> <!--                                    <field name="approval_date" />--> <!--                                </group>--> <!--                                <group col="2" colspan="2">--> <!--                                    <separator string="Allowance" colspan="2" />--> <!--                                    <field name="transport_allowance" />--> <!--                                    <field name="entertainment_allowance" />--> <!--                                    <field name="other_allowance" />--> <!--                                </group>--> <!--                                <group col="2" colspan="2">--> <!--                                    <separator string="32. Period of Gross Commission payment" colspan="2" />--> <!--                                    <field name="fromdate" />--> <!--                                    <field name="todate" />--> <!--                                </group>--> <!--                                <group col="4" colspan="4">--> <!--                                    <separator string="32. Income Tax" colspan="4" />--> <!--                                    <field name="employee_income_tax" />--> <!--                                    <field name="employment_income" />--> <!--                                </group>--> <!--                                <field name="gain_profit" />--> <!--                                <field name="exempt_income" />--> <!--                                <field name="section_applicable" />--> <!--                                <field name="cessation_provisions" />--> <!--                                <field name="from_ir8s" />--> <!--                                <field name="exempt_remission" />--> <!--                                <field name="pension" />--> <!--                                <field name="gratuity_payment_amt" />--> <!--                                <field name="compensation_loss_office" />--> <!--                                <field name="excess_voluntary_contribution_cpf_employer" />--> <!--                                <field name="gains_profit_share_option" />--> <!--                                <field name="bonus_declaration_date" />--> <!--                                <group col="2" colspan="4" >--> <!--                                    <field name="contribution_employer" />--> <!--                                    <field name="emp_voluntary_contribution_cpf" />--> <!--                                    <field name="deginated_pension" />--> <!--                                </group>-->
+                                </page>
+                                <page string="Deductions">
+                                    <field name="mbf"/>
+                                    <field name="donation"/>
+                                    <field name="CPF_designated_pension_provident_fund"/>
+                                    <field name="insurance"/>
+                                </page>
+                            </notebook>
+                        </page>
+                        <page string="IR8S">
+                            <notebook colspan="4">
+                                <page string="Section A">
+                                    <group col="2" colspan="4">
+                                        <field name="CPF_capping_indicator"/>
+                                        <field name="singapore_permanent_resident_status"/>
+                                        <field name="approval_has_been_obtained_CPF_board"/>
+                                        <field name="indicator_for_CPF_contributions"/>
+                                    </group>
+                                </page>
+                                <page string="Section B">
+                                    <field name="eyer_contibution"/>
+                                    <field name="eyee_contibution"/>
+                                </page>
+                                <page string="Section C">
+                                    <field name="additional_wage"/>
+                                    <field name="add_wage_pay_date"/>
+                                    <field name="refund_eyers_contribution"/>
+                                    <field name="refund_eyees_contribution"/>
+                                    <field name="refund_eyers_date"/>
+                                    <field name="refund_eyees_date"/>
+                                    <field name="refund_eyers_interest_contribution"/>
+                                    <field name="refund_eyees_interest_contribution"/>
+                                </page>
+                            </notebook>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="board_hr_holidays_form" model="ir.ui.view">
+            <field name="name">board.hr.holidays.form</field>
+            <field name="model">board.board</field>
+            <field name="inherit_id" ref="hr.board_hr_form"/>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/board/column[1]" position="inside">
+                    <action name="480" string="Employee Leaves"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

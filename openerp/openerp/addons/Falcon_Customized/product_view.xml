@@ -1,0 +1,20 @@
+<openerp>
+    <data>
+        <record id="falcon_product_view" model="ir.ui.view">
+            <field name="name">falcon.product.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="price_extra" position="after">
+                    <field name="custom_list1"/>
+                    <field name="custom_list2"/>
+                    <field name="custom_list3"/>
+                </field>
+                <field name="list_price" position="after">
+                    <field name="reorder_quantity"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

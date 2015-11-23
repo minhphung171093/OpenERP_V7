@@ -1,0 +1,48 @@
+<openerp>
+    <data>
+
+
+        <record id="optom_product_view" model="ir.ui.view">
+            <field name="name">optom.product.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="list_price" position="after">
+                    <field name="type_id"/>
+                    <field name="brand_id"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="tgb_brand_action" model="ir.actions.act_window">
+            <field name="name">Brand</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tgb.product.brand</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain"></field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem action="tgb_brand_action" id="tgb_brand_menu" parent="base.menu_product" sequence="1" name="Brand"/>
+
+
+        <record id="tgb_type_action" model="ir.actions.act_window">
+            <field name="name">Product Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tgb.product.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain"></field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem action="tgb_type_action" id="tgb_type_menu" parent="base.menu_product" sequence="1" name="Type"/>
+
+
+
+
+    </data>
+</openerp>

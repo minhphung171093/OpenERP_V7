@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_resource_planning_period_form_view">
+        <field name="name">resource.planning.period.form</field>
+        <field name="model">resource.planning.period</field>
+        <field name="arch" type="xml">
+            <form string="resource_planning_period" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="requirement_planning_id"/>
+                    <field name="week_no"/>
+                    <field name="po_deadline_from"/>
+                    <field name="po_deadline_to"/>
+                    <field name="status"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_resource_planning_period_tree_view">
+        <field name="name">resource.planning.period.tree</field>
+        <field name="model">resource.planning.period</field>
+        <field name="arch" type="xml">
+            <tree string="resource_planning_period">
+                <field name="requirement_planning_id"/>
+                <field name="week_no"/>
+                <field name="po_deadline_from"/>
+                <field name="po_deadline_to"/>
+                <field name="status"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_resource_planning_period_action" model="ir.actions.act_window">
+            <field name="name">resource_planning_period</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.planning.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

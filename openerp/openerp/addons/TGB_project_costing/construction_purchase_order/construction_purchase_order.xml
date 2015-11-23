@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_construction_purchase_order_form_view">
+            <field name="name">construction.purchase.order.form</field>
+            <field name="model">construction.purchase.order</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="purchase_order_no"/>
+                            <field name="supplier_id"/>
+                            <field name="source_voucher_no"/>
+                            <field name="copy_from"/>
+                            <field name="copy"/>
+                        </group>
+                        <notebook>
+                            <page string="Header">
+                                <group col="2">
+                                    <field name="supplier_contact"/>
+                                    <field name="purchase_order_date"/>
+                                    <field name="order_currency"/>
+                                    <field name="sales_tax"/>
+                                    <field name="purchaser_id"/>
+                                    <field name="reference_no"/>
+                                    <field name="subject"/>
+                                </group>
+                            </page>
+
+                            <page string="Shipment">
+                                <group col="4">
+                                    <field name="shipment_mode"/>
+                                    <field name="shipment_term"/>
+                                    <field name="default_to_location"/>
+                                </group>
+                            </page>
+                            <page string="Detail">
+                                <group col="8" >
+                                    <group col="8">
+                                    <field colspan="4" name="estimated_shipment_date"/>
+                                    <field colspan="4" name="estimated_arrival_date"/>
+                                        </group>
+                                    <newline/>
+                                    <group col="8">
+                                    <field colspan="2" name="discount_percent"/>
+                                    <field colspan="2" name="discount_amount"/>
+                                    <button colspan="2" name="apply_discount" type="object" string="Update discount"/>
+                                        </group>
+                                    <newline/>
+                                    <group>
+
+                                    <field name="construction_purchase_order_line_ids" nolabel="1"/>
+
+                                        </group>
+                                    <newline/>
+                                    <group col="4">
+                                    <field colspan="2" name="exchange_rate"/>
+                                    <field colspan="2" name="total_volume"/>
+                                    <field colspan="2" name="total_weight"/>
+                                    <field colspan="2" name="total_discount_amt"/>
+                                    <field colspan="2" name="total_sales_tax_amt"/>
+                                    <field colspan="2" name="sub_total_after_discount"/>
+                                    <field colspan="2" name="total_after_tax_amt"/>
+                                    <field colspan="2" name="total_after_tax_home_amt"/>
+                                        </group>
+                                    <newline/>
+                                    <group>
+                                    <separator string="Auto Allocation"/>
+                                        <newline/>
+                                    <group col="6">
+                                        <field name="project_id"/>
+                                        <field name="phase_sequence_id"/>
+                                        <field name="line_item_id"/>
+                                    </group>
+                                        </group>
+                                </group>
+                            </page>
+
+                            <page string="Payment Info">
+                                <group col="2">
+                                    <field name="payment_option"/>
+                                    <field name="payment_term"/>
+                                    <field name="payment_term_tenor"/>
+                                    <field name="payment_method"/>
+                                    <field name="payment_amount"/>
+                                    <field name="payment_party"/>
+                                    <field name="payment_address"/>
+                                    <field name="payment_contact"/>
+                                </group>
+                            </page>
+
+                            <page string="Remarks">
+                                <group col="2">
+                                    <field name="internal_remarks_code"/>
+                                    <field name="external_remarks_code"/>
+                                    <field name="internal_remarks"/>
+                                    <field name="external_remarks"/>
+                                </group>
+                            </page>
+
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_construction_purchase_order_tree_view">
+            <field name="name">construction.purchase.order.tree</field>
+            <field name="model">construction.purchase.order</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order">
+                    <field name="purchase_order_no"/>
+                    <field name="source_voucher_no"/>
+                    <field name="purchaser_id"/>
+                    <field name="order_currency"/>
+                    <field name="total_after_tax_amt"/>
+                    <field name="supplier_id"/>
+                    <field name="subject"/>
+                    <field name="reference_no"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tgb_construction_construction_purchase_order_action" model="ir.actions.act_window">
+            <field name="name">Purchase Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">construction.purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+
+
+
+    </data>
+</openerp>

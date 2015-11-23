@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_cost_accrual_reversal_form_view">
+            <field name="name">project.cost.accural.resersal.form</field>
+            <field name="model">project.cost.accural.resersal</field>
+            <field name="arch" type="xml">
+                <form string="Project Cost Accrual Reversal" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="cost_accrual_voucher"/>
+                            <field name="cost_accrual_date"/>
+                            <field name="project no"/>
+                            <field name="customer"/>
+                            <field name="currency"/>
+                            <field name="exchange_rate"/>
+                            <field name="reference no"/>
+
+
+                        </group>
+                        <notebook>
+                            <page string="Detail">
+                                <field name="project_cost_accrual_reversal_detail_ids" editable="top"/>
+                            </page>
+                            <page string="Remarks">
+                                <group col="2">
+                                    <field name="internal_remarks_code"/>
+                                    <field name="internal remarks"/>
+                                    <field name="external_remarks_code"/>
+                                    <field name="external remarks"/>
+                                </group>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_project_cost_accrual_reversal_tree_view">
+            <field name="name">project.cost.accural.resersal.tree</field>
+            <field name="model">project.cost.accural.resersal</field>
+            <field name="arch" type="xml">
+                <tree string="project_cost_accrual_reversal">
+                    <field name="cost_accrual_voucher"/>
+                    <field name="cost_accrual_date"/>
+                    <field name="project no"/>
+                    <field name="customer"/>
+                    <field name="currency"/>
+                    <field name="exchange_rate"/>
+                    <field name="reference no"/>
+                    <field name="internal_remarks_code"/>
+                    <field name="internal remarks"/>
+                    <field name="external_remarks_code"/>
+                    <field name="external remarks"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="tgb_construction_project_cost_accrual_reversal_action" model="ir.actions.act_window">
+            <field name="name">Project Cost Accrual Reversal</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.cost.accural.resersal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Project Cost Accrual and Reversal"
+                  id="project_cost_accrual_reversal_menu" parent="menu_construction_project_costing_menu"
+                  action="tgb_construction_project_cost_accrual_reversal_action"/>
+    </data>
+</openerp>

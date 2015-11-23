@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data >
+
+        <!-- Scheduler for Reminding Admin to Detail of New Consumer Created on Next Day and 
+             Also Reminding Daily Product Detail Which Product has less than 3 qty -->
+        <record forcecreate="True" id="ir_cron_change_status_schedular" model="ir.cron">
+            <field name="name">Create Employee Time Sheet Scheduler</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'roster.timesheet'" name="model" />
+            <field eval="'create_employee_timesheets'" name="function" />
+            <field eval="'()'" name="args" />
+        </record>
+
+    </data>
+</openerp>

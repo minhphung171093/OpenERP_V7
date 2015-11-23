@@ -1,0 +1,238 @@
+
+<openerp>
+    <data noupdate="1">
+        <!-- Taxes -->
+        <!-- TAX Code Definitions -->
+
+        <!-- Invoiced TAX -->
+
+        <record id="tax_code_chart_root" model="account.tax.code.template">
+            <field name="name">Plan Fees </field>
+        </record>
+
+        <record id="tax_code_balance_net" model="account.tax.code.template">
+            <field name="name">Tax Balance to Pay</field>
+            <field name="parent_id" ref="tax_code_chart_root"/>
+        </record>
+
+        <!-- Input TAX -->
+        <record id="tax_code_input_received" model="account.tax.code.template">
+            <field name="name">Tax Received</field>
+            <field name="parent_id" ref="tax_code_balance_net"/>
+            <field eval="-1" name="sign"/>
+        </record>
+        <record id="tax_code_input_default_rate" model="account.tax.code.template">
+            <field name="name">Tax Received at default rate Tax Pay</field>
+            <field name="code">TX</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_zero_rated" model="account.tax.code.template">
+            <field name="name">Zero Rated Purchase Tax Pay</field>
+            <field name="code">ZP</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_imports" model="account.tax.code.template">
+            <field name="name">Imports Tax Pay</field>
+            <field name="code">IM</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_imports_scheme" model="account.tax.code.template">
+            <field name="name">Imports under a special scheme Tax Pay</field>
+            <field name="code">ME</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_imports_gst_scheme" model="account.tax.code.template">
+            <field name="name">Import under the import GST deferment scheme Tax Pay</field>
+            <field name="code">IGDS</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_disallowed_expenses" model="account.tax.code.template">
+            <field name="name">Disallowed expenses</field>
+            <field name="code">BL</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_non_gst_purchases" model="account.tax.code.template">
+            <field name="name">Non-GST purchases Tax Pay</field>
+            <field name="code">NR</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_exempt_purchases" model="account.tax.code.template">
+            <field name="name">Exempt purchases Tax Pay</field>
+            <field name="code">EP</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_out_of_scope" model="account.tax.code.template">
+            <field name="name">Out-of-scope purchases Tax Pay</field>
+            <field name="code">OP</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_direct_tax_supplies" model="account.tax.code.template">
+            <field name="name">Standard rated purchases directly attributable to the making of taxable supplies Tax Pay</field>
+            <field name="code">TX</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_direct_exempt_supplies" model="account.tax.code.template">
+            <field name="name">Standard rated purchases that are directly attributable to non-regulation 33 exempt supplies Tax Pay</field>
+            <field name="code">TX-N33</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+        <record id="tax_code_input_residual_input_tax" model="account.tax.code.template">
+            <field name="name">Residual input tax Tax Pay</field>
+            <field name="code">TX-RE</field>
+            <field name="parent_id" ref="tax_code_input_received"/>
+        </record>
+
+        <!-- Output TAX -->
+
+        <record id="tax_code_output_payable" model="account.tax.code.template">
+            <field name="name">Tax Payable</field>
+            <field name="parent_id" ref="tax_code_balance_net"/>
+        </record>
+        <record id="tax_code_output_standarad_rate" model="account.tax.code.template">
+            <field name="name">Standard rated for Supply Tax Pay</field>
+            <field name="code">SR</field>
+            <field name="parent_id" ref="tax_code_output_payable"/>
+        </record>
+        <record id="tax_code_output_zero_rate" model="account.tax.code.template">
+            <field name="name">Zero rated for Supply Tax Pay</field>
+            <field name="code">ZR</field>
+            <field name="parent_id" ref="tax_code_output_payable"/>
+        </record>
+        <record id="tax_code_output_exempt" model="account.tax.code.template">
+            <field name="name">Exempt</field>
+            <field name="code">ES33</field>
+            <field name="parent_id" ref="tax_code_output_payable"/>
+        </record>
+        <record id="tax_code_output_exempt_esn" model="account.tax.code.template">
+            <field name="name">Exempt ESN Tax Pay</field>
+            <field name="code">ESN33</field>
+            <field name="parent_id" ref="tax_code_output_payable"/>
+        </record>
+        <record id="tax_code_output_deemed_supplies" model="account.tax.code.template">
+            <field name="name">Deemed supplies Tax Pay</field>
+            <field name="code">DS</field>
+            <field name="parent_id" ref="tax_code_output_payable"/>
+        </record>
+        <record id="tax_code_output_scope_supplier" model="account.tax.code.template">
+            <field name="name">Out-of-Scope supplies Tax Pay</field>
+            <field name="code">OS</field>
+            <field name="parent_id" ref="tax_code_output_payable"/>
+        </record>
+
+
+        <!-- Invoiced Base of TAX -->
+
+        <!-- Purchases -->
+
+        <record id="tax_code_base_net" model="account.tax.code.template">
+                <field name="name">Tax Bases</field>
+                <field name="parent_id" ref="tax_code_chart_root"/>
+            </record>
+
+                <record id="tax_code_base_purchases" model="account.tax.code.template">
+                    <field name="name">Taxable Purchases Base</field>
+                    <field name="parent_id" ref="tax_code_base_net"/>
+                </record>
+
+                    <record id="tax_code_input_default_rate_base" model="account.tax.code.template">
+			            <field name="name">Tax Received at default rate Tax Bases</field>
+			            <field name="code">TXB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_zero_rated_base" model="account.tax.code.template">
+			            <field name="name">Zero Rated Purchase Tax Bases</field>
+			            <field name="code">ZPB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_imports_base" model="account.tax.code.template">
+			            <field name="name">Imports Tax Bases</field>
+			            <field name="code">IMB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_imports_scheme_base" model="account.tax.code.template">
+			            <field name="name">Imports under a special scheme Tax Bases</field>
+			            <field name="code">MEB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_imports_gst_scheme_base" model="account.tax.code.template">
+			            <field name="name">Import under the import GST deferment scheme Tax Bases</field>
+			            <field name="code">IGDSB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_disallowed_expenses_base" model="account.tax.code.template">
+			            <field name="name">Disallowed expenses Tax Bases</field>
+			            <field name="code">BLB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_non_gst_purchases_base" model="account.tax.code.template">
+			            <field name="name">Non-GST purchases Tax Bases</field>
+			            <field name="code">NRB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_exempt_purchases_base" model="account.tax.code.template">
+			            <field name="name">Exempt purchases Tax Bases</field>
+			            <field name="code">EPB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_out_of_scope_base" model="account.tax.code.template">
+			            <field name="name">Out-of-scope purchases Tax Bases</field>
+			            <field name="code">OPB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_direct_tax_supplies_base" model="account.tax.code.template">
+			            <field name="name">Standard rated purchases directly attributable to the making of taxable supplies Tax Bases</field>
+			            <field name="code">TXB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_direct_exempt_supplies_base" model="account.tax.code.template">
+			            <field name="name">Standard rated purchases that are directly attributable to non-regulation 33 exempt supplies Tax Bases</field>
+			            <field name="code">TX-N33B</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+			        <record id="tax_code_input_residual_input_tax_base" model="account.tax.code.template">
+			            <field name="name">Residual input tax Tax Bases</field>
+			            <field name="code">TX-REB</field>
+			            <field name="parent_id" ref="tax_code_base_purchases"/>
+			        </record>
+
+                <!-- Sales -->
+
+                <record id="tax_code_base_sales" model="account.tax.code.template">
+                    <field name="name">Base of Taxable Sales</field>
+                    <field name="parent_id" ref="tax_code_base_net"/>
+                </record>
+
+                    <record id="tax_code_output_standarad_rate_base" model="account.tax.code.template">
+			            <field name="name">Standard rated for Supply Tax Bases</field>
+			            <field name="code">SRB</field>
+			            <field name="parent_id" ref="tax_code_base_sales"/>
+			        </record>
+			        <record id="tax_code_output_zero_rate_base" model="account.tax.code.template">
+			            <field name="name">Zero rated for Supply Tax Bases</field>
+			            <field name="code">ZRB</field>
+			            <field name="parent_id" ref="tax_code_base_sales"/>
+			        </record>
+			        <record id="tax_code_output_exempt_base" model="account.tax.code.template">
+			            <field name="name">Exempt Tax Bases</field>
+			            <field name="code">ES33B</field>
+			            <field name="parent_id" ref="tax_code_base_sales"/>
+			        </record>
+			        <record id="tax_code_output_exempt_esn_base" model="account.tax.code.template">
+			            <field name="name">Exempt ESN Tax Bases</field>
+			            <field name="code">ESN33B</field>
+			            <field name="parent_id" ref="tax_code_base_sales"/>
+			        </record>
+			        <record id="tax_code_output_deemed_supplies_base" model="account.tax.code.template">
+			            <field name="name">Deemed supplies Tax Bases</field>
+			            <field name="code">DSB</field>
+			            <field name="parent_id" ref="tax_code_base_sales"/>
+			        </record>
+			        <record id="tax_code_output_scope_supplier_base" model="account.tax.code.template">
+			            <field name="name">Out-of-Scope supplies Tax Bases</field>
+			            <field name="code">OSB</field>
+			            <field name="parent_id" ref="tax_code_base_sales"/>
+			        </record>
+
+    </data>
+</openerp>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.account.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='date_invoice']" position="after">
+            		<field name="appointment"/>
+            		<field name="ready_by"/>
+            		<field name="deliver_to"/>
+            		<field name="artwork"/>
+            	</xpath>
+            	<xpath expr="//field[@name='fiscal_position']" position="after">
+            		<field name="customer_po"/>
+            		<field name="balloon_color"/>
+            	</xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

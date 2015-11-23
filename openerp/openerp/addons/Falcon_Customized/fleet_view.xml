@@ -1,0 +1,53 @@
+<openerp>
+    <data>
+        <record id="falcon_fleet_vehicle_form" model="ir.ui.view">
+            <field name="name">falcon.fleet.vehicle.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="driver_id" position="after">
+                    <field name="assitant_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="falcon_fleet_vehicle_tree" model="ir.ui.view">
+            <field name="name">falcon.fleet.vehicle.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_tree"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="driver_id" position="after">
+                    <field name="assitant_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="falcon_fleet_vehicle_search" model="ir.ui.view">
+            <field name="name">falcon.fleet.vehicle.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_search"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="driver_id" position="after">
+                    <field name="assitant_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="falcon_fleet_vehicle_kanban" model="ir.ui.view">
+            <field name="name">falcon.fleet.vehicle.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_kanban"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="driver_id" position="after">
+                    <field name="assitant_id"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

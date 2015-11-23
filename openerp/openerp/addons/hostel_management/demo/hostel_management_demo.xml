@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<!-- student Hostel Bed -->
+	   	
+	   	<record id="student_hostel_bed1" model="student.hostel.bed">
+			<field name="name" ref="product.product_product_1"/>
+			<field name="bed_type">gatch</field>
+		</record>
+	   
+	   <record id="student_hostel_bed2" model="student.hostel.bed">
+			<field name="name" ref="product.product_product_2"/>
+		 	<field name="bed_type">low</field> 
+		</record>
+		
+	   <record id="student_hostel_bed3" model="student.hostel.bed">
+			<field name="name" ref="product.product_product_3"/>
+		    <field name="bed_type">stretcher</field>
+		</record>
+		
+		<!--Hostel addmission -->
+		
+		<record id="student_hostel_addmission1" model="student.hostel.registration">
+			<field name="reg_code">1101</field>
+			<field name="user_id" ref="school.demo_student_student_1"/>
+			<field name="bed" ref="student_hostel_bed1"/>
+			<field name="admission_date">2013-06-22</field> 
+			<field name="discharge_date">2014-05-30</field>
+		</record>
+	 
+	   <record id="student_hostel_addmission2" model="student.hostel.registration">
+			<field name="reg_code">1102</field>
+			<field name="user_id" ref="school.demo_student_student_2"/>
+			<field name="bed" ref="student_hostel_bed2"/>
+			<field name="admission_date">2012-06-01</field> 
+			<field name="discharge_date">2012-12-30</field>
+		</record>
+	
+	   <record id="student_hostel_addmission3" model="student.hostel.registration">
+			<field name="reg_code">1103</field>
+			<field name="user_id" ref="school.demo_student_student_3"/>
+			<field name="bed"  ref="student_hostel_bed1"/>
+			<field name="admission_date">2013-06-01</field> 
+			<field name="discharge_date">2014-03-03</field>
+		</record>
+	
+	   <record id="student_hostel_addmission4" model="student.hostel.registration">
+			<field name="reg_code">1104</field>
+			<field name="user_id" ref="school.demo_student_student_4"/>
+			<field name="bed" ref="student_hostel_bed2"/>
+			<field name="admission_date">2012-05-25</field> 
+			<field name="discharge_date">2013-05-30</field>
+		</record>
+	    
+	    <record id="student_hostel_addmission5" model="student.hostel.registration">
+			<field name="reg_code">1105</field>
+			<field name="user_id" ref="school.demo_student_student_5"/>
+			<field name="bed" ref="student_hostel_bed3"/>
+			<field name="admission_date">2013-01-05</field> 
+			<field name="discharge_date">2013-06-15</field>
+		</record>
+		
+		<!-- Student Hostel Room Detailes -->
+		<record id="student_hostel_room_1" model="student.hostel.rooms">
+			<field name="name">Room No : 501</field>
+			<field name="number_of_beds">03</field>
+			<field name="gender">men</field>
+		</record>
+	    <record id="student_hostel_room_2" model="student.hostel.rooms">
+			<field name="name">Room No :101 </field>
+			<field name="number_of_beds">06</field>
+			<field name="gender">women</field>
+		</record>
+		<record id="student_hostel_room_3" model="student.hostel.rooms">
+			<field name="name">Room No : 502</field>
+			<field name="number_of_beds">08</field>
+			<field name="gender">men</field>
+		</record>
+		<record id="student_hostel_room_4" model="student.hostel.rooms">
+			<field name="name">Room No : 102</field>
+			<field name="number_of_beds">04</field>
+			<field name="gender">women</field>
+		</record>
+	</data>
+</openerp>	
+	

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_hr_contract_income_tax_tree" model="ir.ui.view">
+            <field name="name">view.hr.contract.income.tax.tree</field>
+            <field name="model">hr.contract.income.tax</field>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Income Tax">
+                    <field name="year_id"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

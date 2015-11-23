@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="inherit_allocation_leave_new" model="ir.ui.view">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.allocation_leave_new"/>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='employee_id']" position="after">
+                        <field name="unallocated"/>
+                        <field name="day" invisible="1"/>
+                    </xpath>
+                    <field name="number_of_days_temp" position="after">
+                        <field name="fiscal_year_id" required="True"/>
+                    </field>
+                    <!--                <xpath expr="/form/notebook/page[@string='General']/group/button[@name='refuse']" position="before">--> <!--                    <button string="Cancel" name="cancel" states="validate" icon="gtk-cancel" groups="base.group_hr_user"/>--> <!--                </xpath>-->
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+
+          <record id="tgb_view_users_form_simple_modif" model="ir.ui.view">
+            <field name="name">res.users.tgb.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                    <field name="company_id" position="after">
+                        <field name="parent_user"/>
+                        <field name="user_list" readonly="0" domain="[('parent_user','!=',None),('parent_user','=',parent_user)]" context="{'parent_user':True}"/>
+                        <button name="get_import_file" type="object" string="Switch User"/>
+                    </field>
+              </field>
+        </record>
+    </data>
+</openerp>

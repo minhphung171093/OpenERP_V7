@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_hr_employee_news_search" model="ir.ui.view">
+            <field name="name">employee.news.search</field>
+            <field name="model">employee.news</field>
+            <field name="type">search</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="News" version="7.0">
+                    <field name="subject"/>
+                    <field name="date"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>

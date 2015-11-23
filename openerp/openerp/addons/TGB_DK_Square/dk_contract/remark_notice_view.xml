@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="remark_notice_form_view">
+            <field name="name">remark.notice.form</field>
+            <field name="model">remark.notice</field>
+            <field name="arch" type="xml">
+                <form string="Remark Notice" version="7.0">
+                    <group col="4">
+                        <separator string="Please input remark" colspan="4"/>
+                        <field name="remarks"/>
+                        <newline/>
+                        <button name="confirm" string="Confirm" type="object"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,23 @@
+<openerp>
+    <data>
+        <record id="view_order_form_tgb_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.tgb.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Extra">
+                        <group>
+                            <field name="tgb_price_term"/>
+                            <field name="tgb_validity"/>
+                            <field name="tgb_delivery"/>
+                            <field name="tgb_specification"/>
+                            <field name="tgb_warranty"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>

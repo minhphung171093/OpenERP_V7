@@ -1,0 +1,8 @@
+===============================================================================
+ Version Change Log
+ Module: school_event
+===============================================================================
+
+Version 1.0 on 2013-09-23 by Anu Patel
+    * Put the menu under main "EMS" menu instead of "Configuration" menu.
+    * Added groups to Buttons,Improved filed level Access rights.

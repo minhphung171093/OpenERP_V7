@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_hr_view_employee_form_inherited" model="ir.ui.view">
+            <field name="name">view.hr.employee.form.inherited</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page/group[1]/group[1]/field[@name='otherid']" position="after">
+                    <group col="2" colspan="2" groups="base.group_hr_user">
+                        <separator string="INCOME TAX" colspan="2"/>
+                        <field name="identification_no" required="True"/>
+                        <field name="address_type" required="True"/>
+                        <field name="empcountry_id" required="True"/>
+                        <field name="empnationality_id" required="True"/>
+                        <field name="cessation_provisions" required="True"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

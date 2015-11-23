@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_holiday_exten" model="ir.ui.view">
+            <field name="name">hr.holidays.tree2</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday"/>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="holiday_type" position="replace"/>
+                    <field name="category_id" position="replace"/>
+                    <field name="date_from" position="replace">
+                        <field name="date_from" widget="date"/>
+                    </field>
+                    <field name="date_to" position="replace">
+                        <field name="date_to" widget="date"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

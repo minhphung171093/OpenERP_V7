@@ -1,0 +1,1286 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+    
+    <!-- Holidays view -->
+    
+        <record model="ir.ui.view" id="edit_holiday_extended">
+            <field name="name">Leave Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="arch" type="xml">
+                <sheet position="inside">
+                    <notebook>
+	                    <page string="Documents">
+	                        <field name="employee_document_ids" nolabel="1" colspan="4">
+	                            <tree string="Attachment">
+	                                <field name="document"/>
+	                            </tree>
+	                            <form string="Attachment">
+	                                <field name="document_attachment" filename="document" colspan="4"/>
+	                                <field name="document" colspan="4"/>
+	                            </form>
+	                        </field>
+	                    </page>
+                    </notebook>
+                </sheet>
+                <field name="department_id" position="replace">
+                    <field name="department_id" readonly="1"/>
+                </field>
+                <field name="name" position="replace">
+                    <field name="name" attrs="{'readonly':[('state','not in',['draft', 'confirm'])]}" string="Reason"/>
+                </field>
+<!--                <xpath expr="/form/notebook/page/separator[@string='Reasons']" position="replace">-->
+<!--                    <separator string="Comments" colspan="4"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form/notebook/page/group/button[@string='Confirm']" position="attributes">-->
+<!--                    <attribute name="string">Apply Leave</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form/notebook/page/field[@name='date_from']" position="attributes">-->
+<!--                    <attribute name="widget">date</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form/notebook/page/field[@name='date_to']" position="attributes">-->
+<!--                    <attribute name="widget">date</attribute>-->
+<!--                </xpath>-->
+<!--                <field name="number_of_days_temp" position="attributes">-->
+<!--                    <attribute name="readonly">True</attribute>-->
+<!--                </field>-->
+<!--                <field name="holiday_status_id" position="attributes">-->
+<!--                        <attribute name="on_change">onchange_date_from(date_to, date_from, holiday_status_id, leave_type)</attribute>-->
+<!--                </field>-->
+<!--                <field name="date_from" position="attributes">-->
+<!--                        <attribute name="on_change">onchange_date_from(date_to, date_from, holiday_status_id, leave_type)</attribute>-->
+<!--                </field>-->
+<!--                <field name="date_to" position="attributes">-->
+<!--                        <attribute name="on_change">onchange_date_from(date_to, date_from, holiday_status_id, leave_type)</attribute>-->
+<!--                </field>-->
+<!--                <field name="date_to" position="after">-->
+<!--                    <field name="leave_type" on_change="onchange_date_from(date_to, date_from, holiday_status_id, leave_type)" -->
+<!--                    attrs="{'readonly':['|','&amp;',('number_of_days_temp','not in',[0.5,1]),('state','=','draft'),('state','!=','draft')]}"/>-->
+<!--                </field>-->
+<!--                <field name="manager_id" position="replace">-->
+<!--                    <field name="manager_id" invisible="1"/>-->
+<!--                </field>-->
+<!--                <field name="manager_id2" position="replace">-->
+<!--                    <field name="manager_id2" invisible="1"/>-->
+<!--                </field>-->
+<!--                <xpath expr="/form/notebook/page/group/button[@name='second_validate']" position="attributes">-->
+<!--                    <attribute name="string">Approve</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form/notebook/page/group/button[@name='set_to_draft']" position="replace">-->
+<!--                    <button string="Set to Draft" name="set_to_draft" states="cancel" type="object" icon="gtk-convert" invisible="1"/>-->
+<!--                    <button string="Cancel" name="holiday_cancel_button" states="confirm,validate1,validate" type="object" icon="gtk-cancel" context="{'cancel': True}"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form/notebook/page/group/button[@name='refuse']" position="replace">-->
+<!--                    <button string="Refuse" name="holiday_refuse_button" states="confirm,validate1" type="object" icon="gtk-no" groups="base.group_hr_user,base.group_hr_manager" context="{'refuse': True}"/>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+        <record id="view_holiday_new_calendar" model="ir.ui.view">
+            <field name="name">Leave Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="arch" type="xml">
+                <calendar string="Leave Request" color="employee_id" date_start="date_from" date_stop="date_to">
+                    <field name="employee_id"/>
+                    <field name="holiday_status_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_holiday_status_tree_ext">
+            <field name="name">hr.holidays.status.tree.ext</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_status_tree"/>
+            <field name="arch" type="xml">
+                <field name="max_leaves" position="replace">
+                    <field name="max_leaves" invisible="1"/>
+                </field>
+                <xpath expr="/tree[@string='Leave Type']//field[@name='name']" position="before">
+                        <field name="name2"/>
+                </xpath>
+                <xpath expr="/tree[@string='Leave Type']//field[@name='name']" position="attributes">
+                        <attribute name="string">Code</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="edit_holiday_extended_status_form">
+            <field name="name">hr.holidays.status.form</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='name']" position="before">
+	                <field name="name2" required="1"/>
+	            </xpath>
+	            <xpath expr="//field[@name='name']" position="attributes">
+	                <attribute name="string">Code</attribute>
+	            </xpath>
+	            <field name="active" position="after">
+	                <field name="weekend_calculation" />
+	            </field>
+                <field name="categ_id" position="replace" />
+                <notebook>
+                    <page string="Carry Forward Leaves" >
+                        <group>
+                       <field name="cry_frd_leave" />
+                       <field name="default_leave_allocation"/>
+                       </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="edit_holiday_extended_status_normal_tree">
+            <field name="name">hr.holidays.status.tree</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_status_normal_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+	            <xpath expr="/tree[@string='Leave Type']//field[@name='name']" position="before">
+	                <field name="name2"/>
+	            </xpath>
+	            <xpath expr="/tree[@string='Leave Type']//field[@name='name']" position="attributes">
+	                <attribute name="string">Code</attribute>
+	            </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_ihrms_res_countries_form">
+            <field name="name">res.country.form</field>
+            <field name="model">res.country</field>
+            <field name="arch" type="xml">
+                <form string="Country" version="7.0">
+                    <group>
+	                    <field name="name"/>
+	                    <field name="code"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_ihrms_res_country_state_form">
+            <field name="name">res.country.state.form</field>
+            <field name="model">res.country.state</field>
+            <field name="arch" type="xml">
+                <form string="State" version="7.0">
+                    <group>
+	                    <field name="name"/>
+	                    <field name="code"/>
+	                    <field name="country_id" invisible="1"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_ihrms_employee_city_form">
+            <field name="name">employee.city.form</field>
+            <field name="model">employee.city</field>
+            <field name="arch" type="xml">
+                <form string="City" version="7.0">
+                    <group>
+	                    <field name="name"/>
+	                    <field name="code"/>
+	                    <field name="state_id" invisible="1"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_employee_form_parent2" model="ir.ui.view">
+            <field name="name">hr.employee.form.parent2</field>
+            <field name="model">hr.employee</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="address_home_id" position="after">
+                    <field name="emp_country_id" required="True" context="{'form_view_ref': 'view_ihrms_res_countries_form'}"/>
+                    <field name="emp_state_id" required="True" context="{'form_view_ref': 'view_ihrms_res_country_state_form', 'default_country_id': emp_country_id}"/>
+                    <field name="emp_city_id" context="{'form_view_ref': 'view_ihrms_employee_city_form', 'default_state_id': emp_state_id}"/> 
+                </field>
+                <field name="active" position="replace">
+                     <field name="active" on_change="onchange_emp_active(active)"/>
+                </field>
+<!--                <xpath expr="/form/sheet/notebook/page[@string='Public Information']" position="attributes">-->
+<!--                    <attribute name="attrs">{'invisible':[('hr_manager','=',False),('user_id','!=',uid),('parent_user_id','!=',uid),('parent_user_id2','!=',uid)]}</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form[@string='Employee']/group/group/field[@name='name']" position="attributes">-->
+<!--                    <attribute name="colspan">2</attribute>-->
+<!--                </xpath>-->
+                <field name="user_id" position="replace">
+                    <field name="user_id" on_change="onchange_user(user_id)" attrs="{'invisible':[('user_id','=',1)]}"/>
+                </field>
+<!--                <xpath expr="/form[@string='Employee']/group/group/field[@name='company_id']" position="replace"></xpath>-->
+<!--                <xpath expr="/form[@string='Employee']/notebook/page/group/field[@name='ssnid']" position="replace"></xpath>-->
+<!--                <xpath expr="/form[@string='Employee']/notebook/page/group/field[@name='sinid']" position="replace"></xpath>-->
+<!--                <xpath expr="/form[@string='Employee']/notebook/page/group/field[@name='address_id']" position="replace">-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form[@string='Employee']/notebook/page/group/field[@name='work_phone']" position="replace">-->
+<!--                    <field name="work_phone" string="Phone"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form[@string='Employee']/notebook/page/group/field[@name='mobile_phone']" position="replace">-->
+<!--                    <field name="mobile_phone" string="Mobile"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form[@string='Employee']/notebook/page/group/field[@name='work_email']" position="replace">-->
+<!--                    <field name="work_email" widget="email" string="E-mail"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/form[@string='Employee']/notebook/page/group/field[@name='work_location']" position="replace"></xpath>-->
+                <xpath expr="/form/sheet/notebook/page[@string='Public Information']/group/group[2]" position="after">
+                    <group col="2" colspan="2">
+                        <separator string="Other Information" colspan="2"/>
+<!--                        <field name="race_id"/>-->
+                        <field name="dialect"/>
+<!--                        <field name="religion_id"/>-->
+                        <field name="driving_licence"/>
+                        <field name="car"/>
+                        <field name="resume" groups="base.group_hr_manager"/>
+                        <field name="employee_type_id"/>
+                    </group>
+                    <newline/>
+                </xpath>
+                
+<!--                <xpath expr="/form/notebook/page[@string='Categories']" position="replace"/>-->
+<!--                <xpath expr="/form/notebook/page[@string='Notes']" position="replace"/>-->
+<!--                <xpath expr="/form[@string='Employee']/group/group/field[@name='department_id']" position="replace">-->
+<!--                    <field name="department_id" on_change="onchange_department_id(department_id)" colspan="4"    attrs="{'invisible':[('hr_manager','=',False),('user_id','!=',uid),('parent_user_id','!=',uid),('parent_user_id2','!=',uid)]}"/>-->
+<!--                </xpath>-->
+                <!--<field name="passport_id" position="after">
+                    <field name="passport_exp_date"/>
+                    <field name="issue_date"/>
+                </field>
+                -->
+<!--                <field name="birthday" position="after">-->
+<!--                    <field name="place_of_birth"   attrs="{'invisible':[('hr_manager','=',False),('user_id','!=',uid),('parent_user_id','!=',uid),('parent_user_id2','!=',uid)]}"/>-->
+<!--                    <field name="age"  attrs="{'invisible':[('hr_manager','=',False),('user_id','!=',uid),('parent_user_id','!=',uid),('parent_user_id2','!=',uid)]}"/>-->
+<!--                </field>-->
+                <field name="parent_id" position="replace">
+                    <group colspan="4">
+                        <field name="hr_manager" invisible="1"/>
+                        <field name="parent_id" />
+                        <field name="parent_id2" />
+                        <field name="parent_user_id" invisible="1"/>
+                        <field name="parent_user_id2" invisible="1"/>
+                    </group>
+                </field>
+<!--                <field name="address_home_id" position="replace">-->
+<!--                    <field name="address_home_id" colspan="2"  attrs="{'invisible':[('hr_manager','=',False),('user_id','!=',uid),('parent_user_id','!=',uid),('parent_user_id2','!=',uid)]}"/>-->
+<!--                </field>-->
+<!--                <notebook>-->
+                <xpath expr="/form/sheet/notebook/page[@string='Personal Information']" position="after">
+<!--                    <page string="Family Particulars" attrs="{'invisible':[('hr_manager','=',False)]}">-->
+<!--                            <group col="1" colspan="4">-->
+<!--                                    <field name="relative_ids" nolabel="1">-->
+<!--                                        <tree string="Family Particulars">-->
+<!--                                            <field name="name"/>-->
+<!--                                            <field name="relationship_id" />-->
+<!--                                            <field name="date_of_birth" />-->
+<!--                                            <field name="occupation" />-->
+<!--                                            <field name="address" />-->
+<!--                                            <field name="contact" />-->
+<!--                                            <field name="emr_telephone" />-->
+<!--                                        </tree>-->
+<!--                                        <form string="Family Particulars">-->
+<!--                                            <field name="name" required="True" />-->
+<!--                                            <field name="relationship_id" />-->
+<!--                                            <field name="date_of_birth" />-->
+<!--                                            <field name="occupation" />-->
+<!--                                            <field name="address"/>-->
+<!--                                            <field name="contact" />-->
+<!--                                            <field name="emr_telephone" />-->
+<!--                                        </form>-->
+<!--                                    </field>-->
+<!--                            </group>-->
+<!--                       </page>-->
+<!--                    <page string="Employment History" attrs="{'invisible':[('hr_manager','=',False)]}">-->
+<!--                            <separator colspan="4"/>-->
+<!--                            <field name="employment_history_ids" nolabel="1" colspan="4"/>-->
+<!--                    </page>-->
+                    <page string="Educational Information" >
+<!--                        <group string="Education" colspan="4">-->
+<!--                                <separator colspan="4"/>-->
+<!--                                <field name="edu_ids" nolabel="1" colspan="4"/>-->
+<!--                        </group>-->
+<!--                        <group string="Language Proficiency"  colspan="4">-->
+<!--                            <separator colspan="4"/>-->
+<!--                              <field name="language_ids" nolabel="1" colspan="4"/>-->
+<!--                        </group>-->
+                        <group string="Computer Knowledge and Skills" colspan="4">
+                            <separator colspan="4"/>
+                            <group col="4" colspan="2">
+	                            <field name="comp_prog_knw"/>
+	                            <field name="typing"/>
+	                            <field name="shorthand"/>
+	                            <field name="other_know"/>
+	                            <field name="course"/>
+	                        </group>
+                        </group>
+                    </page>
+                    <page string="Job" >
+                        <group>
+                            <field name="job_id" string="Job" domain="[('state','=','open')]" colspan="4"/>
+                            <field name="coach_id" invisible="1"/>
+                            <field name="emp_status" on_change="onchange_employee_status(emp_status)"/>
+                            <field name="join_date" string="Date Joined"/>
+                            <field name="confirm_date"/>
+<!--                            <field name="cessation_date" />-->
+                            <field name="last_date" attrs="{'invisible':[('emp_status', '!=', 'in_notice')]}"/>
+                            <field name="rem_days" attrs="{'invisible':[('emp_status', '!=', 'in_notice')]}"/>
+                            <field name="history_ids" nolabel="1" colspan="4">
+                                <tree string="History of Employee" version="7.0">
+                                    <field name="job_id"/>
+                                    <field name="emp_status"/>
+                                    <field name="join_date"/>
+                                    <field name="confirm_date" string="Date Confirmation"/>
+                                    <field name="date_changed"/>
+                                    <field name="cessation_date" />
+                                    <field name="user_id"/>
+                                </tree>
+                                <form string="History of Employee" version="7.0">
+                                    <group col="4" colspan="2">
+                                    <field name="job_id"/>
+                                    <field name="emp_status"/>
+                                    <field name="join_date"/>
+                                    <field name="confirm_date" string="Date Confirmation"/>
+                                    <field name="date_changed"/>
+                                    <field name="cessation_date" />
+                                    <field name="user_id"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Categories" >
+                        <field name="category_ids" nolabel="1" colspan="4"/>
+                    </page>
+                    <page string="Immigration" attrs="{'invisible':[('hr_manager','=',False)]}">
+                            <field name="immigration_ids" nolabel="1" colspan="4">
+                                <tree string="Immigration" version="7.0">
+                                    <field name="documents" />
+                                    <field name="number" />
+                                    <field name="issue_date" />
+                                    <field name="exp_date" />
+                                    <field name="eligible_status" />
+                                    <field name="eligible_review_date"/>
+                                    <field name="issue_by" />
+                                </tree>
+                                <form string="Immigration" version="7.0">
+                                    <group col="4" colspan="2">
+	                                    <field name="documents" />
+	                                    <field name="number" />
+	                                    <field name="issue_date" />
+	                                    <field name="exp_date" />
+	                                    <field name="eligible_status" />
+	                                    <field name="eligible_review_date"/>
+	                                    <field name="issue_by" />
+	                                    <separator string="Comments" colspan="4"/>
+	                                    <field name="comments" nolabel="1" colspan="4" />
+	                                </group>
+                                </form>
+                            </field>
+                    </page>
+                    <page string="Training Workshop" >
+                        <field name="training_ids" nolabel="1" colspan="4">
+                            <tree string="Training Workshop" version="7.0">
+                                 <field name="tr_title"/>
+                                 <field name="tr_institution" />
+                                 <field name="tr_date"/>
+                            </tree>
+                            <form string="Training Workshop" version="7.0">
+                                <group col="4" colspan="2">
+                                <field name="tr_title" colspan="4"/>
+                                <field name="tr_institution" />
+                                <field name="tr_date"/>
+                                <field name="training_attachment"/>
+                                </group>
+                                <separator string="Comments" colspan="4"/>
+                                <group>
+                                    <field name="comments" nolabel="1" colspan="4"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Leave History" >
+                        <field name="employee_leave_ids" nolabel="1" colspan="4" readonly="1" > <!-- attrs="{'invisible':[('hr_manager','=',False),('user_id','!=',uid),('parent_user_id','!=',uid),('parent_user_id2','!=',uid)]}" context="{'holiday_donot_compute_domain': True}" -->
+                        <tree string="Leave History" version="7.0">
+                            <field name="date_from" widget="date"/>
+                            <field name="date_to" widget="date"/>
+                            <field name="type" />
+                            <field name="holiday_status_id" />
+                            <field name="number_of_days_temp"/>
+                            <field name="state" />
+                        </tree>
+                        <form string="Leave Request" version="7.0">
+                            <group col="8" colspan="4">
+                            <field name="name" attrs="{'readonly':[('state','!=','draft'),('state','!=','confirm')]}"/>
+                            <field name="holiday_type" on_change="onchange_type(holiday_type)" attrs="{'readonly':[('state','!=','draft')]}" width="130" string="Mode" groups="base.group_hr_manager"/>
+                            <group attrs="{'invisible':[('holiday_type','=','employee')]}">
+                                <field name="category_id" attrs="{'required':[('holiday_type','=','category')], 'readonly':[('state','!=','draft')]}"/>
+                                </group>
+                                <group attrs="{'invisible':[('holiday_type','=','category')]}">
+                                <field name="employee_id" attrs="{'required':[('holiday_type','=','employee')]}"/>
+                                </group>
+                            </group>
+                            <notebook colspan="4">  
+                                <page string="General">
+                                    <field name="holiday_status_id" on_change="onchange_sec_id(holiday_status_id)" context="{'employee_id':employee_id}"/>
+                                    <field name="department_id" attrs="{'readonly':[('holiday_type','=','category')]}"/>
+                                    <field name="date_from" widget="date" on_change="onchange_date_from(date_to, date_from, leave_type)" required="1"/>
+                                    <field name="date_to" widget="date" on_change="onchange_date_from(date_to, date_from)" required="1"/>
+                                    <field name="number_of_days_temp"/>
+                                    <field name="double_validation" invisible="1"/>
+                                    <newline/>
+                                    <field name="manager_id"/>
+                                    <field name="manager_id2" attrs="{'invisible':[('double_validation', '!=', True)]}"/>
+                                    <separator string="Reasons" colspan="4"/>
+                                    <field name="notes" nolabel="1" colspan="4"/>
+                                    <newline/>
+                                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate" statusbar_colors='{"confirm":"blue","validate1":"blue","refuse":"red"}' colspan="2"/>
+                                </page>
+                            </notebook>
+                        </form>
+                    </field>
+                    </page>
+                    <page string="Extra Information" >
+                        <group colspan="4" string="Health Condition" >
+                            <label string="Are you suffering from any physical disability or illness that requires you to be medication for a prolonged period?"/>
+                            <newline/>
+                            <group name= "Physical Stability" colspan='4'>
+                                <field name="physical_stability" string="Yes" colspan="1"  on_change="onchange_health_yes(physical_stability)"/>
+                                <field name="physical_stability_no"  on_change="onchange_health_no(physical_stability_no)"/>
+                            </group>
+                            <newline/>
+                            <label string="If YES Please Specify" colspan="3"/>
+                            <newline/>
+                            <field name="physical" attrs="{'invisible': [('physical_stability','=',False)]}" colspan="4" nolabel="1"/>
+                        </group>
+                        <group colspan="4" string="Important Information">
+                                <label string="Have you ever been convicted in a court of law in any country?" />
+                                <newline />
+                                <group name= "Court of Law" colspan="2">
+                                    <field name="court_b" string="Yes" on_change="onchange_court_yes(court_b)" />
+                                    <field name="court_no" colspan="1" on_change="onchange_court_no(court_no)" />
+                                </group>
+                                <newline/>
+                                <label string="If YES Please Specify" colspan="3" />
+                                <newline/>
+                                <field name="court" attrs="{'invisible': [('court_b','=',False)]}" colspan="4" nolabel="1"/>
+                                <newline/>   
+                                <label string="Have you ever been dismissed or suspended from employement?" />
+                                <newline/>
+                                <group name= "Dismissed or Suspended" colspan='4'>
+                                    <field name="dismissed_b" string="Yes" on_change="onchange_dismissed_yes(dismissed_b)"/>
+                                    <field name="dismissed_no" colspan="1" on_change="onchange_dismissed_no(dismissed_no)"/>
+                                </group>
+                                <newline/>
+                                <label string="If YES Please Specify" colspan="3" />
+                                <newline/>
+                                <field name="dismiss" attrs="{'invisible': [('dismissed_b','!=',True)]}" colspan="4" nolabel="1"/>
+                                <label string="Have you ever been declared a bankrupt?" />
+                                <newline/>
+                                <group name= "Bankrupt" colspan='4'>
+                                    <field name="bankrupt_b" string="Yes" on_change="onchange_bankrupt_yes(bankrupt_b)"/>
+                                    <field name="bankrupt_no" colspan="1" on_change="onchange_bankrupt_no(bankrupt_no)"/>
+                                </group>
+                                <newline />
+                                <label string="If YES Please Specify" colspan="3" />
+                                <newline/>
+                                <field name="bankrupt" attrs="{'invisible': [('bankrupt_b','!=',True)]}" colspan="4" nolabel="1"/>
+                                
+                        </group>
+<!--                        <group string="References" colspan="4">-->
+<!--                            <field name="reference_ids" nolabel="1" colspan="4"/>-->
+<!--                        </group>-->
+                        <separator colspan="4" string="About Yourself"/>
+                        <field name="about" colspan="4" nolabel="1"/>
+                    </page>
+                    <page string="Bank Details" >
+                        <field name="bank_detail_ids" nolabel="1"/>
+                    </page>
+                    <page string="Notification" >
+                        <group>
+	                        <field name="is_daily_notificaiton_email_send"/>
+	                        <field name="is_pending_leave_notificaiton"/>
+	                        <field name="is_all_final_leave"/>
+	                    </group>
+                    </page>
+<!--                    <page string="National Service" attrs="{'invisible':[('hr_manager','=',False)]}">-->
+<!--                        <group>-->
+<!--                            <field name="national_service_ids" nolabel="1" colspan="4" attrs="{'invisible':[('hr_manager','=',False)]}"/>-->
+<!--                        </group>-->
+<!--                    </page>-->
+                    <page string="Notes" >
+                        <group>
+                            <field colspan="4" nolabel="1" name="notes"/>
+                        </group>
+                    </page>
+                    </xpath>
+<!--                </notebook>-->
+            </field>
+        </record>
+
+<!--        <record model="ir.ui.view"-->
+<!--            id="hr_palroll_rem_misc_page_form_view">-->
+<!--            <field name="name">hr.employee.rem.misc.view</field>-->
+<!--            <field name="model">hr.employee</field>-->
+<!--            <field name="type">form</field>-->
+<!--            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2" />-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="/form/notebook/page[@string='Miscellaneous']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record model="ir.ui.view" id="edit_bank_detail_form">
+            <field name="name">Bank Details</field>
+            <field name="model">hr.bank.details</field>
+            <field name="arch" type="xml">
+                <tree string="Bank Details" version="7.0">
+                    <field name="bank_name"/>
+                    <field name="bank_code"/>
+                    <field name="bank_ac_no"/>
+                    <field name="beneficiary_name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="edit_bank_detail_tree">
+            <field name="name">Bank Details</field>
+            <field name="model">hr.bank.details</field>
+            <field name="arch" type="xml">
+                <form string="Bank Details" version="7.0">
+                    <group col="4" colspan="2">
+	                    <field name="bank_name"/>
+	                    <field name="bank_code"/>
+	                    <field name="branch_code"/>
+	                    <field name="bank_ac_no"/>
+	                    <field name="beneficiary_name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_holidays.view_employee_form_leave_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.leave.form.inherit1</field>
+            <field name="model">hr.employee</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="coach_id" position="after" />
+            </field>
+        </record>
+
+        <record id="hr.view_employee_tree" model="ir.ui.view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="Employees" version="7.0">
+                    <field name="name"/>
+                    <field name="work_phone" invisible="1"/>
+                    <field name="department_id"/>
+                    <field name="work_email"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="job_id" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                    <field name="coach_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Holidays: Inharited Allocation Request -->
+        <record model="ir.ui.view" id="inherit_allocation_leave_new">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.allocation_leave_new"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="unallocated"/>
+                    <field name="day" invisible="1" />
+                </xpath>
+                <field name="number_of_days_temp" position="after">
+                <field name="fiscal_year_id" required="True"/>
+                </field>
+<!--                <xpath expr="/form/notebook/page[@string='General']/group/button[@name='refuse']" position="before">-->
+<!--                    <button string="Cancel" name="cancel" states="validate" icon="gtk-cancel" groups="base.group_hr_user"/>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="inherit_allocation_leave_new_tree_view">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="unallocated"/>
+                    <field name="fiscal_year_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="allocation_leave_new">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_hr_holidays_filter"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+<!--                <xpath expr="/search/group/filter[@string='To Confirm']" position="before">-->
+<!--                    <filter icon="terp-personal+" domain="[('employee_id.active','=',True)]" name="employee_active" string="Active" />-->
+<!--                    <separator orientation="vertical"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/search/group/filter[@string='Start Date']" position="after">-->
+<!--                    <filter name="group_by_day" string="Day" icon="terp-go-today" domain="[]" context="{'group_by':'day'}"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/search/group/filter[@string='Validated']" position="after">-->
+<!--                    <separator orientation="vertical"/>-->
+<!--                    <filter string="Unallocation" icon="terp-gtk-select-all" domain="[('unallocated', '=', 'True')]"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="/search/group/filter[@string='State']" position="after">-->
+<!--                    <filter string="Unallocated" icon="terp-gtk-select-all" domain="[('unallocated', '=', 'True')]" context="{'group_by':'unallocated'}"/>-->
+<!--                    <filter string="Year" name="fical_year_id" icon="terp-go-year" domain="[]" context="{'group_by':'fiscal_year_id'}"/>-->
+<!--                </xpath>-->
+                <field name="holiday_status_id" position="replace"/>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_holidays.open_allocation_holidays">
+            <field name="name">Allocation Requests</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="allocation_leave_new"/>
+            <field name="context">{'default_type':'add', 'search_default_employee_active': 1}</field>
+            <field name="domain">[('type','=','add')]</field>
+            <field name="view_id" ref="allocation_leave_new"/>
+            <field name="search_view_id" ref="hr_holidays.view_hr_holidays_filter"/>
+        </record>
+        <!-- Change workflow -->
+<!--        <record model="workflow.transition" id="hr_holidays.t8">-->
+<!--            <field name="group_id" ref="" />-->
+<!--        </record>-->
+        
+        <!-- Change in side bar report name -->
+
+        <record id="hr_holidays.action_hr_holidays_summary_employee" model="ir.actions.act_window">
+            <field name="name">Employee's Leaves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.holidays.summary.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+            <field name="name">Employees</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_active': 1, 'group_by': ['department_id'], 'holiday_donot_compute_domain': True}</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="hr.view_employee_filter"/>
+            <field name="help">Here you can manage your work force by creating employees and assigning them specific properties in the system. Maintain all employee related information and keep track of anything that needs to be recorded for them. The personal information tab will help you maintain their identity data. The Categories tab gives you the opportunity to assign them related employee categories depending on their position and activities within the company. A category can be a seniority level within the company or a department. The Timesheets tab allows to assign them a specific timesheet and analytic journal where they will be able to enter time through the system. In the note tab, you can enter text data that should be recorded for a specific employee.</field>
+        </record>
+
+        <menuitem  id="hr.menu_open_view_employee_list_my" sequence="3" parent="hr.menu_hr_main"/>
+        <menuitem action="hr.open_view_employee_list_my" id="employee_list_hr_employee_menu" name="Employees List" parent="hr.menu_open_view_employee_list_my" />
+        
+        <record id="hr.open_view_employee_list_my_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">kanban</field>
+            <field name="act_window_id" ref="hr.open_view_employee_list_my"/>
+        </record>
+
+        <record id="hr.action2" model="ir.actions.act_window">
+            <field name="name">Subordinate Hierarchy</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee</field>
+            <field name="domain">[('id','in',active_ids)]</field>
+            <field name="view_type">tree</field>
+            <field name="view_id" ref="hr.view_partner_tree2"/>
+        </record>
+
+        <!-- Remove Attendance error report -->
+        <delete model="ir.actions.act_window" id="hr_attendance.action_hr_attendance_error"/>
+
+        <!-- Remove menu :- Degrees -->
+        <delete model="ir.ui.menu" id="hr_recruitment.menu_hr_recruitment_degree"/>
+
+        <!-- Remove menu :- Sources of Applicants -->
+        <delete model="ir.ui.menu" id="hr_recruitment.menu_hr_recruitment_source"/>
+
+        <!--Change Group in Tools  menu-->
+<!--        <menuitem icon="STOCK_PREFERENCES" id="base.menu_tools" groups="hr_holiday_extended.group_no_group"-->
+<!--            name="Tools" sequence="28" parent="hr.menu_hr_root"/>-->
+
+        <!--Creating menu for Surveys-->
+        <menuitem name="Appraisal Form" id="survey.menu_survey_form"
+                action="survey.action_survey_form1" parent="hr_evaluation.menu_eval_hr"
+                groups="base.group_tool_manager" sequence="2"/>
+
+        <!-- Start Apprisal in Apprisal menu -->
+        <menuitem name="Start Appraisal" id="menu_run_survey_form" sequence="2"
+            action="survey.action_view_survey_name" parent="hr_evaluation.menu_eval_hr" groups="base.group_tool_user,base.group_tool_manager,base.group_survey_user" icon="STOCK_INDEX"/>
+
+        <!-- change sequnece of calendar view in leave request object-->
+        <record model="ir.actions.act_window.view" id="hr_holidays.action_open_ask_holidays_calendar">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="hr_holidays.view_holiday_new_calendar"/>
+            <field name="act_window_id" ref="hr_holidays.open_ask_holidays"/>
+        </record>
+
+        <!-- Hide sing in and sign out button -->
+        <record id="hr_attendance.hr_attendance_employee" model="ir.ui.view">
+            <field name="name">hr.employee.form11</field>
+            <field name="model">hr.employee</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_holiday_extended.view_employee_form_parent2"/>
+            <field name="arch" type="xml">
+                <field name="coach_id" position="after">
+                </field>
+            </field>
+        </record>
+
+        <record id="hr.hr_tree_work_employee" model="ir.ui.view">
+            <field name="name">hr.employee.ext.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <field name="work_phone" position="replace">
+                    <field name="work_phone" string="Phone" invisible="1"/>
+                </field>
+                <field name="work_email" position="replace">
+                    <field name="work_email" string="E-mail"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Remove Allocation type, categry field in tree view of hr.holiday object -->
+        <record id="view_holiday_exten" model="ir.ui.view">
+            <field name="name">hr.holidays.tree2</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday"/>
+            <field name="arch" type="xml">
+                <field name="holiday_type" position="replace"/>
+                <field name="category_id" position="replace"/>
+                <field name="date_from" position="replace">
+                    <field name="date_from" widget="date"/>
+                </field>
+                <field name="date_to" position="replace">
+                    <field name="date_to" widget="date"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Set widget=date in start date and end date in leave summary 
+        <record id="view_holiday_exten11" model="ir.ui.view">
+            <field name="name">hr.holidays.tree2</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_simple"/>
+            <field name="arch" type="xml">
+                <field name="date_from" position="replace">
+                    <field name="date_from" widget="date"/>
+                </field>
+                <field name="date_to" position="replace">
+                    <field name="date_to" widget="date"/>
+                </field>
+                <field name="state" position="after">
+                    <field name="unallocated"/>
+                </field>
+            </field>
+        </record>-->
+
+        <!-- Override action and create new search view for summary 
+
+        <record id="view_hr_holidays_filter_ext" model="ir.ui.view">
+            <field name="name">hr.holidays.filter.ext</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Leave">
+                    <group>
+                        <filter icon="terp-personal+" domain="[('employee_id.active','=',True)]" name="employee_active" string="Active" />
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-check" domain="[('state','=','draft')]" string="To Confirm"/>
+                        <filter icon="terp-camera_test" domain="['|', ('state','=','confirm'), ('state', '=', 'validate1')]" string="To Approve" name="approve"/>
+                        <filter icon="terp-camera_test" domain="[('state','=','validate')]" string="Validated" name="validated"/>
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-go-year" name="year" string="Year" domain="[('date_from','&gt;=',time.strftime('%%Y-1-1')),('date_from','&lt;=',time.strftime('%%Y-12-31'))]"/>
+                        <filter icon="terp-go-month" name="This Month" string="Month" domain="[('date_from','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),('date_from','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_date_from" string="Start Date" icon="terp-personal" domain="[]" context="{'group_by':'date_from'}"/>
+                        <filter name="group_by_day" string="Day" icon="terp-go-today" domain="[]" context="{'group_by':'day'}"/>
+                        <separator orientation="vertical"/>
+                        <filter name="group_type" string="Type" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'holiday_status_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter name="group_employee" string="Employee" icon="terp-personal" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter name="group_category" string="Category" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'category_id'}"/>
+                        <filter string="Manager" icon="terp-personal" domain="[]" context="{'group_by':'manager_id'}"/>
+                        <filter string="Department" icon="terp-personal+" domain="[]" context="{'group_by':'department_id','set_visible':True}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Year" name="fical_year_id" icon="terp-go-year" domain="[]" context="{'group_by':'fiscal_year_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_prestige_hr_holidays_filter_ext" model="ir.ui.view">
+            <field name="name">hr.holidays.filter.ext</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Leave">
+                    <group>
+                        <filter icon="terp-personal+" domain="[('employee_id.active','=',True)]" name="employee_active" string="Active" />
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-check" domain="[('state','=','draft')]" string="To Confirm"/>
+                        <filter icon="terp-camera_test" domain="['|', ('state','=','confirm'), ('state', '=', 'validate1')]" string="To Approve" name="approve"/>
+                        <filter icon="terp-camera_test" domain="[('state','=','validate')]" string="Validated" name="validated"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Unallocated" icon="terp-gtk-select-all" domain="[('unallocated', '=', 'True')]" name='unallocated'/>
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-go-year" name="year" string="Year" domain="[('date_from','&gt;=',time.strftime('%%Y-1-1')),('date_from','&lt;=',time.strftime('%%Y-12-31'))]"/>
+                        <filter icon="terp-go-month" name="This Month" string="Month" domain="[('date_from','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),('date_from','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_date_from" string="Start Date" icon="terp-personal" domain="[]" context="{'group_by':'date_from'}"/>
+                        <filter name="group_by_day" string="Day" icon="terp-go-today" domain="[]" context="{'group_by':'day'}"/>
+                        <separator orientation="vertical"/>
+                        <filter name="group_type" string="Type" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'holiday_status_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter name="group_employee" string="Employee" icon="terp-personal" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter name="group_category" string="Category" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'category_id'}"/>
+                        <filter string="Manager" icon="terp-personal" domain="[]" context="{'group_by':'manager_id'}"/>
+                        <filter string="Department" icon="terp-personal+" domain="[]" context="{'group_by':'department_id','set_visible':True}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Unallocated" icon="terp-gtk-select-all" domain="[('unallocated', '=', 'True')]" name='unallocated'/>
+                        <filter string="Year" name="fical_year_id" icon="terp-go-year" domain="[]" context="{'group_by':'fiscal_year_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_holiday_leave_summary_form">
+            <field name="name">hr.holidays.leave.summary.form</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+               <form string="Leave Request" version="7.0">
+                    <group col="8" colspan="4">
+                    <field name="name" readonly="True" attrs="{'readonly':[('state','!=','draft'),('state','!=','confirm')]}"/>
+                    <field name="holiday_type" readonly="True" on_change="onchange_type(holiday_type)" attrs="{'readonly':[('state','!=','draft')]}" width="130" string="Mode" groups="base.group_hr_manager"/>
+                    <group attrs="{'invisible':[('holiday_type','=','employee')]}">
+                        <field name="category_id" readonly="True" attrs="{'required':[('holiday_type','=','category')], 'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group attrs="{'invisible':[('holiday_type','=','category')]}">
+                        <field name="employee_id" readonly="True" attrs="{'required':[('holiday_type','=','employee')]}"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="General">
+                            <group>
+                            <field name="holiday_status_id" readonly="True" />
+                            <field name="department_id" readonly="True" />
+                            <field name="date_from" readonly="True" />
+                            <field name="date_to" readonly="True" />
+                            <field name="leave_type" readonly="True" />
+                            <field name="number_of_days_temp" readonly="True"/>
+                            </group>
+                            <separator string="Reasons" colspan="4"/>
+                            <group>
+                            <field name="notes" nolabel="1" colspan="4" readonly="True"/>
+                            </group>
+                            <newline/>
+                            <field name="state" readonly="True" widget="statusbar" statusbar_visible="draft,confirm,validate" statusbar_colors="{&quot;confirm&quot;:&quot;blue&quot;,&quot;validate1&quot;:&quot;blue&quot;,&quot;refuse&quot;:&quot;red&quot;}" colspan="2"/>
+                            <group colspan="2" col="6">
+                                <button string="Refuse" name="refuse" states="confirm,validate1" type="workflow" icon="gtk-no" groups="base.group_hr_user,base.group_hr_manager" readonly="True"/>
+                                <button string="Confirm" name="confirm" states="draft" type="workflow" icon="gtk-yes" readonly="True"/>
+                                <button string="Approve" name="validate" states="confirm" type="workflow" icon="gtk-apply" groups="base.group_hr_user" readonly="True"/>
+                                <button string="Approved" name="second_validate" states="validate1" type="workflow" icon="gtk-apply" groups="base.group_hr_user" readonly="True"/>
+                                <button string="Set to Draft" name="set_to_draft" states="refuse,validate" type="object" icon="gtk-convert" groups="base.group_hr_user" readonly="True"/>
+                            </group>
+                        </page>
+                        <page string="Documents">
+                            <group>
+                                <field name="employee_document_ids" colspan="4" readonly="True" nolabel="1" />
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_company_allocation_ext">
+            <field name="name">Leaves Summary</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_holidays.view_holiday_simple"/>
+            <field name="context">{'search_default_validated': 1, 'search_default_employee_active': 1, 'group_by' : ['fiscal_year_id', 'holiday_status_id', 'employee_id']}</field>
+            <field name="domain">[('holiday_type','=','employee')]</field>
+            <field name="search_view_id" ref="view_prestige_hr_holidays_filter_ext"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_request_approve_holidays_summary_tree">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="hr_holidays.view_holiday_simple"/>
+            <field name="act_window_id" ref="open_company_allocation_ext"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_request_approve_holidays_summary_form1">
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_holiday_leave_summary_form"/>
+            <field name="act_window_id" ref="open_company_allocation_ext"/>
+        </record>
+
+        <menuitem name="Leaves Summary" parent="hr_holidays.menu_open_ask_holidays" id="hr_holidays.menu_open_company_allocation" action="open_company_allocation_ext" sequence="40"/>
+        -->
+        
+        <record model="ir.ui.view" id="edit_employee_news_form">
+            <field name="name">employee.news.form</field>
+            <field name="model">employee.news</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="News" version="7.0">
+                    <group>
+                    <field name="subject"/>
+                    <field name="date"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Description">
+                            <group>
+                            <field name="description" nolabel="1" colspan="4"/>
+                            </group>
+                        </page>
+                        <page string="Departments">
+                            <group>
+                            <field name="department_ids" nolabel="1" colspan="4"/>
+                            </group>
+                        </page>
+                        <page string="Users">
+                            <group>
+                            <field name="user_ids" nolabel="1" colspan="4"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <button string="Send Mail" type="object" name="news_update" icon="gtk-ok" colspan="2"/>
+               </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_employee_news_tree">
+            <field name="name">employee.news.tree</field>
+            <field name="model">employee.news</field>
+            <field name="arch" type="xml">
+                <tree string="News" version="7.0">
+                    <field name="subject"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_news_search" model="ir.ui.view">
+            <field name="name">employee.news.search</field>
+            <field name="model">employee.news</field>
+            <field name="arch" type="xml">
+                <search string="News" version="7.0">
+                    <field name="subject"/>
+                    <field name="date"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_employee_news" model="ir.actions.act_window">
+            <field name="name">News</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.news</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+<!--        <menuitem id="menu_view_employee_news_form" action="view_employee_news" parent="hr.menu_hr_management" name="News" sequence="10" />
+
+        <record model="ir.actions.act_window" id="hr_holidays.open_ask_holidays">
+            <field name="name">Leave Requests</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="context">{'search_default_employee_active':1}</field>
+            <field name="domain">[('type','=','remove')]</field>
+            <field name="search_view_id" ref="view_hr_holidays_filter_ext"/>
+            <field name="help">Leave requests can be recorded by employees and validated by their managers. Once a leave request is validated, it appears automatically in the agenda of the employee. You can define several allowance types (paid holidays, sickness, etc.) and manage allowances per type.</field>
+        </record>
+
+
+        <menuitem name="Allocation Requests" parent="hr_holidays.menu_open_ask_holidays" id="hr_holidays.menu_open_allocation_holidays" action="hr_holidays.open_allocation_holidays" groups="base.group_hr_manager"/>
+
+        <record model="ir.actions.act_window" id="hr_holidays.request_approve_holidays">
+            <field name="name">Requests Approve</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="view_type">form</field>
+            <field name="context">{'default_type': 'remove', 'search_default_approve':1,'search_default_employee_active':1}</field>
+            <field name="domain">[('type','=','remove')]</field>
+            <field name="view_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="search_view_id" ref="view_hr_holidays_filter_ext"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="hr_holidays.action_request_approve_holidays_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="act_window_id" ref="hr_holidays.request_approve_holidays"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_holidays.open_company_allocation">
+            <field name="name">Leaves Summary</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_holidays.view_holiday_simple"/>
+            <field name="context">{}</field>
+            <field name="domain">[('holiday_type','=','employee')]</field>
+            <field name="search_view_id" ref="view_hr_holidays_filter_ext"/>
+        </record> -->
+
+        <!-- Change in HR Manager Dash board -->
+        <record id="hr_holidays.action_view_holiday_status_manager_board" model="ir.actions.act_window">
+            <field name="name">Leaves To Validate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','in',('draft','confirm', 'validate', 'validate1'))]</field>
+            <field name="view_id" ref="hr_holidays.view_holiday_allocation_tree"/>
+        </record>
+
+<!--        <record model="ir.ui.view" id="view_company_inherit_form">-->
+<!--            <field name="name">res.company.form.inherit</field>-->
+<!--            <field name="inherit_id" ref="base.view_company_form"/>-->
+<!--            <field name="model">res.company</field>-->
+<!--            <field name="type">form</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="currency_id" position="after">-->
+<!--                    <field name="department_id"/>-->
+<!--                </field>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record model="ir.ui.view" id="view_survey_inherit_form">-->
+<!--            <field name="name">survey.form.inherit</field>-->
+<!--            <field name="inherit_id" ref="survey.survey_form"/>-->
+<!--            <field name="model">res.company</field>-->
+<!--            <field name="type">form</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="invited_user_ids" position="replace">-->
+<!--                    <field name="invited_user_ids" nolabel="1"/>-->
+<!--                </field>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        <record model="ir.ui.view" id="view_employee_appraisal_inherit_form">-->
+<!--            <field name="name">hr.employee.appraisal.inherit</field>-->
+<!--            <field name="inherit_id" ref="hr_evaluation.hr_hr_employee_view_form"/>-->
+<!--            <field name="model">hr.employee</field>-->
+<!--            <field name="type">form</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="/form/notebook/page[@string='Appraisal']" position="replace"></xpath>-->
+<!--                <xpath expr="/form/notebook/page[@string='Categories']" position="after">-->
+<!--                    <page string="Appraisal" groups="base.group_hr_manager">-->
+<!--                        <field name="evaluation_plan_id" on_change="onchange_evaluation_plan_id(evaluation_plan_id, evaluation_date)"/>-->
+<!--                        <field name="evaluation_date"/>-->
+<!--                    </page>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!-- Search view of hr_holiday_public -->
+        <record id="hr_holiday_public_search" model="ir.ui.view">
+            <field name='name'>hr.holiday.public.search</field>
+            <field name='model'>hr.holiday.public</field>
+            <field name='arch' type='xml'>
+                <search string="Search holiday" version="7.0">
+                    <field name="name"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree view of hr_holiday_public -->
+
+        <record id="hr_holiday_public_tree" model="ir.ui.view">
+            <field name='name'>hr.holiday.public.tree</field>
+            <field name='model'>hr.holiday.public</field>
+            <field name='arch' type='xml'>
+                <tree string="Holidays" version="7.0">
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view of hr_holiday_public -->
+        <record id="hr_holiday_public_form" model="ir.ui.view">
+            <field name='name'>hr.holiday.public.form</field>
+            <field name='model'>hr.holiday.public</field>
+            <field name='arch' type='xml'>
+                <form string="Holiday detail" version="7.0">
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                    </group>
+                    <newline />
+                    <notebook colspan="4">
+                        <page string="Holidays">
+                            <field name="holiday_line_ids" nolabel="1" colspan="4"/>
+                        </page>
+                        <page string="Email body">
+                            <field name="email_body" nolabel="1" colspan="4"/>
+                        </page>
+                    </notebook>
+                    <group colspan="3" col="6">
+                        <field name="state" nolabel="1"/>
+                        <button string="Reset to Draft" type="object" name="setstate_draft" states="cancelled" icon="gtk-convert"/>
+                        <button string="Confirm" type="object" name="setstate_confirm" states="draft" icon="gtk-yes"/>
+                        <button string="Validate" type="object" name="setstate_validate" states="confirmed" icon="gtk-apply" />
+                        <button string="Refuse" type="object" name="setstate_refuse" states="confirmed" icon="gtk-no"/>
+                        <button string="Cancel" type="object" name="setstate_cancel"  states="validated,confirmed,refused" icon="gtk-cancel"/>
+                    </group>
+                    <newline />
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of hr_holiday_public -->
+        <record id="hr_holiday_public_action" model="ir.actions.act_window">
+            <field name='name'>Public Holidays</field>
+            <field name='res_model'>hr.holiday.public</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+        </record>
+
+        <!-- Menu of hr_holiday_public -->
+        <record id="hr_holiday_public_menu" model="ir.ui.menu">
+            <field name="name">Public Holidays</field>
+            <field name="parent_id" ref="hr_holidays.menu_open_ask_holidays"/>
+            <field name="groups_id"   eval="[(6, 0, [ref('base.group_hr_manager'), ref('base.group_hr_user'), ref('base.group_user')])]"/>
+            <field name="action" ref="hr_holiday_public_action"/>
+        </record>
+
+        <!-- Search view of hr_holiday_lines -->
+        
+        <record id="hr_holiday_lines_search" model="ir.ui.view">
+            <field name='name'>hr.holiday.lines.search</field>
+            <field name='model'>hr.holiday.lines</field>
+            <field name='arch' type='xml'>
+                <search string="Search holiday" version="7.0">
+                    <field name="holiday_date"/>
+                    <field name="name"/>
+                    <field name="day"/>
+                    <field name="holiday_id"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tree view of hr_holiday_lines -->
+                
+        <record id="hr_holiday_lines_tree" model="ir.ui.view">
+            <field name='name'>hr.holiday.lines.tree</field>
+            <field name='model'>hr.holiday.lines</field>
+            <field name='arch' type='xml'>
+                <tree string="Holidays" version="7.0">
+                    <field name="holiday_date"/>
+                    <field name="name"/>
+                    <field name="day"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form view of hr_holiday_lines -->
+        
+        <record id="hr_holiday_lines_form" model="ir.ui.view">
+            <field name='name'>hr.holiday.lines.form</field>
+            <field name='model'>hr.holiday.lines</field>
+            <field name='arch' type='xml'>
+                <form string="Holiday detail" version="7.0">
+                    <group colspan="4" col="4">
+                        <field name="holiday_date" on_change='onchange_holiday_date(holiday_date)'/>
+                        <field name="name"/>
+                        <field name="day"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_employee_id_type_tree" model="ir.ui.view">
+            <field name='name'>employee.id.type.tree</field>
+            <field name='model'>employee.id.type</field>
+            <field name='arch' type='xml'>
+                <tree string="Type Of ID" version="7.0">
+                    <field name="name"/>
+                    <field name="s_pass"/>
+                    <field name="wp"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form view of hr_holiday_lines -->
+        
+        <record id="hr_employee_id_type_form" model="ir.ui.view">
+            <field name='name'>employee.id.type.form</field>
+            <field name='model'>employee.id.type</field>
+            <field name='arch' type='xml'>
+                <form string="Type Of ID" version="7.0">
+                    <group>
+	                    <field name="name"/>
+	                    <field name="s_pass"/>
+	                    <field name="wp"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- inherited HR HOLIDAYS tree view -->
+        <record model="ir.ui.view" id="inherit_ppm_view_holiday_simple">
+            <field name="name">hr.holidays.report_tree</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_simple"></field>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="day" invisible="1"/>
+                    <field name="fiscal_year_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="inherit_manila_day_view_holiday_simple">
+            <field name="name">hr.holidays.day.tree</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday"></field>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="day" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+	    <menuitem action="hr.open_view_employee_list_my" id="hr.menu_open_view_employee_list_my" sequence="0" parent="hr.menu_hr_root"/>
+	    <menuitem name="Leave Type" action="hr_holidays.open_view_holiday_status" id="hr_holidays.menu_open_view_holiday_status" parent="hr_holidays.menu_open_ask_holidays" groups="base.group_system" />
+	    <!--Creating menu for User -->
+	    <menuitem id="menu_user_in_employee" parent="hr.menu_open_view_employee_list_my" action="base.action_res_users" sequence="10" groups="base.group_hr_manager"/>
+
+    </data>
+</openerp>

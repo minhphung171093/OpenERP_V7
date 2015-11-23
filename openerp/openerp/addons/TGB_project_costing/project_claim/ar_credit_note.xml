@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_ar_credit_note_form_view">
+        <field name="name">ar.credit.note.form</field>
+        <field name="model">ar.credit.note</field>
+        <field name="arch" type="xml">
+            <form string="ar_credit_note" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="service_code"/>
+                    <field name="description"/>
+                    <field name="amount"/>
+                    <field name="project_claim_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_ar_credit_note_tree_view">
+        <field name="name">ar.credit.note.tree</field>
+        <field name="model">ar.credit.note</field>
+        <field name="arch" type="xml">
+            <tree string="ar_credit_note" editable="top">
+                <field name="service_code"/>
+                <field name="description"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_ar_credit_note_action" model="ir.actions.act_window">
+            <field name="name">ar_credit_note</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ar.credit.note</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

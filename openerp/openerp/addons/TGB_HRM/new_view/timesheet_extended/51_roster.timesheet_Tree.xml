@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="roster_timesheet_tree_view" model="ir.ui.view">
+            <field name="name">roster.timesheet.tree</field>
+            <field name="model">roster.timesheet</field>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Roster Timesheet" colors="red:state=='open';black:state in ('draft', 'cancel','done')"
+                      version="7.0">
+                    <field name="employee_id"/>
+                    <field name="counter_id"/>
+                    <field name="current_date"/>
+                    <field name="time_from"/>
+                    <field name="time_to"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

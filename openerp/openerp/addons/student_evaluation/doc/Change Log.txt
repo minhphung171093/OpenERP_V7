@@ -1,0 +1,10 @@
+===============================================================================
+ Version Change Log
+ Module: student_evaluation
+===============================================================================
+
+Version 1.1 on 2013-09-30 by Anu patel
+    * Added group to menu and added record rule for student in evaluation template.
+
+Version 1.0 on 2013-09-30 by Sudhir Arya
+    * v7 Standard

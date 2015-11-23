@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_allocation_detail_form_view">
+        <field name="name">stock.picking.allocation.detail.form</field>
+        <field name="model">stock.picking.allocation.detail</field>
+        <field name="arch" type="xml">
+            <form string="stock_picking_allocation_detail" version="7.0">
+            <sheet>
+                <group>
+                    <field name="stock_picking_id"/>
+                    <field name="stock_picking_in_id"/>
+                    <field name="stock_picking_out_id"/>
+                    <field name="allocation_no"/>
+                    <field name="type"/>
+                    <field name="voucher_no"/>
+                    <field name="phase_sequence_no"/>
+                    <field name="schedule_no"/>
+                    <field name="line_no"/>
+                    <field name="requested_alloc_qty"/>
+                    <field name="ost_qty"/>
+                    <field name="requested_alloc_no_of_pack"/>
+                    <field name="alloc_qty"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_allocation_detail_tree_view">
+        <field name="name">stock.picking.allocation.detail.form</field>
+        <field name="model">stock.picking.allocation.detail</field>
+        <field name="arch" type="xml">
+            <tree string="stock_picking_allocation_detail">
+                <field name="stock_picking_id"/>
+                <field name="stock_picking_in_id"/>
+                <field name="stock_picking_out_id"/>
+                <field name="allocation_no"/>
+                <field name="type"/>
+                <field name="voucher_no"/>
+                <field name="phase_sequence_no"/>
+                <field name="schedule_no"/>
+                <field name="line_no"/>
+                <field name="requested_alloc_qty"/>
+                <field name="ost_qty"/>
+                <field name="requested_alloc_no_of_pack"/>
+                <field name="alloc_qty"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_stock_picking_allocation_detail_action" model="ir.actions.act_window">
+            <field name="name">stock_picking_allocation_detail</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking.allocation.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

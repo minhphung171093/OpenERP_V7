@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record forcecreate="True"
+            id="ir_cron_scheduler_hr_contract_creation_new_reference_name" model="ir.cron">
+            <field name="name">Payroll : New Year Started</field>
+            <field name="nextcall" eval="time.strftime('%Y-12-31 23:59:59')"/>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'hr.contract'" name="model" />
+            <field eval="'reminder_to_change_year_number'" name="function" />
+            <field eval="'()'" name="args" />
+        </record>
+        
+            <function model="ir.cron" name="change_contract_default_name_year" eval="(ref('ir_cron_scheduler_hr_contract_creation_new_reference_name'),)"/> 
+    </data>
+</openerp>

@@ -1,0 +1,29 @@
+<openerp>
+    <data>
+        <record id="falcon_view_warehouse_contactor" model="ir.ui.view">
+            <field name="name">falcon.view.warehouse.contactor</field>
+            <field name="model">falcon.warehouse.contactor</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Warehouse Contactor">
+                    <field name="name"/>
+                    <field name="tel"/>
+                    <field name="email"/>
+                </form>
+            </field>
+        </record>
+
+         <record id="falcon_view_warehouse_contactor_tree" model="ir.ui.view">
+            <field name="name">falcon.view.warehouse.contactor.tree</field>
+            <field name="model">falcon.warehouse.contactor</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Warehouse Contactor List">
+                    <field name="name"/>
+                    <field name="tel"/>
+                    <field name="email"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="seq_type_tgb_insurance_plan" model="ir.sequence.type">
+			<field name="name">Insurance plan code</field>
+			<field name="code">tgb.code.insurance.plan</field>
+		</record>
+
+        <record id="seq_tgb_code_insurance_plan" model="ir.sequence">
+			<field name="name">Insurance plan code</field>
+			<field name="code">tgb.code.insurance.plan</field>
+			<field name="prefix">IP</field>
+			<field name="padding">3</field>
+		</record>
+
+		<record id="tgb_insurance_plan_tree" model="ir.ui.view">
+			<field name="name">Insurance Plan List</field>
+			<field name="model">tgb.insurance.plan</field>
+			<field name="type">tree</field>
+			<field name="priority">3</field>
+			<field name="arch" type="xml">
+				<tree string="Insurance Plan List">
+					<field name="code" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+        <record id="tgb_insurance_plan_form" model="ir.ui.view">
+			<field name="name">Insurance Plan Form</field>
+			<field name="model">tgb.insurance.plan</field>
+			<field name="type">form</field>
+			<field name="priority">3</field>
+			<field name="arch" type="xml">
+				<form string="Insurance Plan">
+                    <field name="code"/>
+                    <field name="name"/>
+				</form>
+			</field>
+		</record>
+		<!-- Action -->
+
+        <record id="tgb_action_insurance_plan_form" model="ir.actions.act_window">
+			<field name="name">Insurance Plan</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">tgb.insurance.plan</field>
+			<field name="view_type">form</field>
+		</record>
+
+		<!-- Menu con -->
+		<menuitem action="tgb_action_insurance_plan_form" id="TGB_insurance_plan_purchase_menu"
+			parent="TGB_insurance_plan_purchase_menu_base" sequence="11" />
+	</data>
+</openerp>

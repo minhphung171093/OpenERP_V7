@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+            <act_window
+            id="action_roster_timesheet_calender_view"
+             name="Schedule Planning"
+             context="{}"
+             domain="[]"
+             res_model="roster.timesheet"
+             src_model="roster.timesheet"
+             /> 
+    </data>
+</openerp>

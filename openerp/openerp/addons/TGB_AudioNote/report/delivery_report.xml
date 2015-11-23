@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="stock.report_picking_list_out" model="stock.picking.out" name="stock.picking.list.out" string="Delivery Slip" rml="TGB_AudioNote/report/picking.rml"/>
+
+        <record id="TGB_view_delivery_order_remove_print_button" model="ir.ui.view">
+            <field name="name">stock.picking.out.form</field>
+            <field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="delivery.view_delivery_order_inherit_stock"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/header//button[@string='Print Delivery Order']" position="replace">
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

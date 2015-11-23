@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <delete model="hr.salary.rule" id="hr_payroll.hr_rule_basic"/>
+        <delete model="hr.salary.rule" id="hr_payroll.hr_rule_taxable"/>
+        <delete model="hr.salary.rule" id="hr_payroll.hr_rule_net"/>
+
+        <delete model="hr.salary.rule.category" id="hr_payroll.BASIC"/>
+        
+        <record model="hr.salary.rule.category" id="hr_payroll.ALW">
+            <field name="name">Addition</field>
+        </record>
+        
+        <delete model="hr.salary.rule.category" id="hr_payroll.GROSS"/>
+        <delete model="hr.salary.rule.category" id="hr_payroll.NET"/>
+        <delete model="hr.salary.rule.category" id="hr_payroll.COMP"/>
+
+        <!-- Salary Rule Category -->
+
+        <record id="overtime" model="hr.salary.rule.category">
+            <field name="name">Overtime</field>
+            <field name="code">OVERTIME</field>
+        </record>
+        
+        <record id="not_applicable" model="hr.salary.rule.category">
+            <field name="name">Not Applicable</field>
+            <field name="code">NA</field>
+        </record>
+
+        <record id="reimbursement" model="hr.salary.rule.category">
+            <field name="name">Reimbursement</field>
+            <field name="code">REIMBURSEMENT</field>
+        </record>
+        
+        <!-- Wage Type -->
+        <record id="wage_ordinary" model="cpf.wage.type">
+            <field name="name">Ordinary Wage</field>
+            <field name="code">OW</field>
+        </record>
+        
+        <record id="wage_additional" model="cpf.wage.type">
+            <field name="name">Additional Wage</field>
+            <field name="code">AW</field>
+        </record>
+        
+        <record id="wage_na" model="cpf.wage.type">
+            <field name="name">No CPF</field>
+            <field name="code">na</field>
+        </record>
+
+        <!-- Salary Rules -->
+
+        <record id="hr_rule_basic" model="hr.salary.rule">
+            <field name="name">Basic</field>
+            <field name="sequence" eval="1"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">BASIC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.wage</field>
+        </record>
+
+        <record id="hr_rule_taxable" model="hr.salary.rule">
+            <field name="name">Gross</field>
+            <field name="sequence" eval="100"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">GROSS</field>
+            <field name="category_id" ref="not_applicable"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.ALW + categories.overtime + categories.reimbursement</field>
+        </record>
+        
+
+        <record id="hr_rule_net" model="hr.salary.rule">
+            <field name="name">Net</field>
+            <field name="sequence" eval="200"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">NET</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = GROSS - categories.DED</field>
+            <field name="register_id" ref="hr_payroll.contrib_register_employees"/>
+        </record>
+ 
+ 
+        <record id="hr_rule_annual" model="hr.salary.rule">
+            <field name="name">Annual Leave Encashment</field>
+            <field name="sequence" eval="201"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">ALE</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_aws" model="hr.salary.rule">
+            <field name="name">AWS</field>
+            <field name="sequence" eval="202"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">b_bonus</field>
+            <field name="code">AWS</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">b_bonus</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+
+        <record id="hr_rule_backpay" model="hr.salary.rule">
+            <field name="name">Back Pay</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">BP</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_commission" model="hr.salary.rule">
+            <field name="name">Commission</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">d2</field>
+            <field name="code">COMMISSION</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">d2</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_dental_claim" model="hr.salary.rule">
+            <field name="name">Dental Claim</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code"></field>
+            <field name="code">DC</field>
+            <field name="category_id" ref="l10n_sg_payroll.reimbursement"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">iestr</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+        
+
+        <record id="hr_rule_meal_claim" model="hr.salary.rule">
+            <field name="name">Meal Claim</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code"></field>
+            <field name="code">MEAL CLAIM</field>
+            <field name="category_id" ref="l10n_sg_payroll.reimbursement"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">iestr</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_medical_claim" model="hr.salary.rule">
+            <field name="name">Medical Claim</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code"></field>
+            <field name="code">MEDICAL CLAIM</field>
+            <field name="category_id" ref="l10n_sg_payroll.reimbursement"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">iestr</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_mobile_allowance" model="hr.salary.rule">
+            <field name="name">Mobile Allowance</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">d13</field>
+            <field name="code">MOBILE ALLOWANCE</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">d13</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+        
+
+        <record id="hr_rule_ns_make_up_pay_claim" model="hr.salary.rule">
+            <field name="name">NS Make-up Pay Claim</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">NSPC</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_overtime_1" model="hr.salary.rule">
+            <field name="name">Overtime@1.00</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">OVERTIME 1.00</field>
+            <field name="category_id" ref="l10n_sg_payroll.overtime"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_overtime_15" model="hr.salary.rule">
+            <field name="name">Overtime@1.50</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">OVERTIME 1.50</field>
+            <field name="category_id" ref="l10n_sg_payroll.overtime"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_overtime_2" model="hr.salary.rule">
+            <field name="name">Overtime@2.00</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="code">OVERTIME 2.00</field>
+            <field name="category_id" ref="l10n_sg_payroll.overtime"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">a_gross_salary</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+        
+
+        <record id="hr_rule_transport_allowance" model="hr.salary.rule">
+            <field name="name">Transport Allowance</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">d11</field>
+            <field name="code">TA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">ordinary_wages</field>
+            <field name="irab_code">d11</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_transport_claim" model="hr.salary.rule">
+            <field name="name">Transport Claim</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code"></field>
+            <field name="code">TC</field>
+            <field name="category_id" ref="l10n_sg_payroll.reimbursement"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">iestr</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+
+        <record id="hr_rule_variable_bonus" model="hr.salary.rule">
+            <field name="name">Variable Bonus</field>
+            <field name="sequence" eval="203"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">b_bonus</field>
+            <field name="code">VB</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="cpf_applicability">additional_wages</field>
+            <field name="irab_code">b_bonus</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>
+        </record>
+        
+        
+        <record id="hr_rule_employee_cpf" model="hr.salary.rule">
+            <field name="name">Employee CPF Contribution</field>
+            <field name="sequence" eval="204"/>
+            <field name="cpf_applicability">no_cpf</field>
+            <field name="irab_code">na</field>
+            <field name="code">CPF</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (employee.employee_cpf_rate/100) * (wage_types.AW+wage_types.OW)</field>
+        </record>
+        
+        <record id="hr_payroll.structure_base" model="hr.payroll.structure">
+            <field eval="[(6, 0, [ref('hr_rule_basic'),ref('hr_rule_taxable'),ref('hr_rule_net'),ref('hr_rule_annual'),ref('hr_rule_aws'),ref('hr_rule_backpay'),ref('hr_rule_commission'),ref('hr_rule_dental_claim'),ref('hr_rule_meal_claim'),ref('hr_rule_medical_claim'),ref('hr_rule_mobile_allowance'),ref('hr_rule_ns_make_up_pay_claim'),ref('hr_rule_overtime_1'),ref('hr_rule_overtime_15'),ref('hr_rule_overtime_2'),ref('hr_rule_transport_allowance'),ref('hr_rule_transport_claim'),ref('hr_rule_variable_bonus'),ref('hr_rule_employee_cpf')])]" name="rule_ids"/>
+        </record>
+        
+        
+    </data>
+</openerp>

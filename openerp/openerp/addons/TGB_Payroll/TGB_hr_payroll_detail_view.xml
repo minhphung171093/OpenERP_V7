@@ -1,0 +1,45 @@
+<openerp>
+    <data>
+
+        <record id="view_TGB_hr_payslip_detail_tree" model="ir.ui.view">
+            <field name="name">tgb.hr.payslip.detail.tree</field>
+            <field name="model">tgb.hr.payslip.detail</field>
+            <field name="type">form</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Daily detail" editable="bottom" version="7.0" >
+                    <field name="date"/>
+                    <field name="shift"/>
+                    <field name="box"/>
+                    <field name="day_wage"/>
+                    <field name="incentive"/>
+                    <field name="extra"/>
+                    <field name="gross_payment"/>
+                    <field name="advance_deduction"/>
+                    <field name="net_payment"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_TGB_hr_payslip_detail_form" model="ir.ui.view">
+            <field name="name">tgb.hr.payslip.detail.form</field>
+            <field name="model">tgb.hr.payslip.detail</field>
+            <field name="type">form</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Daily detail">
+                    <field name="date"/>
+                    <field name="shift"/>
+                    <field name="box"/>
+                    <field name="day_wage"/>
+                    <field name="incentive"/>
+                    <field name="extra"/>
+                    <field name="gross_payment"/>
+                    <field name="advance_deduction"/>
+                    <field name="net_payment"/>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

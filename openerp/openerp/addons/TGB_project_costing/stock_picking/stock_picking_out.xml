@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_out_form_view">
+        <field name="name">stock.picking.out.form</field>
+        <field name="model">stock.picking.out</field>
+        <field name="arch" type="xml">
+            <form string="stock_picking_out" version="7.0">
+            <sheet>
+                <group>
+                    <field name="shipment_no"/>
+                    <field name="source_voucher_no"/>
+                    <field name="supplier_do_no"/>
+                    <field name="supplier_do_date"/>
+                    <field name="supplier_invoice_no"/>
+                    <field name="supplier_invoice_date"/>
+                    <field name="exchange_rate"/>
+                    <field name="currency_id"/>
+                    <field name="grn_no"/>
+                    <field name="source_shipment_no"/>
+                    <field name="actual_shipment_date"/>
+                    <field name="estimated_shipment_date"/>
+                    <field name="actual_arrival_date"/>
+                    <field name="estimated_arrival_date"/>
+                    <field name="goods_receipt_date"/>
+                    <field name="reference_no"/>
+                    <field name="shipment_mode_term"/>
+                    <field name="receiving_location"/>
+                    <field name="forwarder_id"/>
+                    <field name="internal_remarks"/>
+                    <field name="external_remarks"/>
+                    <field name="booking_date"/>
+                    <field name="port_of_load"/>
+                    <field name="port_of_fd"/>
+                    <field name="port_of_dischg"/>
+                    <field name="country_id"/>
+                    <field name="carrier_id"/>
+                    <field name="eta_etd_pol"/>
+                    <field name="eta_fd"/>
+                    <field name="date_of_manufacture"/>
+                    <field name="eta_time_pol"/>
+                    <field name="eta_time_fd"/>
+                    <field name="products_description"/>
+                    <field name="remarks_trucker_haulier"/>
+                    <field name="shipping_marks"/>
+                    
+                </group>
+                   <notebook>
+                        <page string = "Allocation Details">
+                        <group>
+                            <field name="allocation_detail_ids"/>
+                        </group>
+                     </page>
+                <page string = "Additional Cost">
+                        <group>
+                            <field name="additional_cost"/>
+                        </group>
+                     </page>
+                
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_out_tree_view">
+        <field name="name">stock.picking.out.form</field>
+        <field name="model">stock.picking.out</field>
+        <field name="arch" type="xml">
+            <tree string="stock_picking_out">
+                <field name="shipment_no"/>
+                <field name="source_voucher_no"/>
+                <field name="supplier_do_no"/>
+                <field name="supplier_do_date"/>
+                <field name="supplier_invoice_no"/>
+                <field name="supplier_invoice_date"/>
+                <field name="exchange_rate"/>
+                <field name="currency_id"/>
+                <field name="grn_no"/>
+                <field name="source_shipment_no"/>
+                <field name="actual_shipment_date"/>
+                <field name="estimated_shipment_date"/>
+                <field name="actual_arrival_date"/>
+                <field name="estimated_arrival_date"/>
+                <field name="goods_receipt_date"/>
+                <field name="reference_no"/>
+                <field name="shipment_mode_term"/>
+                <field name="receiving_location"/>
+                <field name="forwarder_id"/>
+                <field name="internal_remarks"/>
+                <field name="external_remarks"/>
+                <field name="booking_date"/>
+                <field name="port_of_load"/>
+                <field name="port_of_fd"/>
+                <field name="port_of_dischg"/>
+                <field name="country_id"/>
+                <field name="carrier_id"/>
+                <field name="eta_etd_pol"/>
+                <field name="eta_fd"/>
+                <field name="date_of_manufacture"/>
+                <field name="eta_time_pol"/>
+                <field name="eta_time_fd"/>
+                <field name="products_description"/>
+                <field name="remarks_trucker_haulier"/>
+                <field name="shipping_marks"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_stock_picking_out_action" model="ir.actions.act_window">
+            <field name="name">stock_picking_out</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking.out</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

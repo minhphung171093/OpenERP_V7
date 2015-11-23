@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="TGB_report_shipping"
+            model="stock.picking"
+            name="TGB.sale.shipping"
+            multi="True"
+            rml="TGB_account/report/TGB_picking.rml"
+            string="Delivery order"/>
+    </data>
+</openerp>

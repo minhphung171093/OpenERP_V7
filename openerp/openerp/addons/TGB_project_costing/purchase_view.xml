@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem action="purchase.purchase_rfq" id="menu_construction_purchase_rfq"
+            parent="menu_construction_purchase_order_menu"
+            sequence="0"/>
+        <menuitem action="purchase.purchase_form_action" id="menu_construction_purchase_form_action" parent="menu_construction_purchase_order_menu" sequence="6"/>
+
+    </data>
+</openerp>

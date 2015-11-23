@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<openerp>
+    <data noupdate="0">
+        <record model="ir.ui.view" id="view_ir_tgb_policy_alert_list">
+            <field name="model">tgb.insurance.policy.alert</field>
+            <field name="arch" type="xml">
+                <tree string="TGB Insurance Policy Alert">
+                    <field name="partner_id"/>
+                    <field name="date_of_alert"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_ir_tgb_policy_alert_form">
+            <field name="model">tgb.insurance.policy.alert</field>
+            <field name="arch" type="xml">
+                <form string="TGB Insurance Policy Alert">
+                    <field name="partner_id"/>
+                    <field name="date_of_alert"/>
+                    <field name="remark"/>
+                    <button name="test" string="test" type="object" invisible="1"/>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="TGB Insurance Policy Alert" res_model="tgb.insurance.policy.alert"
+                    id="ir_tgb_insurance_policy_alert_action"/>
+        <menuitem id="ir_tgb_insurance_policy_alert_menu" name="Insurance Policy Alert"
+                  parent="TGB_insurance_policy_alert"
+                  action="ir_tgb_insurance_policy_alert_action"/>
+    </data>
+</openerp>

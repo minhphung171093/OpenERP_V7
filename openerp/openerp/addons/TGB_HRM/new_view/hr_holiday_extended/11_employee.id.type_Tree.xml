@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_employee_id_type_tree" model="ir.ui.view">
+            <field name="name">employee.id.type.tree</field>
+            <field name="model">employee.id.type</field>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Type Of ID" version="7.0">
+                    <field name="name"/>
+                    <field name="s_pass"/>
+                    <field name="wp"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

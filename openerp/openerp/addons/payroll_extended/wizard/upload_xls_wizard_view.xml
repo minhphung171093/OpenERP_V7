@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="upload_file_form_view">
+            <field name="name">upload.file.form</field>
+            <field name="model">upload.xls.wiz</field>
+            <field name="arch" type="xml">
+                <form string="upload xls file" version="7.0">
+                    <group col="4" >
+                       <group colspan="4">
+                        <field name="in_file" colspan="4"/>
+                        <field name="period_id" colspan="2"/>
+                        <field name="clear_all_prev_value" colspan="2"/>
+                      </group>
+                        <separator col="4"/>
+                        <newline/>
+                    <group col="4" >
+                        <button special="cancel" string="Cancel" icon="gtk-cancel" />
+                        <button name="upload_file" string="Upload" type="object" icon="gtk-goto-top" />
+                    </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Upload file" key2="client_action_multi"
+            res_model="upload.xls.wiz" id="action_upload_xls_file_wiz"
+            view_mode="form" target="new" view_type="form"/>
+
+        <menuitem action="action_upload_xls_file_wiz" id="menu_upload_file" groups="group_hr_payroll_admin,-base.group_hr_manager,-base.group_hr_user" parent="hr_payroll.menu_hr_root_payroll"/>
+
+    </data>
+</openerp>

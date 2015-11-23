@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<openerp>
+    <data noupdate="1">
+        <record id="tgb_birthday_alert" model="tgb.insurance.setting">
+			<field name="key">birthday_message</field>
+			<field name="value">Birthday Alert Message</field>
+		</record>
+
+        <record id="tgb_birthday_alert_day" model="tgb.insurance.setting">
+			<field name="key">birthday_day</field>
+			<field name="value">1</field>
+		</record>
+    </data>
+</openerp>

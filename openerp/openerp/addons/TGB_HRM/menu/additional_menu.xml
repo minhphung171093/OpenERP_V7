@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_payroll_iras" name="IRAS" parent="hr_payroll.menu_hr_root_payroll"/>
+
+        <menuitem id="menu_print_ir8a_txt_file" name="IR8A" parent="menu_payroll_iras"
+                  action="action_print_ir8a_txt_file"/>
+
+        <menuitem id="menu_print_ir8s_txt_file" name="IR8S" action="action_print_ir8s_txt_file"
+                  parent="menu_payroll_iras"/>
+        <menuitem id="roster_timesheet_menu" name="Meetings" parent="hr_attendance.menu_hr_time_tracking" action="actions_roster_timesheet_id"/>
+
+        <menuitem id="menu_run_survey_form" name="Start Appraisal" parent="hr_evaluation.menu_eval_hr" action="survey.action_view_survey_name"/>
+
+        <menuitem id="employee_list_hr_employee_menu" name="Employees List" parent="hr.menu_open_view_employee_list_my" action="hr.open_view_employee_list_my"/>
+        <menuitem id="hr_holiday_public_menu" name="Public Holidays" parent="hr_holidays.menu_open_ask_holidays" action="hr_holiday_public_action"/>
+        <menuitem id="menu_user_in_employee" name="Users" parent="hr.menu_open_view_employee_list_my" action="base.action_res_users"/>
+    </data>
+</openerp>

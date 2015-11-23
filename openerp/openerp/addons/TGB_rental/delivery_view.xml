@@ -1,0 +1,40 @@
+<openerp>
+    <data>
+        <!-- Delivery Carriers -->
+         <record id="seq_type_rental_order" model="ir.sequence.type">
+            <field name="name">Rental Order</field>
+            <field name="code">rental.order</field>
+        </record>
+
+        <record id="seq_rental_order" model="ir.sequence">
+            <field name="name">Rental Order</field>
+            <field name="code">rental.order</field>
+            <field name="prefix">RO</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+  <record id="seq_type_repair_order" model="ir.sequence.type">
+            <field name="name">Repair Order</field>
+            <field name="code">repair.order</field>
+        </record>
+
+        <record id="seq_repair_order" model="ir.sequence">
+            <field name="name">Repair Order</field>
+            <field name="code">repair.order</field>
+            <field name="prefix">RE</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="TGB_rental_view_delivery_order_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.picking.out.form</field>
+            <field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="delivery.view_delivery_order_inherit_stock"/>
+            <field name="arch" type="xml">
+                <field name ="partner_id" position ="after">
+                    <field name="contact_address"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

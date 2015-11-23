@@ -1,0 +1,702 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_dk_contract_form_view">
+            <field name="name">dk.contract.form</field>
+            <field name="model">dk.contract</field>
+            <field name="arch" type="xml">
+                <form string="Contracts" version="7.0" create="false">
+                    <header>
+                        <button name="action_button_confirm" states="draft" string="Confirm Quotation" type="object"
+                                groups="base.group_user"/>
+                        <button name="action_button_confirm" states="sent" string="Confirm Quotation"
+                                class="oe_highlight" type="object" groups="base.group_user"/>
+                        <button name="action_view_invoice" string="View Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('invoice_exists', '=', False)]}" groups="base.group_user"/>
+                        <button name="test_generate_schedule_date" string="Check Schedule Date" type="object"
+                                class="oe_highlight"
+                                groups="base.group_user" invisible="1"/>
+                        <button name="create_default_remark" string="Create Default Remarks" type="object"
+                                class="oe_highlight"
+                                groups="base.group_user" invisible="1"/>
+                        <button name="check_contract_type_fomula" string="Check Fomula" type="object"
+                                class="oe_highlight"
+                                groups="base.group_user" invisible="1"/>
+                        <button name="set_contract_state" string="Set Contract State" type="object" class="oe_highlight"
+                                groups="base.group_user" invisible="1"/>
+                        <button name="test_check_exp_contract" string="Test exp contract" type="object"
+                                class="oe_highlight"
+                                groups="base.group_user" invisible="0"/>
+                        <button name="renew_button" string="Renew Contract" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state','not in',('exp','valid'))]}"
+                                groups="base.group_user"/>
+
+                        <button name="send_reminder_button" string="Send Reminder" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('just_renew','=',False)]}"
+                                groups="base.group_user" invisible="1"/>
+
+                        <button name="active_contract" string="Active Contract" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state','in',('darft','exp','valid','renewed' ))]}"
+                                groups="base.group_user"/>
+
+                        <button name="deactive_contract" string="DeActive Contract" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state','in',('invalid','exp','draft','renewed'))]}"
+                                groups="base.group_user"/>
+
+                        <button name="create_appointment" string="Create Appointment" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state','in',('invalid','exp','draft','renewed'))]}"
+                                groups="base.group_user"/>
+
+                        <button name="change_paper_view" string="Change to Paper View" type="object"
+                                groups="base.group_user"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,progress,exp"
+                               statusbar_colors='{"exp":"red","waiting_date":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <label string="Our Ref " attrs="{'invisible': [('state','not in',('draft','sent'))]}"/>
+                            <label string="Ref No" attrs="{'invisible': [('state','in',('draft','sent'))]}"/>
+                            <field name="ref_no" class="oe_inline" readonly="0"/>
+                        </h1>
+                        <group col="4">
+                            <group col="4">
+                                <field name="partner_id" domain="[('customer','=',True)]"
+                                       context="{'search_default_customer':1, 'show_address': 1}"
+                                       options='{"always_reload": True}' on_change="onchange_partner_id(partner_id)"/>
+                                <newline/>
+                                <field name="attn_id" attrs="{'invisible':[('partner_is_company','=',False)]}"
+                                       context="{'no_company':True}"/>
+                                <separator string="Contacts" colspan="4"/>
+                                <field name="phone"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                                <newline/>
+                                <separator string="Contract Information" colspan="4"/>
+                                <field name="type"/>
+                                <field name="qty"/>
+                                <field name="start_date2" domain="[('company_id','=',company_id)]"/>
+                                <field name="exp_date2" domain="[('company_id','=',company_id)]"/>
+                                <field name="remarks" colspan="4" invisible="1"/>
+                                <separator string="Contract Date" colspan="4"/>
+                                <field name="date_order"/>
+                                <field name="last_svs_day"/>
+                                <field name="schedule_date"/>
+                                <field name="schedule_date_readonly" attrs="{'readonly':[('has_schedule_date','=',False)],'invisible':[('has_schedule_date','=',True)]}" invisible="1"/>
+                                <field name="cpl_date"/>
+                                <field name="assign_user"/>
+                                <separator string="Contract Detail" colspan="4"/>
+                                <field name="company_id"/>
+                                <field name="attend"/>
+                                <field name="location_id"/>
+                                <field name="cheque_cash"/>
+                                <field name="cheque_cash2"/>
+                                <field name="amount"/>
+                                <field name="amount_balance"/>
+                                <newline></newline>
+                                <separator string="Remarks" colspan="4"/>
+                                <field name="remark_ids" colspan="4" nolabel="1">
+                                    <tree editable="1">
+                                        <field name="have_schedule" readonly="0"/>
+                                        <field name="period_id" attrs="{'read_only':[('have_schedule','=',False)]}"/>
+                                        <field name="remarks" attrs="{'read_only':[('have_schedule','=',False)]}"/>
+                                        <field name="date" attrs="{'read_only':[('have_schedule','=',False)]}"/>
+                                    </tree>
+                                </field>
+                                <newline></newline>
+                                <separator string="Notes" colspan="4"/>
+                                <field name="note" colspan="4"/>
+                                <separator string="Comments" colspan="4"/>
+                                <field name="dk_comment_ids" colspan="4"/>
+                                <field name="invoice_exists" invisible="1"/>
+                                <field name="has_schedule_date" invisible="1"/>
+                                <field name="partner_is_company" invisible="1"/>
+                                <field name="just_renew" invisible="1"/>
+                                <separator string="Log" colspan="4"/>
+                                <notebook colspan="4">
+                                    <page string="Appointment">
+                                        <field name="appoint_detail_ids">
+                                        </field>
+                                    </page>
+
+                                    <page string="Last Service Date History">
+                                            <field name="last_svs_date_ids">
+                                                <tree>
+                                                    <field name="last_svs_date"/>
+                                                    <field name="remarks"/>
+                                                </tree>
+                                            </field>
+                                    </page>
+                                    <page string="Contract Edited History">
+                                            <field name="user_edit_history_ids">
+                                                <tree>
+                                                    <field name="date"/>
+                                                    <field name="user_id"/>
+                                                    <field name="remarks"/>
+                                                </tree>
+                                            </field>
+                                    </page>
+                                </notebook>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="tgb_dksquare_contract_paper_form">
+            <field name="name">dk.contract.paper.form</field>
+            <field name="model">dk.contract</field>
+            <field name="arch" type="xml">
+                <form string="Contracts" version="7.0">
+                    <header>
+                        <button name="action_button_confirm" states="draft" string="Confirm Quotation" type="object"
+                                groups="base.group_user"/>
+                        <button name="action_button_confirm" states="sent" string="Confirm Quotation"
+                                class="oe_highlight" type="object" groups="base.group_user"/>
+                        <button name="action_view_invoice" string="View Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('invoice_exists', '=', False)]}" groups="base.group_user"/>
+                        <button name="test_generate_schedule_date" string="Check Schedule Date" type="object"
+                                class="oe_highlight"
+                                groups="base.group_user" invisible="1"/>
+                        <button name="test_check_exp_contract" string="Test Expired Contract" type="object"
+                                class="oe_highlight"
+                                groups="base.group_user" invisible="1"/>
+                        <button name="renew_button" string="Renew Contract" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state','not in',('exp','valid'))]}"
+                                groups="base.group_user"/>
+
+                        <button name="send_reminder_button" string="Send Reminder" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('just_renew','=',False)]}"
+                                groups="base.group_user"/>
+                        <button name="active_contract" string="Active Contract" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state','in',('draft','exp','valid','renewed' ))]}"
+                                groups="base.group_user"/>
+                        <button name="deactive_contract" string="DeActive Contract" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state','in',('invalid','exp','draft','renewed'))]}"
+                                groups="base.group_user"/>
+                        <button name="action_view_renew_contract" string="View Renewed Contract" type="object"
+                                class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'renew')]}" groups="base.group_user"/>
+                        <button name="change_form_view" string="Change to Form View" type="object"
+                                groups="base.group_user"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,progress,exp"
+                               statusbar_colors='{"exp":"red","waiting_date":"blue"}'/>
+                    </header>
+                    <sheet string="Contracts">
+                        <field name="dk_company_logo" widget="image" class="oe_left oe_avatar"
+                               attrs="{'invisible':[('company_id','=',False)]}"/>
+                        <div class="oe_title" attrs="{'invisible':[('company_id','=',False)]}">
+                            <h1>
+                                <field name="dk_company_name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                            <p>
+                                <field name="dk_company_street" class="oe_inline"/>
+                                <field name="dk_company_street2" class="oe_inline"/>
+                                <field name="dk_company_city" class="oe_inline"/>
+                                <field name="dk_company_state" class="oe_inline"/>
+                                <field name="dk_company_country" class="oe_inline"/>
+                                <field name="dk_company_zip" class="oe_inline"/>
+                                <br/>
+                                <label for="dk_company_phone" string="TEL:" attrs="{'invisible':[('dk_company_phone','=',False)]}" class="oe_inline"/>
+                                <field name="dk_company_phone" class="oe_inline"/>
+                                <br/>
+                                <label for="dk_company_fax" string="FAX:" attrs="{'invisible':[('dk_company_fax','=',False)]}" class="oe_inline"/>
+                                <field name="dk_company_fax" class="oe_inline"/>
+                                <br/>
+                                <label for="dk_company_email" string="EMAIL:" attrs="{'invisible':[('dk_company_email','=',False)]}" class="oe_inline" invisible="1"/>
+                                <field name="dk_company_email" class="oe_inline"/>
+                                <br/>
+                            </p>
+                        </div>
+                        <group>
+                            <group>
+                                <field string="Customer" name="partner_id"
+                                       domain="[('customer','=',True)]"
+                                       options='{"always_reload": True}' nolabel="1"
+                                       on_change="onchange_partner_id(partner_id)"/>
+                                <newline/>
+                                <p style="margin-top:-5px;">
+                                    <field name="street"/>
+                                    <newline/>
+                                    <field name="street2"/>
+                                    <newline/>
+                                    <field name="country_id" class="oe_inline"/>
+                                    <field name="city" class="oe_inline"/>
+                                    <field name="state_id" class="oe_inline"/>
+                                    <field name="zip" class="oe_inline"/>
+                                    <br/>
+                                    <label for="attn_id" string="Attn:" attrs="{'invisible':[('partner_is_company','=',False)]}" class="oe_inline"/>
+                                    <field name="attn_id" attrs="{'invisible':[('partner_is_company','=',False)]}"
+                                           class="oe_inline"/>
+                                    <br/>
+                                    <label for="email" string="Email:" attrs="{'invisible':[('email','=',False)]}" class="oe_inline"/>
+                                    <field name="email" class="oe_inline"/>
+                                </p>
+                            </group>
+                            <group>
+                                <field name="ref_no" on_change="onchange_ref_no(ref_no)" readonly="0" class="oe_inline"
+                                       string="Our Ref"/>
+                                <field name="date_order" on_change="onchange_date_order(date_order)"/>
+                            </group>
+                            <group colspan="8" col="8">
+                                <div class="oe_inline" colspan="8">
+                                    <p>
+                                        <b>
+                                            <u>RE: PROPOSED 1 YEAR
+                                                <field name="type" class="oe_inline" on_change="onchange_type(type)"/>
+                                                AIR-CONDITIONING SERVICE CONTRACT
+                                            </u>
+                                        </b>
+                                    </p>
+                                    <p>DK SQUARE ENGINEERING agrees to provide
+                                        <field name="contract_type2" class="oe_inline"/>
+                                        service &amp;amp; maintainance of air-conditioning contract of
+                                        <b><field class="oe_inline" name="amount" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/></b>
+                                        <field class="oe_inline" name="gst_type" invisible="1"/>
+                                        <field class="oe_inline" name="gst_type2" invisible="1"/>
+                                        <field class="oe_inline" name="gst_type_select"/>
+                                        <field class="oe_inline" name="per_annum"/>.
+                                        <field class="oe_inline" name="gst_amount_is" readonly="True" attrs="{'invisible':['|',('gst_type_select','=','inclusive'),('gst_type_select','=',None)]}"/>
+                                        <field class="oe_inline" name="gst_amount_funct" attrs="{'invisible':['|',('gst_type_select','=','inclusive'),('gst_type_select','=',None)]}" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                    </p>
+                                    <field name="use_tax" invisible="1"/>
+                                    <p attrs="{'invisible':[('use_tax','=',False)]}">
+                                        And
+                                        <field name="dk_tax_id" widget="many2many_tags" class="oe_inline"/>
+                                        Taxes
+                                    </p>
+                                </div>
+                                <div class="oe_inline" colspan="8">
+                                    <field name="dk_subject"/>
+                                    <br/>
+                                    <field name="contract_term"/>
+                                </div>
+                                <div class="oe_inline" colspan="8">
+                                    <p><b>Contract period from:</b>
+                                        <field name="start_date2" class="oe_inline"
+                                               domain="[('company_id','=',company_id)]"/>
+                                        to
+                                        <field name="exp_date2" class="oe_inline"
+                                               domain="[('company_id','=',company_id)]"/>
+                                    </p>
+                                </div>
+                                <field name="contact_person_id"/>
+                                <newline/>
+                                <field name="contact_person_phone"/>
+                                <newline/>
+                                <field name="location_of_service"/>
+                                <newline/>
+                                <field name="contact_email"/>
+                                <group colspan="8" col="12">
+                                    <group colspan="2">
+                                        <div class="oe_inline">
+                                            <p>Yours faithfully:</p>
+                                            <field name="company_id" on_change="onchange_company_id(company_id)"/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <hr/>
+                                            <field name="appoint_holder"/>
+                                            <br/>
+                                            HP:
+                                            <field name="appoint_holder_phone" class="oe_inline"/>
+                                        </div>
+                                    </group>
+                                    <group colspan="2" class="oe_inline"/>
+                                    <group colspan="2">
+                                        <div class="oe_inline">
+                                            <p>Accepted &amp;amp; confirmed by</p>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <hr/>
+                                            <p>Company chop &amp;amp; signatory</p>
+                                        </div>
+                                    </group>
+                                </group>
+                                <div id="div_group" style="border:1px solid;" colspan="8">
+                                    <group col="8">
+                                        <div clas="oe_inline" colspan="8" style="border:1px;">
+                                            <p style="margin-top:-5px;">
+                                                I/WE, ACCEPTED &amp;amp; CONFIRMED ABOVE AIRCON SERVICE &amp;amp;
+                                                MAINTENANCE
+                                                CONTRACT AND ENCLOSED HERE WITH MY/OUR CHEQUE WITH FULL PAYMENT TO DK
+                                                SQUARE
+                                                ENGINEERING
+                                            </p>
+                                        </div>
+                                        <field name="ref_no2" colspan="4"></field>
+                                        <field name="date_order2" colspan="4"/>
+                                        <newline></newline>
+                                        <field name="dk_bank_cheque_no" colspan="3"/>
+                                        <field name="dk_bank_cheque_amount" nolabel="1" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="dk_bank_date" colspan="3"/>
+                                    </group>
+                                </div>
+                                <div colspan="8">
+                                    <p>
+                                        Please sign and return duplicate copy with full payment to our Office early so
+                                        as to avoid delayed service.
+                                    </p>
+                                </div>
+                            </group>
+                        </group>
+                        <field name="invoice_exists" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="partner_is_company" invisible="1"/>
+                        <field name="just_renew" invisible="1"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_dk_contract_tree_view">
+            <field name="name">dk.contract.tree</field>
+            <field name="model">dk.contract</field>
+            <field name="arch" type="xml">
+                <tree string="dk_contract" create="false" colors="blue:color_code ==-1;green:color_code==0">
+                    <field name="ref_no"/>
+                    <field name="partner_id"/>
+                    <field name="street_tree"/>
+                    <field name="city" invisible="1"/>
+                    <field name="state_id" invisible="1"/>
+                    <field name="zip" invisible="1"/>
+                    <field name="country_id" invisible="1"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                    <field name="type"/>
+                    <field name="qty"/>
+                    <field name="start_date2"/>
+                    <field name="exp_date2"/>
+                    <field name="remark_tree"/>
+                    <field name="last_svs_day"/>
+                    <!--<field name="schedule_date" attrs="{'readonly':[('has_schedule_date','=',False)]}"/>-->
+                    <field name="schedule_tree"/>
+                    <field name="cpl_date"/>
+                    <field name="attend"/>
+                    <field name="location_id"/>
+                    <field name="note"/>
+                    <field name="cheque_cash" invisible="1"/>
+                    <field name="cheque_cash2"/>
+                    <field name="amount_balance"/>
+                    <field name="amount"/>
+                    <field name="has_schedule_date" invisible="1"/>
+                    <field name="color_code" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="tgb_construction_dk_contract_quotations_tree_view">
+            <field name="name">dk.contract.quotation.tree</field>
+            <field name="model">dk.contract</field>
+            <field name="arch" type="xml">
+                <tree string="dk_contract" colors="blue:color_code ==-1;green:color_code==0">
+                    <field name="ref_no"/>
+                    <field name="partner_id"/>
+                    <field name="street_tree"/>
+                    <field name="city" invisible="1"/>
+                    <field name="state_id" invisible="1"/>
+                    <field name="zip" invisible="1"/>
+                    <field name="country_id" invisible="1"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                    <field name="type"/>
+                    <field name="qty"/>
+                    <field name="start_date2"/>
+                    <field name="exp_date2"/>
+                    <field name="remark_tree"/>
+                    <field name="last_svs_day"/>
+                    <!--<field name="schedule_date"/>-->
+                    <field name="schedule_tree"/>
+                    <field name="cpl_date"/>
+                    <field name="attend"/>
+                    <field name="location_id"/>
+                    <field name="note"/>
+                    <field name="cheque_cash"/>
+                    <field name="cheque_cash2"/>
+                    <field name="amount"/>
+                    <field name="amount_balance"/>
+                    <field name="contract_valid"/>
+                    <field name="color_code" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_dk_contract_search" model="ir.ui.view">
+            <field name="name">dk.contract.search</field>
+            <field name="model">dk.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search Contracts">
+                    <field name="ref_no"/>
+                    <field name="partner_id"/>
+                    <field name="exp_date2"/>
+                    <filter string="Expiring" domain="[('expiring','=',True)]" icon="terp-camera_test"/>
+                    <filter string="Valid" domain="[('state','not in',('draft','sent','cancel','exp','renew'))]"
+                            icon="terp-camera_test"/>
+                    <filter string="Invalid" domain="[('state','in',('draft','sent','cancel','exp','renew'))]"
+                            icon="terp-camera_test"/>
+                    <filter string="Empty Cheque/Cash"
+                            domain="[('cheque_cash2','=',0),('state','not in',('draft','sent','cancel','exp','renew'))]"
+                            icon="terp-camera_test"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Start date" context="{'group_by': 'start_date2'}"
+                                icon="terp-stock_effects-object-colorize"/>
+                        <filter name="group_exp_date" string="Exp date" context="{'group_by': 'exp_date2'}"
+                                icon="terp-stock_effects-object-colorize"/>
+                        <filter string="Status" context="{'group_by': 'state'}"
+                                icon="terp-stock_effects-object-colorize"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="view_dk_contract_calendar" model="ir.ui.view">
+            <field name="name">dk.contract.calendar</field>
+            <field name="model">dk.contract</field>
+            <field name="arch" type="xml">
+                <calendar string="Contracts" color="assign_user" date_start="date_order">
+                    <field name="partner_id"/>
+                    <field name="schedule_date"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_dk_contract_graph">
+            <field name="name">dk.contract.graph</field>
+            <field name="model">dk.contract</field>
+            <field name="arch" type="xml">
+                <graph string="Contracts" type="bar">
+                    <field name="partner_id"/>
+                    <field name="amount" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="tgb_construction_dk_draft_quotation_action" model="ir.actions.act_window">
+            <field name="name">Draft Quotation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dk.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','draft')]</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_tree_view"/>
+
+        </record>
+
+        <!-- <menuitem name="Draft Quotation"
+                  id="dk_square_draft_quotation_menu" parent="menu_dk_square_contract_management"
+                  action="tgb_construction_dk_draft_quotation_action" sequence="1"/> -->
+
+
+        <record id="tgb_construction_dk_contract_action" model="ir.actions.act_window">
+            <field name="name">Contracts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dk.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','=','valid')]</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_tree_view"/>
+
+        </record>
+
+        <menuitem name="Contracts"
+                  id="dk_square_contract_menu" parent="menu_dk_square_contract_management"
+                  action="tgb_construction_dk_contract_action"/>
+
+        <record id="tgb_dk_contract_quotation_action" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dk.contract</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_quotations_tree_view"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+                <p>
+                    OpenERP will help you handle efficiently the complete sale flow:
+                    from the quotation to the contract, the invoicing and the payment collection.
+                </p>
+            </field>
+        </record>
+
+        <record id="tgb_dk_contract_new_quotation_action" model="ir.actions.act_window">
+            <field name="name">New Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dk.contract</field>
+            <field name="view_id" ref="tgb_dksquare_contract_paper_form"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+                <p>
+                    OpenERP will help you handle efficiently the complete sale flow:
+                    from the quotation to the contract, the invoicing and the payment collection.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="New Quotations"
+                  id="dk_square_contract_new_quotations_menu" parent="menu_dk_square_contract_management"
+                  action="tgb_dk_contract_new_quotation_action" sequence="1"/>
+
+
+        <record id="action_dk_contract_paper_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tgb_dksquare_contract_paper_form"/>
+            <field name="act_window_id" ref="tgb_dk_contract_quotation_action"/>
+        </record>
+
+
+        <record id="action_dk_contract_paper_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_quotations_tree_view"/>
+            <field name="act_window_id" ref="tgb_dk_contract_quotation_action"/>
+        </record>
+
+
+        <record id="tgb_dk_contract_master_action" model="ir.actions.act_window">
+            <field name="name">All Contracts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dk.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_quotations_tree_view"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+                <p>
+                    OpenERP will help you handle efficiently the complete sale flow:
+                    from the quotation to the contract, the invoicing and the payment collection.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="All Contracts"
+                  id="dk_square_contract_master_menu" parent="menu_dk_square_contract_management"
+                  action="tgb_dk_contract_master_action" />
+
+
+        <record id="tgb_dk_renewal_contract_action" model="ir.actions.act_window">
+            <field name="name">Renewal</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dk.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_quotations_tree_view"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_group_exp_date': 1}</field>
+            <field name="domain">[('state','in',('valid',)),('just_renew','=',False)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+                <p>
+                    OpenERP will help you handle efficiently the complete sale flow:
+                    from the quotation to the contract, the invoicing and the payment collection.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem name="Renewal"
+                  id="dk_square_contract_renewal_menu" parent="menu_dk_square_contract_management"
+                  action="tgb_dk_renewal_contract_action" sequence="2"/>
+
+        <record id="tgb_dk_reminder_contract_action" model="ir.actions.act_window">
+            <field name="name">Reminders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dk.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_tree_view"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{}</field>
+            <field name="domain">[('just_renew','=',True),('state','in',('draft',))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+                <p>
+                    OpenERP will help you handle efficiently the complete sale flow:
+                    from the quotation to the contract, the invoicing and the payment collection.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem name="Reminders"
+                  id="dk_square_contract_reminder_menu" parent="menu_dk_square_contract_management"
+                  action="tgb_dk_reminder_contract_action" sequence="4"/>
+
+        <record id="action_dk_contract_master_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tgb_dksquare_contract_paper_form"/>
+            <field name="act_window_id" ref="tgb_dk_contract_master_action"/>
+        </record>
+
+
+        <record id="action_dk_contract_master_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_quotations_tree_view"/>
+            <field name="act_window_id" ref="tgb_dk_contract_master_action"/>
+        </record>
+
+
+        <record id="tgb_dk_contract_exp_action" model="ir.actions.act_window">
+            <field name="name">Expired Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dk.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_quotations_tree_view"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_group_exp_date': 1}</field>
+            <field name="domain">[('state','in',('exp','renew'))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+                <p>
+                    OpenERP will help you handle efficiently the complete sale flow:
+                    from the quotation to the contract, the invoicing and the payment collection.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Expired Contract"
+                  id="dk_square_contract_exp_menu" parent="menu_dk_square_contract_management"
+                  action="tgb_dk_contract_exp_action"/>
+
+
+        <record id="action_dk_contract_exp_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tgb_dksquare_contract_paper_form"/>
+            <field name="act_window_id" ref="tgb_dk_contract_exp_action"/>
+        </record>
+
+
+        <record id="action_dk_contract_exp_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tgb_construction_dk_contract_quotations_tree_view"/>
+            <field name="act_window_id" ref="tgb_dk_contract_exp_action"/>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- CPF Register Records -->
+        <record id="cpf_rule_1" model="cpf.rule">
+            <field name="name">Private Sector</field>
+            <field name="employee_sector">private</field>
+            <field name="employee_type"></field>
+        </record>
+
+        <!-- One rule will have many age based and salary based rules, salary based rule generally  will be 4,
+            <=$50, > $50 to < $500, > $500 to < 750 and >=750, 
+            age based rule generally will be below 50,above 50 to 55, 55 to 60, 60 to 65 and above 65
+            So for all this scenario Cartesian product number records need to be created for age_rule one2many 
+        -->
+        <!-- CPF Age and Salary Rule's Records -->
+        <record id="cpf_age_rule_1" model="age.rule.line">
+            <field name="name">Age 20-35 & Salary less then 50 Employee</field>
+            <field name="cpf_rule_id" ref="cpf_rule_1"/>
+            <field name="age_start">0.00</field>
+            <field name="age_end">50.00</field>
+            <field name="wage_start">0.00</field>
+            <field name="wage_end">50.00</field>
+            <field name="employer_percentage">0.00</field>
+            <field name="employer_applied_on"></field>
+            <field name="employee_percentage">0.00</field>
+            <field name="employee_applied_on"></field>
+        </record>
+    </data>
+</openerp>

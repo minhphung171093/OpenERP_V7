@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="roster_timesheet_calender_view" model="ir.ui.view">
+            <field name="name">roster.timesheet.calender</field>
+            <field name="model">roster.timesheet</field>
+            <field name="type">calendar</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar string="Meeting" date_start="time_from" date_stop="time_to" color="employee_id" version="7.0">
+                    <field name="employee_id" widget="selection"/>
+                </calendar>
+            </field>
+        </record>
+    </data>
+</openerp>

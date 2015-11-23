@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_claim_detail_form_view">
+        <field name="name">project.claim.detail.form</field>
+        <field name="model">project.claim.detail</field>
+        <field name="arch" type="xml">
+            <form string="project_claim_detail" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="phase_description_remrks"/>
+                    <field name="vo_type"/>
+                    <field name="qty"/>
+                    <field name="uom_id"/>
+                    <field name="unit_price"/>
+                    <field name="disc_amount_percent"/>
+                    <field name="total_amount"/>
+                    <field name="claim_option"/>
+                    <field name="curren_cumulative_claim_amount"/>
+                    <field name="curren_cumulative_certified_amount"/>
+                    <field name="this cumulative_claim_amount"/>
+                    <field name="this_claim_amount"/>
+                    <field name="remarks"/>
+                    <field name="project_claim_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_project_claim_detail_tree_view">
+        <field name="name">project.claim.detail.tree</field>
+        <field name="model">project.claim.detail</field>
+        <field name="arch" type="xml">
+            <tree string="project_claim_detail">
+                <field name="phase_description_remrks"/>
+                <field name="vo_type"/>
+                <field name="qty"/>
+                <field name="uom_id"/>
+                <field name="unit_price"/>
+                <field name="disc_amount_percent"/>
+                <field name="total_amount"/>
+                <field name="claim_option"/>
+                <field name="curren_cumulative_claim_amount"/>
+                <field name="curren_cumulative_certified_amount"/>
+                <field name="this cumulative_claim_amount"/>
+                <field name="this_claim_amount"/>
+                <field name="remarks"/>
+                <field name="project_claim_id"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_project_claim_detail_action" model="ir.actions.act_window">
+            <field name="name">project_claim_detail</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.claim.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

@@ -1,0 +1,35 @@
+<openerp>
+    <data>
+
+        <menuitem name="Construction Project"
+                  id="menu_construction_project"/>
+        <menuitem name="Project Order/Estimation"
+                  id="menu_project_order" parent="menu_construction_project"/>
+
+        <menuitem name="Processing"
+                  id="menu_construction_processing" parent="menu_construction_project"/>
+
+        <menuitem name="Inventory Control"
+                  id="menu_construction_inventory_menu" parent="menu_construction_project"/>
+        <menuitem name="Project Costing"
+                  id="menu_construction_project_costing_menu" parent="menu_construction_project"/>
+        <menuitem name="Human Resources"
+                  id="menu_construction_human_resources_menu" parent="menu_construction_project"/>
+        <menuitem name="Logistics"
+                  id="menu_construction_logistics_menu" parent="menu_construction_project"/>
+        <menuitem name="Active Shipment"
+                  id="menu_construction_active_shipment_menu" parent="menu_construction_logistics_menu"/>
+        <menuitem name="Purchase"
+                  id="menu_construction_purchase_menu" parent="menu_construction_project"/>
+        <menuitem name="Purchase Requisition"
+                  id="menu_construction_purchase_requisition_menu" parent="menu_construction_purchase_menu"/>
+
+        <menuitem name="Purchase Order"
+                  id="menu_construction_purchase_order_menu" parent="menu_construction_purchase_menu"/>
+
+        <menuitem name="Manufacturing"
+                  id="menu_construction_manufacturing_menu" parent="menu_construction_project"/>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="roster_timesheet_search_view" model="ir.ui.view">
+            <field name="name">roster.timesheet.search</field>
+            <field name="model">roster.timesheet</field>
+            <field name="type">search</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Roster Planning" version="7.0">
+                    <separator orientation="vertical"/>
+                    <filter icon="terp-camera_test" string="Approved" domain="[('state','=','done')]" help="Approved"/>
+                    <separator orientation="vertical"/>
+                    <field name="employee_id"/>
+                    <field name="counter_id"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>

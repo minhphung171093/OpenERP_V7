@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_claim_form_view">
+            <field name="name">project.claim.form</field>
+            <field name="model">project.claim</field>
+            <field name="arch" type="xml">
+                <form string="project_claim" version="7.0">
+                    <sheet>
+                        <notebook>
+                            <page string="Progressive Claim Summary">
+                                <group string="Progressive Claim Draft Detail" col="4" colspan="4">
+                                    <field name="claim_voucher_no"/>
+                                    <field name="claim_sequence_no"/>
+                                    <field name="project_no"/>
+                                    <field name="revision_no"/>
+                                </group>
+                                <group colspan="4" attrs="{'invisible':[('project_no','=',False)]}">
+                                    <notebook>
+                                        <page string="Header">
+                                            <group col="8">
+                                                <group col="4" colspan="8">
+                                                    <field name="claim_date" colspan="1"/>
+                                                    <field name="customer_name" colspan="1"/>
+                                                    <field name="customer_job_no" colspan="2"/>
+                                                    <newline/>
+                                                    <field name="subject" colspan="1"/>
+                                                    <newline></newline>
+                                                    <field name="max_retention_amt" colspan="1"/>
+                                                    <field name="retention_percent" colspan="1"/>
+                                                    <field name="currency_id" colspan="1"/>
+                                                    <field name="sales_tax" colspan="1"/>
+                                                    <field name="claim_type" colspan="1"/>
+                                                    <field name="final_claim" colspan="2"/>
+                                                    <newline></newline>
+                                                    <field name="original_project_amount" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="vo_amount" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="omission_amount" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="total_project_amount" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="original_cumulative_claim" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="vo_cumulative_claim" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="total_cumulative_claim" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="less_cumulative_claim" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="exchange_rate" colspan="1"/>
+                                                    <newline/>
+                                                    <field name="total_this_claim_amt_home" colspan="1"/>
+                                                    <field name="total_this_claim_amt" colspan="1"/>
+                                                    <field name="total_ar_credit_note_amt_home" colspan="1"/>
+                                                    <field name="total_ar_credit_note_amt" colspan="1"/>
+                                                </group>
+                                                <newline/>
+                                                <notebook>
+                                                    <page string="Detail">
+                                                        <group col="4" colspan="4">
+                                                            <field name="project_claim_detail_ids"
+                                                                   colspan="4" nolabel="1"/>
+                                                        </group>
+                                                    </page>
+                                                    <page string="Claimable Item Detail">
+                                                        <group col="4">
+                                                            <separator colspan="4"
+                                                                       string="Claimable Item Details"/>
+                                                            <field name="project_claimable_item_detail_ids"
+                                                                   nolabel="1"
+                                                                   colspan="4"/>
+                                                            <separator colspan="4"
+                                                                       string="Claimable Item Transaction Details"/>
+                                                            <field name="project_claimable_item_transaction_ids"
+                                                                   nolabel="1"
+                                                                   colspan="4"/>
+                                                        </group>
+                                                    </page>
+                                                    <page string="AR Credit Note">
+                                                        <group colspan="4">
+                                                            <field name="ar_credit_note_ids" nolabel="1"
+                                                                   colspan="4"/>
+                                                        </group>
+                                                    </page>
+                                                </notebook>
+                                            </group>
+                                        </page>
+                                        <page string="Remarks">
+                                            <group col="2">
+                                                <field name="internal_remarks_code"/>
+                                                <field name="internal_remarks"/>
+                                                <field name="external_remarks_code"/>
+                                                <field name="external_remarks"/>
+                                            </group>
+                                        </page>
+                                        <page string="Attachments">
+                                            <group>
+                                                <field name="attachment_ids"/>
+                                            </group>
+                                        </page>
+                                    </notebook>
+                                </group>
+                            </page>
+                            <page string="Invoices">
+                                <group>
+                                    <field name="account_invoice_ids" colspan="10" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_project_claim_tree_view">
+            <field name="name">project.claim.tree</field>
+            <field name="model">project.claim</field>
+            <field name="arch" type="xml">
+                <tree string="project_claim">
+                    <field name="claim_voucher_no"/>
+                    <field name="claim_sequence_no"/>
+                    <field name="project_no"/>
+                    <field name="claim_date"/>
+                    <field name="claim_type"/>
+                    <field name="customer_job_no"/>
+                    <field name="customer_name"/>
+                    <field name="subject"/>
+                    <field name="currency_id"/>
+                    <field name="total_project_amount"/>
+                    <field name="total_cumulative_claim"/>
+                    <field name="vo_cumulative_claim"/>
+                    <field name="original_cumulative_claim"/>
+                    <field name="less_cumulative_claim"/>
+                    <field name="final_claim"/>
+                </tree>
+            </field>
+        </record>
+        <record id="tgb_construction_project_claim_action" model="ir.actions.act_window">
+            <field name="name">Project Claim</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.claim</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Project Claim"
+                  id="project_claim_menu" parent="menu_construction_project_costing_menu"
+                  action="tgb_construction_project_claim_action"/>
+
+
+    </data>
+</openerp>

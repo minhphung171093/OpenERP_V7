@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <!--<act_window name="Create Task"
+		    res_model="create.task.wizard"
+		    src_model="project.project"
+		    view_mode="form"
+		    target="new"
+            key2="client_action_multi"
+            multi="True"
+		    id="action_project_task_create"/>-->
+	</data>
+</openerp>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_carrier_form_view">
+        <field name="name">stock.picking.carrier.form</field>
+        <field name="model">stock.picking.carrier</field>
+        <field name="arch" type="xml">
+            <form string="stock_picking_carrier" version="7.0">
+            <sheet>
+                <group>
+                    <field name="party_name"/>
+                    <field name="party_code"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_carrier_tree_view">
+        <field name="name">stock.picking.carrier.form</field>
+        <field name="model">stock.picking.carrier</field>
+        <field name="arch" type="xml">
+            <tree string="stock_picking_carrier">
+                <field name="party_name"/>
+                <field name="party_code"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_stock_picking_carrier_action" model="ir.actions.act_window">
+            <field name="name">stock_picking_carrier</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking.carrier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

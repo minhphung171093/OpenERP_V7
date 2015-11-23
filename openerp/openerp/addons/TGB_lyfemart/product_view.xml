@@ -1,0 +1,19 @@
+<openerp>
+    <data>
+
+
+        <record id="lyfemart_product_view" model="ir.ui.view">
+            <field name="name">lyfemart.product.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="sale_delay" position="after">
+                    <button name="update_image_path" string="Update Image Path" type="object" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

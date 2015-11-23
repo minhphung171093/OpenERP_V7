@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_billing_src_form_view">
+        <field name="name">project.billing.src.form</field>
+        <field name="model">project.billing.src</field>
+        <field name="arch" type="xml">
+            <form string="project_billing_src" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="src_no"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="customer_po_no"/>
+                    <field name="seq_no"/>
+                    <field name="project_billing_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_project_billing_src_tree_view">
+        <field name="name">project.billing.src.tree</field>
+        <field name="model">project.billing.src</field>
+        <field name="arch" type="xml">
+            <tree string="project_billing_src">
+                <field name="src_no"/>
+                <field name="date"/>
+                <field name="amount"/>
+                <field name="customer_po_no"/>
+                <field name="seq_no"/>
+                <field name="project_billing_id"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_project_billing_src_action" model="ir.actions.act_window">
+            <field name="name">project_billing_src</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.billing.src</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

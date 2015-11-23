@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_billing_form_view">
+            <field name="name">construction.account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Project Billing" version="7.0">
+                    <header>
+                        <button name="invoice_open" states="draft" string="Validate" class="oe_highlight"
+                                groups="base.group_user" invisible="1"/>
+                        <button name="invoice_open" states="proforma2" string="Validate" groups="base.group_user"/>
+                        <button name="invoice_proforma2" states="draft" string="PRO-FORMA"
+                                groups="account.group_proforma_invoices"/>
+                        <button name="%(account.action_account_invoice_refund)d" type='action' string='Refund Invoice'
+                                states='open,proforma2,paid' groups="base.group_user"/>
+                        <button name="invoice_cancel" states="draft,proforma2,open" string="Cancel Invoice"
+                                groups="base.group_no_one"/>
+                        <button name="action_cancel_draft" states="cancel" string="Reset to Draft" type="object"
+                                groups="base.group_user"/>
+                        <button name='%(account.action_account_state_open)d' type='action' string='Re-Open'
+                                groups="account.group_account_invoice"
+                                attrs="{'invisible':['|', ('state','&lt;&gt;','paid'), ('reconciled', '=', True)]}"
+                                help="This button only appears when the state of the invoice is 'paid' (showing that it has been fully reconciled) and auto-computed boolean 'reconciled' is False (depicting that it's not the case anymore). In other words, the invoice has been dereconciled and it does not fit anymore the 'paid' state. You should press this button to re-open it and let it continue its normal process after having resolved the eventual exceptions it may have created."/>
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,open,paid"
+                               statusbar_colors='{"proforma":"blue","proforma2":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="project_id"/>
+                            <field name="revision_no"/>
+                            <field name="sale_order_id"/>
+                            <field name="partner_id"
+                                   on_change="onchange_partner_id(type,partner_id,date_invoice,payment_term, partner_bank_id,company_id)"
+                                   groups="base.group_user" context="{'search_default_customer':1, 'show_address': 1}"
+                                   options='{"always_reload": True}'
+                                   domain="[('customer', '=', True)]"/>
+                            <field name="bill_type"/>
+                            <field name="account_id"
+                                   domain="[('company_id', '=', parent.company_id), ('journal_id', '=', parent.journal_id), ('type', '=', 'other')]"/>
+                            <newline/>
+                            <field name="no_more_stock_issue"/>
+                            <field name="date_invoice"/>
+                            <newline/>
+                            <field name="reconciled" invisible="1"/>
+                            <field name="type" invisible="1"/>
+                            <field domain="[('partner_id.ref_companies', 'in', [company_id])]" name="partner_bank_id"
+                                   invisible="1"/>
+                            <field name="company_id" widget="selection" groups="base.group_multi_company"
+                                   invisible="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Header">
+                                <group col="4">
+                                    <field name="estimate_date"/>
+                                    <field name="customer_contact"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="project_class_id"/>
+                                    <field name="project_category_id"/>
+                                    <field name="currency_id"/>
+                                    <field name="sale_tax_ids"/>
+                                    <field name="retention_required"/>
+                                    <field name="retention_amount"/>
+                                    <field name="max_retention_amount"/>
+                                    <field name="retention_days"/>
+                                    <field name="retention_due_date"/>
+                                    <field name="tolerable_variance"/>
+                                    <field name="sale_person"/>
+                                    <field name="sale_manager"/>
+                                    <field name="site_supervisor"/>
+                                    <field name="customer_po_no"/>
+                                    <field name="default_location_id"/>
+                                    <field name="subject"/>
+                                </group>
+                            </page>
+                            <page string="Detail">
+                                <group col="4">
+                                    <field name="total_budget"/>
+                                    <field name="remain_budget"/>
+                                    <field name="fiscal_position" invisible="1"/>
+                                    <field name="invoice_line" nolabel="1" colspan="10">
+                                        <tree string="project_billing_detail">
+                                            <field name="ph"/>
+                                            <field name="phase_no"/>
+                                            <field name="name"/>
+                                            <field name="vo_type"/>
+                                            <field name="vo_quotation_phase_no"/>
+                                            <field name="quantity"/>
+                                            <field name="uom_id"/>
+                                            <field name="price_unit"/>
+                                            <field name="discount"/>
+                                            <field name="disc_amount"/>
+                                            <field name="price_subtotal"/>
+                                            <field name="budgeted_total_cost"/>
+                                            <field name="budgeted_ profit"/>
+                                        </tree>
+                                    </field>
+                                    <field name="exchange_rate"/>
+                                    <field name="profit_margin"/>
+                                    <field name="total_original_contract_home_amt"/>
+                                    <field name="total_original_contract_amt"/>
+                                    <field name="total_vo_addition_home_amt"/>
+                                    <field name="total_vo_addition_amt"/>
+                                    <field name="omission_home_amt"/>
+                                    <field name="omission_amt"/>
+                                    <field name="total_home_amt"/>
+                                    <field name="amount_total"/>
+                                    <field name="total_budgeted_home_cost"/>
+                                    <field name="total_budgeted_cost"/>
+                                    <field name="budgeted_profit_home"/>
+                                    <field name="budgeted_profit"/>
+                                    <field name="total_sale_tax_home_amt"/>
+                                    <field name="total_sale_tax_amt"/>
+                                    <field name="total_after_tax_home_amt"/>
+                                    <field name="total_after_tax_amt"/>
+                                    <newline></newline>
+                                    <field name="project_billing_product_ids" nolabel="1" colspan="10"/>
+                                </group>
+                            </page>
+
+                            <page string="Team Members">
+                                <group col="4">
+                                    <field name="operation_manager"/>
+                                    <field name="project_manager"/>
+                                    <field name="claim_officer"/>
+                                    <field name="project_coordinator"/>
+                                    <field name="resident_technical_officer"/>
+                                    <field name="head_of_department"/>
+                                    <separator string="Others Team Members" colspan="10"/>
+                                    <field name="project_billing_member_ids" nolabel="1" colspan="10">
+                                        <tree editable="top">
+                                            <field name="user_id"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Payment info">
+                                <group col="4">
+                                    <field name="payment_option"/>
+                                    <field name="payment_term"/>
+                                    <field name="payment_tenor"/>
+                                    <field name="payment_method"/>
+                                    <field name="billing_party"/>
+                                    <field name="billing_address"/>
+                                    <field name="billing_contact"/>
+                                    <newline></newline>
+                                    <field name="move_id"/>
+                                </group>
+                            </page>
+                            <page string="SRC">
+                                <group>
+                                    <field name="project_billing_src" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Customer Po">
+                                <group>
+                                    <field name="project_billing_customer_po_ids" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Remarks">
+                                <group col="2">
+                                    <field name="internal_remarks"/>
+                                    <field name="external_remarks"/>
+                                    <field name="project_status"/>
+                                </group>
+                            </page>
+                            <page string="Attachments">
+                                <group>
+                                    <field name="attachment_ids"/>
+                                </group>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_project_billing_tree_view">
+            <field name="name">construction.account.invoice.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Project Billing">
+                    <field name="project_id"/>
+                    <field name="partner_id"/>
+                    <field name="customer_po_no"/>
+                    <field name="project_class_id"/>
+                    <field name="subject"/>
+                    <field name="currency_id"/>
+                    <field name="total_amt"/>
+                    <field name="total_budgeted_cost"/>
+                    <field name="bill_type"/>
+                    <field name="billing_contact"/>
+                    <field name="project_status"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="tgb_construction_project_billing_action" model="ir.actions.act_window">
+            <field name="name">Project Billing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_id" ref="tgb_construction_project_billing_tree_view"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="tgb_construction_project_billing_in_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tgb_construction_project_billing_tree_view"/>
+            <field name="act_window_id" ref="tgb_construction_project_billing_action"/>
+        </record>
+
+         <record id="tgb_construction_project_billing_in_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tgb_construction_project_billing_form_view"/>
+            <field name="act_window_id" ref="tgb_construction_project_billing_action"/>
+        </record>
+
+        <menuitem name="Project Billing"
+                  id="project_billing_menu" parent="menu_construction_project_costing_menu"
+                  action="tgb_construction_project_billing_action"/>
+
+    </data>
+</openerp>

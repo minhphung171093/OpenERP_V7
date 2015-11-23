@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="timesheet_of_roster_form_view">
+            <field name="name">hr_timesheet_sheet.sheet3.form</field>
+            <field name="model">hr_timesheet_sheet.sheet</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/header/button[@name='cancel']" position="after">
+                    <button name="add_to_invoice" string="Add to Project Billing" type="object" class="oe_highlight"
+                                 groups="base.group_user" states="done"/>
+                </xpath>
+                <field name="name" position="after">
+                    <field name="sale_order_id"/>
+                    <field name="contract_id" domain="[('employee_id','=',employee_id)]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

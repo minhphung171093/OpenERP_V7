@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_finish_products_user,project.finish.products,model_project_finish_products,project.group_project_user,1,1,1,0
+access_project_finish_products_stock_user,project.finish.products,model_project_finish_products,stock.group_stock_user,1,1,1,0
+access_check_warehouse_user,check.warehouse,model_check_warehouse,project.group_project_user,1,1,1,0
+access_project_assign_products_user,project.assign.products,model_project_assign_products,project.group_project_user,1,1,1,0
+access_task_finish_products_user,task.finish.products,model_task_finish_products,project.group_project_user,1,1,1,0
+access_task_consume_products_user,task.consume.products,model_task_consume_products,project.group_project_user,1,1,1,0
+access_project_finish_products_user,project.finish.products,model_project_finish_products,project.group_project_manager,1,1,1,1
+access_check_warehouse_user,check.warehouse,model_check_warehouse,project.group_project_manager,1,1,1,1
+access_project_assign_products_user,project.assign.products,model_project_assign_products,project.group_project_manager,1,1,1,1
+access_task_finish_products_user,task.finish.products,model_task_finish_products,project.group_project_manager,1,1,1,1
+access_task_consume_products_user,task.consume.products,model_task_consume_products,project.group_project_manager,1,1,1,1
+access_purchase_history_user,purchase.history,model_purchase_history,project.group_project_user,1,1,1,0
+access_project_inventory_info_user,project.inventory.info,model_project_inventory_info,project.group_project_user,1,1,1,0
+access_purchase_history_purchase_user,purchase.history,model_purchase_history,purchase.group_purchase_user,1,1,1,0
+access_project_inventory_info_purchase_user,project.inventory.info,model_project_inventory_info,purchase.group_purchase_user,1,1,1,0

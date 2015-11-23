@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_additional_cost_form_view">
+        <field name="name">stock.picking.additional.cost.form</field>
+        <field name="model">stock.picking.additional.cost</field>
+        <field name="arch" type="xml">
+            <form string="stock_picking_additional_cost" version="7.0">
+            <sheet>
+                <group>
+                    <field name="supplier_id"/>
+                    <field name="service_id"/>
+                    <field name="currency_id"/>
+                    <field name="exchange_rate"/>
+                    <field name="charge_amt"/>
+                    <field name="charge_home_amt"/>
+                    <field name="cost_dist_mtd"/>
+                    <field name="stock_picking_id"/>
+                    <field name="stock_picking_in_id"/>
+                    <field name="stock_picking_out_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_additional_cost_tree_view">
+        <field name="name">stock.picking.additional.cost.form</field>
+        <field name="model">stock.picking.additional.cost</field>
+        <field name="arch" type="xml">
+            <tree string="stock_picking_additional_cost">
+                <field name="supplier_id"/>
+                <field name="service_id"/>
+                <field name="currency_id"/>
+                <field name="exchange_rate"/>
+                <field name="charge_amt"/>
+                <field name="charge_home_amt"/>
+                <field name="cost_dist_mtd"/>
+                <field name="stock_picking_id"/>
+                <field name="stock_picking_in_id"/>
+                <field name="stock_picking_out_id"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_stock_picking_additional_cost_action" model="ir.actions.act_window">
+            <field name="name">stock_picking_additional_cost</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking.additional.cost</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

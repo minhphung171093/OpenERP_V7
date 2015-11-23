@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<openerp>
+    <data noupdate="0">
+        <record model="ir.ui.view" id="view_ir_tgb_config_list">
+            <field name="model">tgb.insurance.setting</field>
+            <field name="arch" type="xml">
+                <tree string="TGB System Parameters">
+                    <field name="key"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <act_window name="TGB Insurance Parameters" res_model="tgb.insurance.setting"
+                    id="ir_tgb_insurance_setting_action"/>
+        <menuitem id="ir_tgb_insurance_setting_menu" name="Insurance Setting Parameters" parent="TGB_insurance_setting_base"
+                  action="ir_tgb_insurance_setting_action"/>
+    </data>
+</openerp>

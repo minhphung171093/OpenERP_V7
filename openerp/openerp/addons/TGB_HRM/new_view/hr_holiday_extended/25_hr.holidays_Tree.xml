@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_holiday_ext_allocation_tree" model="ir.ui.view">
+            <field name="name">hr.holidays.allocation.tree</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <tree colors="red:state == 'refuse';blue:state == 'draft';black:state in ('confirm','validate','validate1')"
+                      string="Allocation Requests">
+                    <field name="employee_id"/>
+                    <field name="date_from" widget="date"/>
+                    <field name="date_to" widget="date"/>
+                    <field name="name"/>
+                    <field name="number_of_days_temp" string="Number of Days" sum="Remaining Days"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

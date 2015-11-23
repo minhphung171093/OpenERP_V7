@@ -1,0 +1,10 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_roster_plannig_by_roster_manager","planning.roster.planning.manager","model_roster_timesheet","group_roster_plannig_manager",1,1,1,1
+"access_roster_plannig__by_roster_user","planning.roster.planning.user","model_roster_timesheet","group_roster_plannig_user",1,1,1,0
+"access_timesheet_by_roster_manager","timesheet.roster.planning.manager","model_hr_timesheet_sheet_sheet","group_roster_plannig_manager",1,1,1,1
+"access_timesheet__by_roster_user","timesheet.roster.planning.user","model_hr_timesheet_sheet_sheet","group_roster_plannig_user",1,1,1,0
+"access_timesheet_by_timesheet_manager","timesheet.time.management.manager","model_hr_timesheet_sheet_sheet","roster_timesheet_manager_group",1,1,1,1
+"access_timesheet_by_timesheet_user","timesheet.time.management.user","model_hr_timesheet_sheet_sheet","roster_timesheet_user_group",1,1,1,0
+"access_planning_by_timesheet_manager","planning.time.management.manager","model_roster_timesheet","roster_timesheet_manager_group",1,1,1,1
+"access_planning_by_timesheet_user","planning.time.management.user","model_roster_timesheet","roster_timesheet_user_group",1,1,1,0
+

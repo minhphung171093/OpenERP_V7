@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_salary_report_for_exchequer_glcode_tree" model="ir.ui.view">
+            <field name="name">view.salary.report.for.exchequer.glcode.tree</field>
+            <field name="model">salary.report.for.exchequer.glcode</field>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="GL Code">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

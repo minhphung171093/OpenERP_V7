@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_salary_rule_category_admin_form" model="ir.ui.view">
+            <field name="name">hr.payroll.structure.form</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="rule_ids" position="replace">
+                    <field colspan="4" name="rule_ids" nolabel="1" domain="[('parent_rule_id','=',False)]"
+                           context="{'form_view_ref':  'hr_salary_admin_rule_form'}">
+                        <tree string="Salary Rule">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category_id"/>
+                            <field name="sequence" groups="base.group_extended" invisible="1"/>
+                            <field name="register_id"/>
+                        </tree>
+                    </field>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

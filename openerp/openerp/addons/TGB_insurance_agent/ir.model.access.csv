@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_insurance_agent_tgb_insurance_plan,tgb.insurance.plan,model_tgb_insurance_plan,insurance_agent,1,1,1,1
+access_insurance_agent_tgb_insurance_policy_alert,tgb.insurance.policy.alert,model_tgb_insurance_policy_alert,insurance_agent,1,1,1,1
+access_insurance_agent_tgb_insurance_setting,tgb.insurance.setting,model_tgb_insurance_setting,insurance_agent,1,1,1,1
+access_insurance_agent_tgb_partner_plan_detail,tgb.partner.plan.detail,model_tgb_partner_plan_detail,insurance_agent,1,1,1,1
+access_insurance_agent_tgb_customer_policy_alert,tgb.customer.policy.alert,model_tgb_customer_policy_alert,insurance_agent,1,1,1,1

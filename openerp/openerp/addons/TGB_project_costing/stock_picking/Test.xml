@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_Test_form_view">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <form string="Test" version="7.0">
+            <sheet>
+                <group>
+                    <field name="shipment_no"/>
+                    <field name="supplier_do_date"/>
+                    <field name="currency_id"/>
+                    <field name="exchange_rate"/>
+                    <field name="require_stock_return"/>
+                    <field name="sub_des"/>
+                    <field name="product_code"/>
+                    
+                </group>
+                   <notebook>
+                        <page string = "Stock Issue Employee">
+                        <group>
+                            <field name="stock_issue_emp_line"/>
+                        </group>
+                     </page>
+                
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_Test_tree_view">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <tree string="Test">
+                <field name="shipment_no"/>
+                <field name="supplier_do_date"/>
+                <field name="currency_id"/>
+                <field name="exchange_rate"/>
+                <field name="require_stock_return"/>
+                <field name="sub_des"/>
+                <field name="product_code"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_Test_action" model="ir.actions.act_window">
+            <field name="name">Test</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

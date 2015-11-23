@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_holiday_lines_tree" model="ir.ui.view">
+            <field name="name">hr.holiday.lines.tree</field>
+            <field name="model">hr.holiday.lines</field>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Holidays" version="7.0">
+                    <field name="holiday_date"/>
+                    <field name="name"/>
+                    <field name="day"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

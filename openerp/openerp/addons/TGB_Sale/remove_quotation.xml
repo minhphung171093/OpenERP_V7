@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <delete id="sale.menu_sale_quotations" model="ir.ui.menu"/>
+        <delete id="crm.crm_case_category_act_oppor11" model="ir.actions.act_window"/>
+    </data>
+</openerp>
+                        

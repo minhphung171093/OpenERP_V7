@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_claimable_item_transaction_form_view">
+        <field name="name">project.claimable.item.transaction.detail.form</field>
+        <field name="model">project.claimable.item.transaction.detail</field>
+        <field name="arch" type="xml">
+            <form string="claimable_item_transaction" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="transaction_type"/>
+                    <field name="source_voucher_no"/>
+                    <field name="voucher_date"/>
+                    <field name="period_id"/>
+                    <field name="year_id"/>
+                    <field name="in_qty"/>
+                    <field name="out_qty"/>
+                    <field name="project_claim_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_claimable_item_transaction_tree_view">
+        <field name="name">project.claimable.item.transaction.detail.tree</field>
+        <field name="model">project.claimable.item.transaction.detail</field>
+        <field name="arch" type="xml">
+            <tree string="claimable_item_transaction">
+                <field name="transaction_type"/>
+                <field name="source_voucher_no"/>
+                <field name="voucher_date"/>
+                <field name="period_id"/>
+                <field name="year_id"/>
+                <field name="in_qty"/>
+                <field name="out_qty"/>
+                <field name="project_claim_id"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_claimable_item_transaction_action" model="ir.actions.act_window">
+            <field name="name">claimable_item_transaction</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.claimable.item.transaction.detail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

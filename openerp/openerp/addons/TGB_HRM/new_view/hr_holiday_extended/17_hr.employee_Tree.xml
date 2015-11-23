@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_employee_alert_tree" model="ir.ui.view">
+            <field name="name">hr.employee.alert.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Employees">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="birthday"/>
+                    <field name="passport_exp_date"/>
+                    <field name="emp_status"/>
+                    <field name="rem_days"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>

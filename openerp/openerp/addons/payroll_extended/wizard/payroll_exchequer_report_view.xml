@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Export Payroll Exchequer Report View -->
+        <record id="view_ihrms_export_payroll_exchequer_report_wiz" model="ir.ui.view">
+            <field name="name">export.payroll.exchequer.report</field>
+            <field name="model">export.payroll.exchequer.report</field>
+            <field name="arch" type="xml">
+                <form string="Excel Export" version="7.0">
+                    <group>
+                        <field name="file" colspan="4" filename="name"/>
+                    </group>
+                    <footer>
+                        <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Payroll Exchequer Report Wizard View, Action and Menu -->
+        <record id="view_payroll_exchequer_report_wiz" model="ir.ui.view">
+            <field name="name">view.payroll.exchequer.report.wiz.form</field>
+            <field name="model">payroll.exchequer.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Payroll Exchequer" version="7.0">
+                    <separator string="Period" colspan="4"/>
+                    <group>
+                    <field name="period_from" required="1" />
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <footer>
+                    <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                    or
+                    <button name="export_payroll_exchequer_report" string="Save" type="object" icon="gtk-ok" colspan="2"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_payroll_exchequer_report_wiz" model="ir.actions.act_window">
+            <field name="name">Payroll Exchequer</field>
+            <field name="res_model">payroll.exchequer.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+       </record>
+       <menuitem action="action_payroll_exchequer_report_wiz" id="menu_payroll_exchequer_report" parent="menu_payroll_icrm"/>
+
+    </data>
+</openerp>

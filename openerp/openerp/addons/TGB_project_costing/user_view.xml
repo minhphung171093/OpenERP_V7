@@ -1,0 +1,15 @@
+<openerp>
+    <data>
+
+          <record id="tgb_view_users_form" model="ir.ui.view">
+            <field name="name">res.users.tgb.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                    <field name="company_id" position="after">
+                        <field name="user_code"/>
+                    </field>
+              </field>
+        </record>
+    </data>
+</openerp>

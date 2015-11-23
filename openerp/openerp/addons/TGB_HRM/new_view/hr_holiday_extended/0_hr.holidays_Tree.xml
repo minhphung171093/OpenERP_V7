@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="inherit_allocation_leave_new_tree_view" model="ir.ui.view">
+            <field name="name">Allocation Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree"/>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="unallocated"/>
+                    <field name="fiscal_year_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

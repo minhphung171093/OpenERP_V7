@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_payslip_extended_form_view" model="ir.ui.view">
+            <field name="name">hr.payslip.extended.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="credit_note" position="replace">
+                        <field name="active"/>
+                        <field name="pay_by_cheque"/>
+                        <field name="cheque_number"
+                               attrs="{'invisible':[('pay_by_cheque', '=', False)], 'required':[('pay_by_cheque', '=', True)]}"/>
+                    </field>
+                    <field name="date_to" position="replace">
+                        <field name="date_to"
+                               on_change="onchange_employee_id(date_from, date_to, employee_id, contract_id)"/>
+                    </field>
+                    <xpath expr="//page[@string='Details By Salary Rule Category']" position="replace"/>
+                    <xpath expr="//page[@string='Salary Computation']//tree/field[@name='sequence']"
+                           position="replace"/>
+                    <xpath expr="//page[@string='Salary Computation']//tree/field[@name='name']" position="before">
+                        <field name="sequence"/>
+                    </xpath>
+                    <xpath expr="//page[@string='Salary Computation']//tree/field[@name='quantity']"
+                           position="replace"/>
+                    <xpath expr="//page[@string='Salary Computation']//tree/field[@name='rate']" position="replace"/>
+                    <xpath expr="//page[@string='Salary Computation']//tree/field[@name='code']" position="replace">
+                        <field name="code" string="SALARYCODE"/>
+                    </xpath>
+                    <xpath expr="//page[@string='Salary Computation']//tree/field[@name='amount']" position="replace"/>
+                    <xpath expr="//page[@string='Worked Days &amp; Inputs']//tree[@string='Input Data']/field[@name='contract_id']"
+                           position="replace"/>
+                    <xpath expr="//page[@string='Worked Days &amp; Inputs']//tree[@string='Input Data']/field[@name='sequence']"
+                           position="replace"/>
+                    <xpath expr="//page[@string='Worked Days &amp; Inputs']//tree[@string='Input Data']/field[@name='code']"
+                           position="replace"/>
+                    <xpath expr="//page[@string='Worked Days &amp; Inputs']//tree[@string='Input Data']/field[@name='name']"
+                           position="before">
+                        <field name="code"/>
+                    </xpath>
+                    <xpath expr="//page[@string='Worked Days &amp; Inputs']//tree[@string='Worked Days']/field[@name='contract_id']"
+                           position="replace"/>
+                    <xpath expr="//page[@string='Worked Days &amp; Inputs']//tree[@string='Worked Days']/field[@name='sequence']"
+                           position="replace"/>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

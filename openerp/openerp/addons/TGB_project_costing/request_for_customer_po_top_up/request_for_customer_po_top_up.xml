@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_request_for_customer_po_top_up_form_view">
+            <field name="name">request.for.customer.po.top.up.form</field>
+            <field name="model">request.for.customer.po.top.up</field>
+            <field name="arch" type="xml">
+                <form string="Request for Customer PO Top Up" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="project_no"/>
+                            <field name="customer_name"/>
+                            <field name="customer_job_no"/>
+                            <field name="customer_po_no"/>
+                            <field name="seq_no"/>
+                            <field name="material"/>
+                            <field name="total billed_billable_amt"/>
+                            <field name="cusomter_po_amt"/>
+                            <field name="untomter_src_amt"/>
+                            <field name="tagged_amt"/>
+                            <field name="balance amt_to_issued"/>
+
+                        </group>
+                        <notebook>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_request_for_customer_po_top_up_tree_view">
+            <field name="name">request.for.customer.po.top.up.tree</field>
+            <field name="model">request.for.customer.po.top.up</field>
+            <field name="arch" type="xml">
+                <tree string="Request for Customer PO Top Up">
+                    <field name="project_no"/>
+                    <field name="customer_name"/>
+                    <field name="customer_job_no"/>
+                    <field name="customer_po_no"/>
+                    <field name="seq_no"/>
+                    <field name="material"/>
+                    <field name="total billed_billable_amt"/>
+                    <field name="cusomter_po_amt"/>
+                    <field name="untomter_src_amt"/>
+                    <field name="tagged_amt"/>
+                    <field name="balance amt_to_issued"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="tgb_construction_request_for_customer_po_top_up_action" model="ir.actions.act_window">
+            <field name="name">Request for Customer PO Top Up</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">request.for.customer.po.top.up</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Request for Customer PO Top Up"
+                  id="request_for_customer_po_top_up_menu" parent="menu_construction_project_costing_menu"
+                  action="tgb_construction_request_for_customer_po_top_up_action"/>
+
+
+    </data>
+</openerp>

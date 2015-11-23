@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_billing_detail_form_view">
+            <field name="name">construction.account.invoice.line.form</field>
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <form string="project_billing_detail" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="ph"/>
+                            <field name="phase_no"/>
+                            <field name="name" string="Phase Desc/Remarks"/>
+                            <field name="vo_type"/>
+                            <field name="vo_quotation_phase_no"/>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                            <field name="price_unit"/>
+                            <field name="disc"/>
+                            <field name="disc_amount"/>
+                            <field name="total_amount"/>
+                            <field name="budgeted_total_cost"/>
+                            <field name="budgeted_ profit"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_project_billing_detail_tree_view">
+            <field name="name">construction.account.invoice.line.tree</field>
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <tree string="project_billing_detail">
+                    <field name="ph"/>
+                    <field name="phase_no"/>
+                    <field name="name"/>
+                    <field name="vo_type"/>
+                    <field name="vo_quotation_phase_no"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                    <field name="price_unit"/>
+                    <field name="discount"/>
+                    <field name="disc_amount"/>
+                    <field name="price_subtotal"/>
+                    <field name="budgeted_total_cost"/>
+                    <field name="budgeted_ profit"/>
+                </tree>
+            </field>
+        </record>
+        <record id="tgb_construction_project_billing_detail_action" model="ir.actions.act_window">
+            <field name="name">Project Billing Detail</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_cpf_submission_of_employee" model="ir.ui.view">
+            <field name="name">cpf.submission.form11</field>
+            <field name="model">cpf.submission</field>
+            <field name="arch" type="xml">
+                <form string="CPF Submission" version="7.0">
+                	<group>
+                		<group>
+                			<field name='file_date'/>
+	                	</group>
+	                	<group>
+	                		<field name='company_id'/>
+                		</group>
+            			<field name='employee_ids' colspan="4"/>
+                	</group>
+                	<footer>
+                        <button string="Apply" name="action_apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />    
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_cpf_submission" model="ir.actions.act_window">
+            <field name="name">CPF Submission</field>
+            <field name="res_model">cpf.submission</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_cpf_submission_of_employee"/>
+            <field name="key2">client_action_multi</field>
+            <field name="target">new</field>
+        </record>
+        
+        <record id="action_cpf_submission_file" model="ir.actions.act_window">
+            <field name="name">CPF Submission History</field>
+            <field name="res_model">cpf.submission.file</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_cpf_submission_file" id="menu_cpf_submission_file" parent="hr_payroll.menu_hr_root_payroll"/>
+
+	</data>
+</openerp>

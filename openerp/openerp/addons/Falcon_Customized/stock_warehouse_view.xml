@@ -1,0 +1,21 @@
+<openerp>
+    <data>
+        <record id="falcon_view_warehouse" model="ir.ui.view">
+            <field name="name">falcon.view.warehouse</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="warehouse_contactor_ids"/>
+                    <field name="address1"/>
+                    <field name="address2"/>
+                    <field name="postal_code"/>
+                    <field name="city"/>
+                    <field name="state"/>
+                    <field name="country"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

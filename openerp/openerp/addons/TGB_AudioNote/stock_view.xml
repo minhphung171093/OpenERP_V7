@@ -1,0 +1,15 @@
+<openerp>
+    <data>
+        <record id="view_tgb_stock_picking_out_form" model="ir.ui.view">
+			<field name="name">tgb.stock.picking.out</field>
+			<field name="model">stock.picking.out</field>
+			<field name="inherit_id" ref="stock.view_picking_form" />
+			<field name="priority">21</field>
+			<field name="arch" type="xml">
+                <field name="origin" position = "after">
+                    <field name="invoice_reference"/>
+                </field>
+			</field>
+		</record>
+    </data>
+</openerp>

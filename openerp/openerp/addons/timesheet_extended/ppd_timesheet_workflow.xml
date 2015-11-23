@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_timesheet_sheet.act_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="hr_timesheet_sheet.wkf_timesheet"/>
+            <field name="name">confirm</field>
+            <field name="kind">function</field>
+        </record>
+
+        <record id="act_final_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="hr_timesheet_sheet.wkf_timesheet" />
+            <field name="name">final_confirm</field>
+            <field name="action">mail_to_indirect_manager()
+                                 write({'state':'final_confirm'})</field>
+            <field name="kind">function</field>
+        </record>
+
+        <record id="hr_timesheet_sheet.act_done" model="workflow.activity">
+            <field name="wkf_id" ref="hr_timesheet_sheet.wkf_timesheet"/>
+            <field name="name">done</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'done'})</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <record id="hr_timesheet_sheet.act_done" model="workflow.activity">
+            <field name="wkf_id" ref="hr_timesheet_sheet.wkf_timesheet"/>
+            <field name="name">done</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'done'})</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <record id="hr_timesheet_sheet.t2" model="workflow.transition">
+            <field name="act_from" ref="hr_timesheet_sheet.act_confirm"/>
+            <field name="act_to" ref="act_final_confirm"/>
+            <field name="signal">final_confirm</field>
+            <field name="group_id" ref="base.group_hr_user"/>
+        </record>
+
+        <record id="f_confirm_transition" model="workflow.transition">
+            <field name="act_from" ref="act_final_confirm"/>
+            <field name="act_to" ref="hr_timesheet_sheet.act_done"/>
+            <field name="signal">done</field>
+        </record>
+
+        <record id="act_new_draft" model="workflow.transition">
+            <field name="act_from" ref="act_final_confirm"/>
+            <field name="act_to" ref="hr_timesheet_sheet.act_draft"/>
+            <field name="signal">cancel</field>
+        </record>
+
+    </data>
+</openerp>

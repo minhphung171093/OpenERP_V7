@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="sg_purchase_tax_manual" model="account.tax.template">
+            <field name="name">Purchase Tax M</field>
+            <field name="description">Tax M</field>
+            <field name="account_collected_id" ref="account_account_M"/>
+            <field name="account_paid_id" ref="account_account_M"/>
+            <field name="price_include" eval="0"/>
+            <field name="amount">0.00</field>
+            <field name="type">fixed</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="base_sign">-1</field>
+            <field name="tax_sign">-1</field>
+            <field name="base_code_id" ref="sg_base_code_standard_purchase_7_M"/>
+            <field name="tax_code_id" ref="sg_tax_code_tax_paid_M"/>
+            <field name="ref_base_code_id" ref="sg_base_code_standard_purchase_7_M"/>
+            <field name="ref_tax_code_id" ref="sg_tax_code_tax_paid_M"/>
+            <field name="child_depend" eval="0"/>
+            <field name="chart_template_id" ref="l10n_sg.sg_chart_template"/>
+        </record>
+
+    </data>
+</openerp>

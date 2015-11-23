@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data noupdate="1">
+
+        <record model="account.tax.code.template" id="sg_base_code_standard_purchase_7_M">
+            <field name="name">Purchase Manual Tax</field>
+            <field name="parent_id" ref="l10n_sg.sg_base_code_taxed_purchase"/>
+
+        </record>
+
+        <record model="account.tax.code.template" id="sg_tax_code_tax_paid_M">
+            <field name="name">Tax Paid M</field>
+            <field name="parent_id" ref="l10n_sg.sg_tax_code_tax_paid"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <record id="ocbc_bank_specification_form" model="ir.ui.view">
+            <field name="name">ocbc.bank.specification.form</field>
+            <field name="model">ocbc.bank.specification</field>
+            <field name="arch" type="xml">
+                <form string="ocbc Bank Specification" version="7.0">
+                    <group>
+	                    <field name="branch_number" required="1"/>
+	                    <field name="account_number" />
+	                    <field name="month" />
+	                    <field name="value_date"/>
+	                    <field name="batch_number"/>
+	                    <field name="transaction_code" />
+                    </group>
+					<separator string="" colspan="4"/>
+					<footer>
+	                    <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+	                    <button name="get_text_file" string="Save" type="object" icon="gtk-ok" colspan="2"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+       <record id="action_ocbc_bank_specification_wizard" model="ir.actions.act_window">
+            <field name="name">OCBC txt file</field>
+            <field name="res_model">ocbc.bank.specification</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+       </record>    
+    
+       <menuitem action="action_ocbc_bank_specification_wizard" id="menu_ocbc_bank_specification_wizard" parent="menu_report_payroll1_misc" sequence="3"/>
+       
+        <record id="ocbc_bank_specification_binary_wizard_form" model="ir.ui.view">
+            <field name="name">binary.ocbc.bank.file.wizard.file</field>
+            <field name="model">binary.ocbc.bank.file.wizard</field>
+            <field name="arch" type="xml">
+                <form string="View CPF txt File" version="7.0">
+                    <group>
+                        <field name="cpf_txt_file" filename="name"/>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <footer>
+                        <button special="cancel" string="Close" icon="gtk-cancel" colspan="2"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data> 
+</openerp>

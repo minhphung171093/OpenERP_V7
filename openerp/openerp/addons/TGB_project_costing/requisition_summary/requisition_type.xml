@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_requisition_type_form_view">
+        <field name="name">requisition.type.form</field>
+        <field name="model">requisition.type</field>
+        <field name="arch" type="xml">
+            <form string="requisition_type" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="name"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_requisition_type_tree_view">
+        <field name="name">requisition.type.tree</field>
+        <field name="model">requisition.type</field>
+        <field name="arch" type="xml">
+            <tree string="requisition_type">
+                <field name="name"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_requisition_type_action" model="ir.actions.act_window">
+            <field name="name">requisition_type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">requisition.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

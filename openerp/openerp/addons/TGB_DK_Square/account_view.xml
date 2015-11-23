@@ -1,0 +1,32 @@
+<openerp>
+    <data>
+
+        <record id="TGB_action_account_fiscalyear" model="ir.actions.act_window">
+            <field name="name">Fiscal Years</field>
+            <field name="res_model">account.fiscalyear</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to start a new fiscal year.
+              </p><p>
+                Define your company's financial year according to your needs. A
+                financial year is a period at the end of which a company's
+                accounts are made up (usually 12 months). The financial year is
+                usually referred to by the date in which it ends. For example,
+                if a company's financial year ends November 30, 2011, then
+                everything between December 1, 2010 and November 30, 2011
+                would be referred to as FY 2011.
+              </p>
+            </field>
+        </record>
+
+
+        <menuitem name="Fiscal Year"
+                  id="menu_dk_square_customer_child_management" action="TGB_action_account_fiscalyear" parent="menu_dk_square_configuration" sequence="1"/>
+
+
+
+
+    </data>
+</openerp>

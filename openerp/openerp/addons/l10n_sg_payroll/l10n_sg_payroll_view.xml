@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="singapore_company_inherited" model="ir.ui.view">
+            <field name="name">res.company.singapore.config</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='phone']" position="before">
+                    <field name="registration_number"/>
+                    <field name="cpf_number"/>
+                    <field name="passport_id"/>
+                    <field name="iras_tax_number"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="company_sector" required="1"/>
+                    <field name="business_nature" placeholder="Business Nature" required="1"/>
+                    <field name="establishment" required="1"/>
+                </xpath>
+                
+                <xpath expr="//group[@string='Accounting']" position="after">
+                    <group string="Payroll Details">
+                        <field name="payday" required="1"/>
+                        <field name="next_payday" required="1"/>
+                        <field name="enable_esubmission" required="1"/>
+                        <!-- <field name="payment_mode"/> -->
+                        <group string="What is the salary payment mode (s)?">
+	                        <field name="giro_pay"/>
+	                        <field name="cheque_pay"/>
+	                        <field name="cash_pay"/>
+                        </group>
+                    </group>
+                    
+                </xpath>
+            </field>
+        </record>
+
+        <record id="singapore_employee_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.singapore.config</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_ids']" position="after">
+                    <label for="employee_code" class="oe_edit_only"/>
+                    <field name="employee_code"/>
+                </xpath>
+                <xpath expr="//group[@string='Position']" position="after">
+                    <group>
+                        <field name="status"/>
+                    </group>
+                </xpath>
+                <xpath expr="//group[@string='Citizenship &amp; Other Info']/field[@name='country_id']" position="after">
+                    <field name="citizenship"/>
+                    <field name="pr_startdate" attrs="{'invisible': [('citizenship', '!=', 'singapore_pr')], 'required': [('citizenship', '=', 'singapore_pr')]}"/>
+                    <field name="work_pass_information" attrs="{'invisible': [('citizenship', '!=', 'foreigner')], 'required': [('citizenship', '=', 'foreigner')]}"/>
+                    <field name="permit_startdate"/>
+                    <field name="permit_enddate"/>
+                </xpath>
+                
+                <xpath expr="//group[@string='Contact Information']" position="inside">
+                    <field name="mobile"/>
+                </xpath>
+                
+                <xpath expr="//group[@string='Contact Information']/field[@name='address_home_id']" position="after">
+                    <field name="other_address_id"/>
+                    <field name="religion_id"/>
+                    <field name="ethnic_race"/>
+                </xpath>
+                <xpath expr="//group[@string='Active']" position="after">
+                    <group string="CPF Details">
+                        <field name="ir8a_submission"/>
+                        <field name="mbmf"/>
+                        <field name="sinda"/>
+                        <field name="sdl"/>
+                        <field name="spr_1and2_joint" attrs="{'readonly': [('citizenship', '!=', 'singapore_pr')]}"/>
+                    </group>
+                    <group string="CPF Contribution">
+                        <field name="cpf_detail_ids" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="employee_cpf"/>
+                                <field name="employer_cpf"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="singapore_contract_inherited" model="ir.ui.view">
+            <field name="name">hr.contract.singapore.config</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='wage']" position="replace">
+                    <field name="wage" string="Basic Salary"/>
+                </xpath>
+                <xpath expr="//group[@name='salary_and_advantages']/field[@name='wage']" position="after">
+                    <field name="overtime_applicable"/>
+                    <field name="payment_mode"/>
+                </xpath>
+                <xpath expr="//label[@string='Trial Period Duration']" position="replace">
+                    <label for="trial_date_start" string="Probation Period Duration"/>
+                </xpath>
+                <xpath expr="//label[@string='Duration']" position="replace">
+                    <label for="date_start" string="Confirmed Date"/>
+                </xpath>
+                <xpath expr="//field[@name='working_hours']" position="replace">
+                    <field name="working_hours" string="Work Week"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Salary Rule -->
+        <record id="l10n_sg_salary_rule_inherited" model="ir.ui.view">
+            <field name="name">l10n.sg.salary.rule</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='appears_on_payslip']" position="after">
+                    <field name="wage_type_id" widget="selection"/>
+                    <field name="irab_code"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- payslip -->
+        <record id="l10n_sg_payslip_inherited" model="ir.ui.view">
+            <field name="name">l10n.sg.hr.payslip</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                
+                <xpath expr="//button[@string='Cancel Payslip']" position="before">
+                    <button name="done_sheet" states="verify" string="Approve" class="oe_highlight"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='line_ids']" position="after">
+                    <group>
+	                    <field name="employee_cpf" readonly="1"/>
+	                    <field name="employee_cpf_rate" readonly="1"/>
+	                    <field name="employer_cpf" readonly="1"/>
+	                    <field name="employer_cpf_rate" readonly="1"/>
+	                </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_cpf_register_tree" model="ir.ui.view">
+            <field name="name">cpf.rule.tree</field>
+            <field name="model">cpf.rule</field>
+            <field name="arch" type="xml">
+                <tree string="CPF Rule Register">
+                    <field name="name"/>
+                    <field name="sector_ids"/>
+                    <field name="applicable_ids"/>
+                    <field name="age_rule_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_cpf_register_form" model="ir.ui.view">
+            <field name="name">cpf.rule.form</field>
+            <field name="model">cpf.rule</field>
+            <field name="arch" type="xml">
+                <form string="CPF Rule Register" version="7.0">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <group>
+                            <field name="sector_ids" widget="many2many_tags"/>
+                            <field name="applicable_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group string="Employer &amp; Employee CPF Share" col="6" colspan="4">
+                        <field name="age_rule_ids" nolabel="1">
+                            <tree editable="top">
+                                <field name="name" required="1"/>
+                                <field name="age_start" required="1"/>
+                                <field name="age_end" required="1"/>
+                                <field name="wage_start" required="1"/>
+                                <field name="wage_end" required="1"/>
+                                <field name="employer_percentage" required="1"/>
+                                <field name="employer_applied_on" string="Applied On" required="1"/>
+                                <field name="employee_percentage" required="1"/>
+                                <field name="employee_applied_on" string="Applied On" required="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Company Sector Type -->
+        
+        <record id="view_company_sector_type_tree" model="ir.ui.view">
+            <field name="name">company.sector.type.tree</field>
+            <field name="model">company.sector.type</field>
+            <field name="arch" type="xml">
+                <tree string="Company Sector">
+                    <field name="name"/>
+                    <field name="company_sector" required="1"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_company_sector_type_form" model="ir.ui.view">
+            <field name="name">company.sector.type.form</field>
+            <field name="model">company.sector.type</field>
+            <field name="arch" type="xml">
+                <form string="Company Sector">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_sector" required="1"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Citizen Applicable -->
+        
+        <record id="view_citizen_applicable_tree" model="ir.ui.view">
+            <field name="name">citizen.applicable.tree</field>
+            <field name="model">citizen.applicable</field>
+            <field name="arch" type="xml">
+                <tree string="Citizen Applicability">
+                    <field name="name"/>
+                    <field name="citizenship" required="1"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_citizen_applicable_form" model="ir.ui.view">
+            <field name="name">citizen.applicable.form</field>
+            <field name="model">citizen.applicable</field>
+            <field name="arch" type="xml">
+                <form string="Citizen Applicability">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="citizenship" required="1"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+
+        <record id="action_cpf_register" model="ir.actions.act_window">
+            <field name="name">CPF Register</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cpf.rule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="action_company_sector" model="ir.actions.act_window">
+            <field name="name">Company Sector</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">company.sector.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="action_citizen_applicable" model="ir.actions.act_window">
+            <field name="name">Citizen Applicable Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">citizen.applicable</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- CPF Submission File Form-->
+        <record id="view_cpf_submission_file_form" model="ir.ui.view">
+            <field name="name">cpf.submission.file.form</field>
+            <field name="model">cpf.submission.file</field>
+            <field name="arch" type="xml">
+                <form string="CPF Submission File" version="7.0">
+                	<header>
+                		<field name="state" widget="statusbar" statusbar_visible="draft,wait,approve" statusbar_colors='{"draft":"blue"}' readonly="1"/>
+                	</header>
+					<sheet string="CPF Submission File">
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="user_id"/>
+							</group>
+							<group>
+								<field name="date"/>
+								<field name="cpf_file_id"/>
+							</group>
+						</group>
+						<field name="employee_ids"/>
+					</sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- CPF Submission File Tree-->
+        <record id="view_cpf_submission_file_tree" model="ir.ui.view">
+            <field name="name">cpf.submission.file.tree</field>
+            <field name="model">cpf.submission.file</field>
+            <field name="arch" type="xml">
+                <tree string="CPF Submission File">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="user_id"/>
+                    <field name="validate_id"/>
+                    <field name="cpf_file_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+
+        <menuitem id="menu_cpf_register_parent" parent="hr.menu_hr_configuration" sequence="15" name="CPF Configuration Registers"/>
+        <menuitem action="action_cpf_register" id="menu_cpf_register" parent="menu_cpf_register_parent" sequence="12" name="CPF Registers"/>
+        
+        <menuitem action="action_company_sector" id="menu_company_sector" parent="menu_cpf_register_parent" sequence="10" name="Company Sector"/>
+        <menuitem action="action_citizen_applicable" id="menu_citizen_applicable" parent="menu_cpf_register_parent" sequence="11" name="Citizen Applicable Type"/>
+        
+        <!-- CPF Wizard Menu -->
+        <menuitem action="action_cpf_submission" id="menu_cpf_submission" parent="hr_payroll.menu_hr_root_payroll"/> 
+    </data>
+</openerp>

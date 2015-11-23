@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_scheduler_service_form_view">
+        <field name="name">project.scheduler.service.form</field>
+        <field name="model">project.scheduler.service</field>
+        <field name="arch" type="xml">
+            <form string="project_scheduler_service" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="phase_desc"/>
+                    <field name="remarks"/>
+                    <field name="phase_group_id"/>
+                    <field name="total_qty"/>
+                    <field name="project_scheduler_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_project_scheduler_service_tree_view">
+        <field name="name">project.scheduler.service.tree</field>
+        <field name="model">project.scheduler.service</field>
+        <field name="arch" type="xml">
+            <tree string="project_scheduler_service">
+                <field name="phase_desc"/>
+                <field name="remarks"/>
+                <field name="phase_group_id"/>
+                <field name="total_qty"/>
+                <field name="project_scheduler_id"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_project_scheduler_service_action" model="ir.actions.act_window">
+            <field name="name">project_scheduler_service</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.scheduler.service</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

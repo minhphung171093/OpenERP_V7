@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="tgb_partner_plan_tree" model="ir.ui.view">
+            <field name="name">Insurance Plan Detail List</field>
+            <field name="model">tgb.partner.plan.detail</field>
+            <field name="type">tree</field>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <tree string="Insurance Plan List">
+                    <field name="plan_id"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="death_benefit"/>
+                    <field name="total_permanent_disability"/>
+                    <field name="critical_illness"/>
+                    <field name="accident_cover"/>
+                    <field name="maturity_value"/>
+                    <field name="yearly_premium"/>
+                    <field name="early_crisis"/>
+                    <field name="medical_reimbursement"/>
+                    <field name="monthly_premium"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tgb_partner_plan_form" model="ir.ui.view">
+            <field name="name">Insurance Plan Form</field>
+            <field name="model">tgb.partner.plan.detail</field>
+            <field name="type">form</field>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <form string="Insurance Plan">
+                    <field name="plan_id"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="death_benefit"/>
+                    <field name="total_permanent_disability"/>
+                    <field name="critical_illness"/>
+                    <field name="accident_cover"/>
+                    <field name="maturity_value"/>
+                    <field name="yearly_premium"/>
+                    <field name="monthly_premium"/>
+                    <field name="early_crisis"/>
+                    <field name="medical_reimbursement"/>
+                    <field name="inception_date"/>
+                    <field name="maturity_date"/>
+                    <field name="year_inforce"/>
+                     <field name="remark"/>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_in_form_view">
+            <field name="name">stock.picking.in.form</field>
+            <field name="model">stock.picking.in</field>
+            <field name="arch" type="xml">
+                <form string="Incomming Shipment" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="shipment_no"/>
+                            <field name="priority"/>
+                            <field name="source_voucher_no"/>
+                            <newline/>
+                            <field name="partner_id"/>
+                            <field name="contact_id"/>
+                            <field name="supplier_do_no"/>
+                            <field name="supplier_do_date"/>
+                            <field name="supplier_invoice_no"/>
+                            <field name="supplier_invoice_date"/>
+                            <field name="exchange_rate"/>
+                            <field name="currency_id"/>
+                            <field name="grn_no"/>
+                            <field name="source_shipment_no"/>
+
+                            <field name="state"/>
+                        </group>
+                        <notebook>
+                            <page string="Header">
+                                <group col="4">
+                                    <field name="actual_shipment_date"/>
+                                    <field name="estimated_shipment_date"/>
+                                    <field name="actual_arrival_date"/>
+                                    <field name="estimated_arrival_date"/>
+                                    <field name="goods_receipt_date"/>
+                                    <field name="reference_no"/>
+                                    <field name="shipment_mode_term"/>
+                                    <field name="receiving_location"/>
+                                    <newline/>
+                                    <field name="forwarder_id"/>
+                                    <newline/>
+                                    <field name="internal_remarks" colspan="10"/>
+                                    <newline/>
+                                    <field name="external_remarks" colspan="10"/>
+                                </group>
+                            </page>
+                            <page string="Detail">
+                                <field name="move_lines">
+                                    <tree string="Details">
+                                        <field name="type"/>
+                                        <field name="product_id"/>
+                                        <field name="remarks_description"/>
+                                        <field name="lot"/>
+                                        <field name="product_uom"/>
+                                        <field name="product_qty"/>
+                                        <field name="pack size"/>
+                                        <field name="no_of_pack"/>
+                                        <field name="qty_req"/>
+                                        <field name="no_of_pack_req"/>
+                                        <field name="ost_qty"/>
+                                        <field name="location_dest_id"/>
+                                        <field name="complete"/>
+                                        <field name="serial_no"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form string="Details">
+                                        <field name="type"/>
+                                        <field name="product_id"/>
+                                        <field name="remarks_description"/>
+                                        <field name="lot"/>
+                                        <field name="product_uom"/>
+                                        <field name="product_qty"/>
+                                        <field name="pack size"/>
+                                        <field name="no_of_pack"/>
+                                        <field name="qty_req"/>
+                                        <field name="no_of_pack_req"/>
+                                        <field name="ost_qty"/>
+                                        <field name="location_dest_id"/>
+                                        <field name="complete"/>
+                                        <field name="serial_no"/>
+                                        <field name="state"/>
+                                    </form>
+                                </field>
+                                <field name="allocation_detail_ids"/>
+                            </page>
+                            <page string="Additional Cost">
+                                <field name="additional_cost"/>
+                            </page>
+                            <page string="Shipping Info">
+                                <group col="4">
+                                    <field name="booking_date"/>
+                                    <field name="port_of_load"/>
+                                    <field name="port_of_fd"/>
+                                    <field name="port_of_dischg"/>
+                                    <field name="country_id"/>
+                                    <field name="carrier_id"/>
+                                    <field name="eta_etd_pol"/>
+                                    <field name="eta_fd"/>
+                                    <field name="date_of_manufacture"/>
+                                    <field name="eta_time_pol"/>
+                                    <field name="eta_time_fd"/>
+                                    <field name="products_description"/>
+                                    <field name="remarks_trucker_haulier" colspan="10"/>
+                                    <field name="shipping_marks" colspan="10"/>
+                                </group>
+                            </page>
+                            <page string="Attachments">
+                                <field name="attachment_ids"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_stock_picking_in_tree_view">
+            <field name="name">stock.picking.in.tree</field>
+            <field name="model">stock.picking.in</field>
+            <field name="arch" type="xml">
+                <tree string="Incomming Shipment">
+                    <field name="shipment_no"/>
+                    <field name="estimated_shipment_date"/>
+                    <field name="estimated_arrival_date"/>
+                    <field name="goods_receipt_date"/>
+                    <field name="priority"/>
+                    <field name="source_voucher_no"/>
+                    <field name="receiving_location"/>
+                    <field name="supplier_id"/>
+                    <field name="grn_no"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tgb_construction_stock_picking_in_action" model="ir.actions.act_window">
+            <field name="name">Incomming Shipment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking.in</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="tgb_construction_stock_picking_in_tree_view"/>
+            <field name="context">{}</field>
+        </record>
+        <record id="tgb_construction_stock_picking_in_action_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tgb_construction_stock_picking_in_tree_view"/>
+            <field name="act_window_id" ref="tgb_construction_stock_picking_in_action"/>
+        </record>
+
+         <record id="tgb_construction_stock_picking_in_action_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="tgb_construction_stock_picking_in_form_view"/>
+            <field name="act_window_id" ref="tgb_construction_stock_picking_in_action"/>
+        </record>
+
+
+        <menuitem name="Incomming Shipment"
+                  id="menu_contruction_incomming_shipment_menu" parent="menu_construction_active_shipment_menu"
+                  action="tgb_construction_stock_picking_in_action"/>
+    </data>
+</openerp>

@@ -1,0 +1,11 @@
+import stock_picking
+import stock_picking_in
+import stock_picking_out
+import stock_picking_carrier
+import res_country_port
+import construction_party
+import stock_move
+import product_pack_size
+import stock_picking_additional_cost
+import stock_picking_service
+import stock_picking_allocation_detail

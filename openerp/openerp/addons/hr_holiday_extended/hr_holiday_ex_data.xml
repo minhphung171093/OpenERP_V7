@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data noupdate="1">
+        
+        <!-- create a scheduler to send email to HR manager today employee on Leave  at 8:45am.  -->
+        <record id="ir_cron_send_mail_notification_today_employee_on_leave" model="ir.cron">
+            <field name="name">Leave :  Employees Who are on leave Notification Email</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">weeks</field>
+            <field name="nextcall" eval="(DateTime.today() + timedelta(days=7-DateTime.today().weekday())).strftime('%Y-%m-%d 09:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.holidays'" name="model"/>
+            <field eval="'notification_leave_information'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+        <record forcecreate="True" id="mail.ir_cron_mail_scheduler_action" model="ir.cron">
+            <field name="name">Email Queue Manager</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'mail.message'" name="model"/>
+            <field eval="'process_email_queue'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+        <record forcecreate="True" id="ir_cron_leave_scheduler_action" model="ir.cron">
+            <field name="name">Leave : Check Carry Forward Leaves</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall" eval="time.strftime('%Y-03-31 23:59:59')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+            <field eval="'hr.holidays'" name="model" />
+            <field eval="'cal_fwd_period'" name="function" />
+            <field eval="'()'" name="args" />
+        </record>
+        <!--Create Scheduler for leave lapsed  -->
+        
+        <record id="ir_cron_lapsed_leave_ppm_ihrms" model="ir.cron">
+            <field name="name">Leave : Cancel Leaves Which Have Been Lapsed</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="time.strftime('%Y-%m-%d 23:59:00')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.holidays'" name="model"/>
+            <field eval="'schedule_lapsed_leave'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+        <!-- Create Scheduler for check employee is still under probation -->
+ 
+        <record id="ir_cron_employee" model="ir.cron">
+            <field name="name">Employee : Upcoming performance review date of employee.  Notification for Terminate within 3 days</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="time.strftime('%Y-%m-%d 08:45:00')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.employee'" name="model"/>
+            <field eval="'_check_employee_status'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+ 
+        <record id="ir_cron_employee_exp" model="ir.cron">
+            <field name="name">Employee : Check Documents If They Have Been Expired</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall" eval="time.strftime('%Y-%m-%d 08:45:00')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.employee'" name="model"/>
+            <field eval="'_check_employee_doc_expiry'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+        
+        <!-- Create Scheduler for sending an email if direct/indirect manager 
+            does not pre-approve or final approve the leave within last 3 days.   -->
+ 
+        <record id="ir_cron_employee_leave_approval" model="ir.cron">
+            <field name="name">Leave : 2nd Reminder to Direct / Indirect Managers</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="time.strftime('%Y-%m-%d 08:45:00')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.holidays'" name="model"/>
+            <field eval="'chk_approval'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+        <!-- create a scheduler to send email to manager reminder every monday at 14:00am.  -->
+        <record id="ir_cron_send_mail_notification_leave_approval" model="ir.cron">
+            <field name="name">Leave : Pending Leaves Notification Email</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="time.strftime('%Y-%m-%d 14:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.holidays'" name="model"/>
+            <field eval="'notofication_leave_approval'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+        
+        <!-- create a scheduler for assigning carry forward leave  -->
+        <record id="ir_cron_assign_def_carry_forward_leave" model="ir.cron">
+            <field name="name">Leave : Assign Annual Carry Forward Leave</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall" eval="time.strftime('%Y-12-31 23:59:59')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.holidays'" name="model"/>
+            <field eval="'assign_carry_forward_leave'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+        
+        <!-- create a scheduler for assigning default leave  -->
+        <record id="ir_cron_assign_default_leave" model="ir.cron">
+            <field name="name">Leave : Assign Default Allocation.</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall" eval="time.strftime('%Y-11-01 00:01:01')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.holidays'" name="model"/>
+            <field eval="'assign_default_leave'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+        
+        <!-- create a scheduler for Reminder to HR Manager if any Allocation Status in Draft(New) -->
+        <record id="ir_cron_reminder_hr_manager" model="ir.cron">
+            <field name="name">Leave : Reminder to HR manager to Approve Auto and Carry Forward Leaves</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="nextcall" eval="time.strftime('%Y-01-07 00:01:01')"/>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.holidays'" name="model"/>
+            <field eval="'reminder_to_hr_manager'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+        <function model="ir.cron" name="change_scheduler_time" eval="(ref('ir_cron_send_mail_notification_today_employee_on_leave'), 
+                                                                      ref('ir_cron_leave_scheduler_action'),
+                                                                      ref('ir_cron_lapsed_leave_ppm_ihrms'),
+                                                                      ref('ir_cron_employee'),
+                                                                      ref('ir_cron_employee_exp'),
+                                                                      ref('ir_cron_employee_leave_approval'),
+                                                                      ref('ir_cron_send_mail_notification_leave_approval'),
+                                                                      ref('ir_cron_assign_def_carry_forward_leave'),
+                                                                      ref('ir_cron_assign_default_leave'),
+                                                                      ref('ir_cron_reminder_hr_manager'))"/>
+        
+
+        <record model="workflow.activity" id="act_validate_cancel">
+            <field name="wkf_id" ref="hr_holidays.wkf_holidays" />
+            <field name="name">cancel</field>
+            <field name="kind">function</field>
+            <field name="flow_stop">True</field>
+            <field name="action">holidays_cancelled()</field>
+        </record>
+
+        <record model="workflow.transition" id="t2cancel">
+            <field name="act_from" ref="hr_holidays.act_confirm" />
+            <field name="act_to" ref="act_validate_cancel" />
+            <field name="signal">cancel</field>
+            <field name="condition">True</field>
+        </record>
+
+        <record model="workflow.transition" id="t1cancel">
+            <field name="act_from" ref="hr_holidays.act_validate" />
+            <field name="act_to" ref="act_validate_cancel" />
+            <field name="signal">cancel</field>
+            <field name="condition">True</field>
+        </record>
+
+        <record model="workflow.transition" id="t3cancel">
+            <field name="act_from" ref="hr_holidays.act_validate1" />
+            <field name="act_to" ref="act_validate_cancel" />
+            <field name="signal">cancel</field>
+            <field name="condition">True</field>
+        </record>
+
+    </data>
+</openerp>

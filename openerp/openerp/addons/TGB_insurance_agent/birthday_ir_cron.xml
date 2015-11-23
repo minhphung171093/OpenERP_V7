@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<openerp>
+	<data noupdate="1" >
+		<record id="tgb_ir_cron_birthday_alert" model="ir.cron">
+			<field name="name">Birthday Alert</field>
+			<field eval="True" name="active" />
+			<field name="user_id" >1</field>
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field eval="False" name="doall" />
+			<field name="model">tgb.birthday.alert</field>
+			<field name="function">create_birthday_alert</field>
+		</record>
+	</data>
+</openerp>

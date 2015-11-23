@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_resource_requirement_by_mps_vou_form_view">
+        <field name="name">resource.requirement.by.mps.vou.form</field>
+        <field name="model">resource.requirement.by.mps.vou</field>
+        <field name="arch" type="xml">
+            <form string="resource_requirement_by_mps_vou" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="mps_voucher_no"/>
+                    <field name="source_voucher_no"/>
+                    <field name="source_sequence_no"/>
+                    <field name="source_schedule_no"/>
+                    <field name="pp_voucher_no"/>
+                    <field name="customer_omer_customer"/>
+                    <field name="finished_goods_code"/>
+                    <field name="required_procurement_date"/>
+                    <field name="production_due_date"/>
+                    <field name="required_shipment_date"/>
+                    <field name="qty_qty_required"/>
+                    <field name="qoh_qoh_allocated"/>
+                    <field name="qoor_qoor_allocated"/>
+                    <field name="ost_qty_allocated"/>
+                    <field name="draft_qty_allocated"/>
+                    <field name="pr_to_raise"/>
+                    <field name="sel_no"/>
+                    <field name="requirement_planning_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_resource_requirement_by_mps_vou_tree_view">
+        <field name="name">resource.requirement.by.mps.vou.tree</field>
+        <field name="model">resource.requirement.by.mps.vou</field>
+        <field name="arch" type="xml">
+            <tree string="resource_requirement_by_mps_vou">
+                <field name="mps_voucher_no"/>
+                <field name="source_voucher_no"/>
+                <field name="source_sequence_no"/>
+                <field name="source_schedule_no"/>
+                <field name="pp_voucher_no"/>
+                <field name="customer_omer_customer"/>
+                <field name="finished_goods_code"/>
+                <field name="required_procurement_date"/>
+                <field name="production_due_date"/>
+                <field name="required_shipment_date"/>
+                <field name="qty_qty_required"/>
+                <field name="qoh_qoh_allocated"/>
+                <field name="qoor_qoor_allocated"/>
+                <field name="ost_qty_allocated"/>
+                <field name="draft_qty_allocated"/>
+                <field name="pr_to_raise"/>
+                <field name="sel_no"/>
+                <field name="requirement_planning_id"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_resource_requirement_by_mps_vou_action" model="ir.actions.act_window">
+            <field name="name">resource_requirement_by_mps_vou</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">resource.requirement.by.mps.vou</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

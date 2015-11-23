@@ -1,0 +1,12 @@
+==================================================================================
+ Version ChangeLog (library)
+==================================================================================
+
+Version 1.2 on 2014-04-03 by Sudhir Arya
+    * Added dependency of 'sale_stock' module.
+
+Version 1.1 on 2013-09-30 by Sudhir Arya
+    * v7 Standard
+
+1.1  --> 22 January 2013 : Serpent Consulting Services
+        * Added methods information in .py and docstring in .xml 

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <menuitem name="Credit Note"
+                  id="credit_note_menu" parent="menu_construction_project_costing_menu"
+                  action="tgb_construction_project_billing_action"/>
+    </data>
+</openerp>

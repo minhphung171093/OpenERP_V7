@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_holiday_new_calendar" model="ir.ui.view">
+            <field name="name">Leave Request</field>
+            <field name="model">hr.holidays</field>
+            <field name="type">calendar</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar string="Leave Request" color="employee_id" date_start="date_from" date_stop="date_to">
+                    <field name="employee_id"/>
+                    <field name="holiday_status_id"/>
+                </calendar>
+            </field>
+        </record>
+    </data>
+</openerp>

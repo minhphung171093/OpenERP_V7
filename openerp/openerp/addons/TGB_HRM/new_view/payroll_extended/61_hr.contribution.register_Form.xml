@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_hr_contribution_register_form_view_inherited" model="ir.ui.view">
+            <field name="name">view.hr.contribution.register.inherited</field>
+            <field name="model">hr.contribution.register</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contribution_register_form"/>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <notebook colspan="4">
+                        <page string="GL Code">
+                            <separator colspan="4" string="Salary Rule GL Code"/>
+                            <field name="register_glcode_ids" colspan="4" nolabel="1">
+                                <tree editable="top" string="GL Code">
+                                    <field name="gl_code_id"/>
+                                    <field name="emp_categ_id"/>
+                                    <field name="saved_back_cpf"/>
+                                    <field name="saved_back_salary"/>
+                                    <field name="apply_bank_cheque"/>
+                                    <field name="nagative"/>
+                                </tree>
+                                <form string="GL Code">
+                                    <field name="gl_code_id"/>
+                                    <field name="emp_categ_id"/>
+                                    <field name="saved_back_cpf"/>
+                                    <field name="saved_back_salary"/>
+                                    <field name="apply_bank_cheque"/>
+                                    <field name="nagative"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

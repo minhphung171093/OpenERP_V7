@@ -1,0 +1,6 @@
+import requisition_summary
+import stock_picking_allocation_detail
+import requisition_summary_detail
+import requisition_type
+import project_shipment_mode
+import project_shipment_term

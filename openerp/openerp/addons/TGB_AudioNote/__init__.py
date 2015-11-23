@@ -1,0 +1,11 @@
+import product
+import sale_line
+import sale_deposit
+import sale
+import sale_order_make_deposit
+import account_move_line
+import account_voucher
+import account_invoice
+import sale_make_invoice_advance
+import stock
+import report

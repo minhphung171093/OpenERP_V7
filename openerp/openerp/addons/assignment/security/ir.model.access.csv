@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_school_teacher_assignment_admin,school.teacher.assignment.admin,assignment.model_school_teacher_assignment,school.group_school_administration,1,1,1,1
+access_school_student_assignment_admin,school.student.assignment.admin,assignment.model_school_student_assignment,school.group_school_administration,1,1,1,1
+access_school_student_assignment_student,school.student.assignment.student,assignment.model_school_student_assignment,school.group_school_student,1,1,0,0
+access_school_teacher_assignment_teacher,school.teacher.assignment.teacher,assignment.model_school_teacher_assignment,school.group_school_teacher,1,1,1,1
+access_school_student_assignment_teacher,school.student.assignment.teacher,assignment.model_school_student_assignment,school.group_school_teacher,1,1,1,1
+access_student_student_assignment_teacher,school.teacher.student.assignment.teacher,school.model_student_student,school.group_school_teacher,1,0,0,0
+access_school_standard_assignment_teacher,school.teacher.school.standard.assignment.teacher,school.model_school_standard,school.group_school_teacher,1,0,0,0

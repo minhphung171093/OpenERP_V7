@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/eduerp/!svn/ver/12/school_transport_fleet/wizard
+END
+transfer_root_view.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/eduerp/!svn/ver/12/school_transport_fleet/wizard/transfer_root_view.xml
+END
+transfer_vehicle.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/eduerp/!svn/ver/12/school_transport_fleet/wizard/transfer_vehicle.xml
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/eduerp/!svn/ver/12/school_transport_fleet/wizard/__init__.py
+END
+transfer_vehicle.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/eduerp/!svn/ver/12/school_transport_fleet/wizard/transfer_vehicle.py
+END
+transfer_root.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/eduerp/!svn/ver/12/school_transport_fleet/wizard/transfer_root.py
+END

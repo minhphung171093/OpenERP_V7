@@ -1,0 +1,11 @@
+import contract_page1
+import contract_page2
+import contract_page3
+import contract_page1_dotmatrix
+import contract_page2_dotmatrix
+import contract_page3_dotmatrix
+import contract_all
+import contract_all_dotmatrix
+import contract_renew_all
+import reminder_letter
+import contract_renewal_all

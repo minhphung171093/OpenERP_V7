@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sale_gst_tax_view_root" model="account.account.template">
+            <field name="name">Sales (GST Tax View)</field>
+            <field name="code">220000</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="l10n_seg.user_type_view"/>
+            <field name="parent_id" ref="l10n_seg.liabilities" />
+        </record>
+
+        <record id="standard_rate_gst_root" model="account.account.template">
+            <field name="name">Sales Tax (GST Output Tax) Starndard Rate</field>
+            <field name="code">220900</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_liability"/>
+            <field name="parent_id" ref="sale_gst_tax_view_root" />
+        </record>
+        
+        <record id="zero_rate_supply_gst_root" model="account.account.template">
+            <field name="name">Sales Tax (GST Output Tax) Zero rated for Supply</field>
+            <field name="code">220901</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_liability"/>
+            <field name="parent_id" ref="sale_gst_tax_view_root" />
+        </record>
+        
+        <record id="exempt_gst_root" model="account.account.template">
+            <field name="name">Sales Tax (GST Output Tax) Exempt</field>
+            <field name="code">220902</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_liability"/>
+            <field name="parent_id" ref="sale_gst_tax_view_root" />
+        </record>
+        
+        <record id="exempt_esn_gst_root" model="account.account.template">
+            <field name="name">Sales Tax (GST Output Tax) Exempt ESN</field>
+            <field name="code">220903</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_liability"/>
+            <field name="parent_id" ref="sale_gst_tax_view_root" />
+        </record>
+        
+        <record id="deemed_supplies_gst_root" model="account.account.template">
+            <field name="name">Sales Tax (GST Output Tax) Deemed supplies</field>
+            <field name="code">220904</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_liability"/>
+            <field name="parent_id" ref="sale_gst_tax_view_root" />
+        </record>
+        
+        <record id="out_of_scope_gst_root" model="account.account.template">
+            <field name="name">Sales Tax (GST Output Tax) Out-of-Scope supplies</field>
+            <field name="code">220905</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_liability"/>
+            <field name="parent_id" ref="sale_gst_tax_view_root" />
+        </record>
+
+
+        <record id="purchase_gst_tax_view_root" model="account.account.template">
+            <field name="name">Purchase (GST Tax View)</field>
+            <field name="code">221000</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="l10n_seg.user_type_view"/>
+            <field name="parent_id" ref="l10n_seg.asset" />
+        </record>
+        
+        <record id="standard_rate_purchase_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Standard rated for Purchase</field>
+            <field name="code">221900</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        
+        <record id="zero_rate_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Zero rated for Purchase</field>
+            <field name="code">221911</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_view"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        
+        <record id="imports_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Imports</field>
+            <field name="code">221901</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        
+        <record id="special_scheme_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Imports under a special scheme</field>
+            <field name="code">221902</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        
+        <record id="import_under_defement_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Import under the import GST deferment scheme</field>
+            <field name="code">221903</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        
+        <record id="disallowd_purchase_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Disallowed expenses</field>
+            <field name="code">221904</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        <record id="non_purchase_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Non-GST purchases</field>
+            <field name="code">221905</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        <record id="exempt_purchases_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Exempt purchases</field>
+            <field name="code">221906</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        <record id="standard_rate_purchases_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Standard rated purchases directly attributable to the making of taxable supplies</field>
+            <field name="code">221907</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        <record id="standard_rate_purchases_directly_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Standard rated purchases that are directly attributable to non-regulation 33 exempt supplies</field>
+            <field name="code">221908</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+        <record id="residual_rate_purchases_directly_gst_root" model="account.account.template">
+            <field name="name">Purchase Tax (GST Input Tax) Residual input tax</field>
+            <field name="code">221909</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="l10n_seg.user_type_current_asset"/>
+            <field name="parent_id" ref="purchase_gst_tax_view_root" />
+        </record>
+
+    </data>
+</openerp>

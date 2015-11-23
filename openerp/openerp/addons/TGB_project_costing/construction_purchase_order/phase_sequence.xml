@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_phase_sequence_form_view">
+        <field name="name">phase.sequence.form</field>
+        <field name="model">phase.sequence</field>
+        <field name="arch" type="xml">
+            <form string="phase_sequence" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="name"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_phase_sequence_tree_view">
+        <field name="name">phase.sequence.tree</field>
+        <field name="model">phase.sequence</field>
+        <field name="arch" type="xml">
+            <tree string="phase_sequence">
+                <field name="name"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_phase_sequence_action" model="ir.actions.act_window">
+            <field name="name">phase_sequence</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">phase.sequence</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

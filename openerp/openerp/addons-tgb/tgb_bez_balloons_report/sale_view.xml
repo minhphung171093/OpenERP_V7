@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.account.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='project_id']" position="after">
+            		<field name="venue"/>
+            		<field name="event"/>
+            		<field name="date"/>
+            		<field name="period"/>
+            	</xpath>
+            	<xpath expr="//field[@name='currency_id']" position="after">
+            		<field name="appt_time"/>
+            		<field name="ready_time"/>
+            		<field name="usage"/>
+            	</xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

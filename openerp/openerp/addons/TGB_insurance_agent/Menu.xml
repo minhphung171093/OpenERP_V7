@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<menuitem id="TGB_insurance_agent_base_menu" name="Insurance Agent"
+			sequence="1" />
+        <menuitem id="TGB_insurance_plan_purchase_menu_base" name="Plan Purchase" parent="TGB_insurance_agent_base_menu" sequence="9"/>
+        <menuitem id="TGB_insurance_policy" name="Insurance Policy" parent="TGB_insurance_agent_base_menu" sequence="9"/>
+        <menuitem id="TGB_insurance_customers" name="Customers" parent="TGB_insurance_agent_base_menu" sequence="9"/>
+        <menuitem id="TGB_insurance_setting_base" name="Settings" parent="TGB_insurance_agent_base_menu" sequence="9"/>
+        <menuitem id="TGB_insurance_policy_alert" name="Policy Alert" parent="TGB_insurance_agent_base_menu" sequence="9"/>
+	</data>
+</openerp>

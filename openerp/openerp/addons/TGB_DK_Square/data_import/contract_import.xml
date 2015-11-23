@@ -1,0 +1,37 @@
+<openerp>
+    <data>
+
+        <record id="dksquare_contract_import_view" model="ir.ui.view">
+            <field name="name">DK Square Contract Import</field>
+            <field name="model">dksquare.contract.import</field>
+            <field name="arch" type="xml">
+                <form string="Import Attendance" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="file"/>
+                            <button name="do" type="object" string="Import Contracts"/>
+                            <button name="do2" type="object" string="Import Contracts 2"/>
+                            <button name="import_type" type="object" string="Import Type"/>
+                            <button name="set_process_contact" type="object" string="Set not exp contracts"/>
+                            <button name="change_period_contract" type="object" string="Convert date to period"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="dksquare_contract_import_action">
+            <field name="name">DK Square Contract Import</field>
+            <field name="view_id" ref="dksquare_contract_import_view"/>
+            <field name="res_model">dksquare.contract.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="dksquare_contract_import_menu" action="dksquare_contract_import_action" name="Import Contracts"
+                  parent="menu_dk_square_configuration" sequence="10"/>
+
+    </data>
+</openerp>

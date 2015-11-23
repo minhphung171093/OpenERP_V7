@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_refuse_leave_form" model="ir.ui.view">
+            <field name="name">refuse.leave.form</field>
+            <field name="model">refuse.leave</field>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Refuse Leave Reason" version="7.0">
+                    <separator string="Reason" colspan="4"/>
+                    <group>
+                        <field name="reason" nolabel="1" colspan="4" height="400" width="550"/>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <footer>
+                        <button special="cancel" string="Cancel" icon="gtk-close"/>
+                        or
+                        <button name="add_reason" type="object" string="Submit" icon="gtk-apply"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

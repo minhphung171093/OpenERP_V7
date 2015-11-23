@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_ihrms_employee_city_form" model="ir.ui.view">
+            <field name="name">employee.city.form</field>
+            <field name="model">employee.city</field>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="City" version="7.0">
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="state_id" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

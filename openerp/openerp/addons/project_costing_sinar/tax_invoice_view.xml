@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="view_tax_invoice_form" model="ir.ui.view">
+            <field name="name">tax.invoice</field>
+            <field name="model">tax.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Tax Inovice Form" version="7.0">
+                	<header>
+                		<button name="action_done" states="draft" string="Done" class="oe_highlight" type="object" groups="base.group_user"/>
+                		<field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"red","done":"blue"}'/>
+                	</header>
+                  <group colspan="2" col="4">
+                  	<field name="tax_invoice_code" string="Tax Invoice Code and Serial No." attrs="{'readonly':[('state','=','done')]}"/>
+                  	<field name="vat_number" attrs="{'readonly':[('state','=','done')]}"/>
+                  	<field name="company_id" string="Taxable Enterprise"/>
+                  	<field name="partner_id" string="Taxable Goods Buyers"/>
+                	<field name="inv_id"/>
+                	<field name="currency_id" invisible="1"/>
+                	<field name="date_invoice"/>
+                 </group>
+                 <separator string="Invoice Lines" colspan="4"/>
+                	<field name="inv_line"/>
+                	<group>
+                	<field name="inv_line_tax_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','=','sale')]"/>
+                	</group>
+                	<group class="oe_subtotal_footer oe_right">
+                		<field name="disc"/>
+                		<field name="amount_untaxed"/>
+                		<div>
+                            <label for="amount_tax"/>
+                            <button name="button_calculate_taxes" states=""
+                                  string="(update)" class="oe_link oe_edit_only"
+                                  type="object" help="Recompute taxes and total"/>
+                        </div>
+                        <field name="amount_tax" nolabel="1" widget="monetary" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="vat" string="VAT (10 Per * Tax Base)" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="amount_total" attrs="{'readonly':[('state','=','done')]}"/>
+                        <field name="residual" attrs="{'readonly':[('state','=','done')]}"/>
+                    </group>
+                 <separator string="Luxury Sales Tax" colspan="4"/>
+                	<field name="luxury_sale_ids" attrs="{'readonly':[('state','=','done')]}"/>
+                	<group class="oe_subtotal_footer oe_right">
+                	  <field name="lst_amount" widget="monetary" sum="Total" string="LST Total"/>
+                	</group>
+                </form>
+           </field>
+        </record>
+        
+	   <record id="view_tax_invoice_tree" model="ir.ui.view">
+            <field name="name">tax.invoice</field>
+            <field name="model">tax.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Tax Inovice Form" colors="red:state=='done';blue:state == 'draft'">
+                	<field name="tax_invoice_code"/>
+                	<field name="inv_id"/>
+                	<field name="company_id" string="Taxable Enterprise"/>
+                	<field name="partner_id" string="Taxable Goods Buyers"/>
+                	<field name="vat_number" string="Taxable VAT"/>
+                	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record id="view_tax_invoice_line_form" model="ir.ui.view">
+            <field name="name">tax.invoice.line</field>
+            <field name="model">tax.invoice.line</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Lines" version="7.0">
+                  <group colspan="2" col="4">
+                	<field name="invoice_id" invisible="1"/>
+                	<field name="product_id"/>
+                	<field name="quantity"/>
+                	<field name="account_id"/>
+                	<field name="price_unit"/>
+                	<field name="uos_id"/>
+                	<field name="price_subtotal"/>
+                  </group>
+                </form>
+           </field>
+        </record>
+        
+	   <record id="view_tax_invoice_line_tree" model="ir.ui.view">
+            <field name="name">tax.invoice.line</field>
+            <field name="model">tax.invoice.line</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Lines" editable="bottom">
+                	<field name="invoice_id" invisible="1"/>
+                	<field name="product_id"/>
+                	<field name="quantity"/>
+                	<field name="account_id"/>
+                	<field name="price_unit"/>
+                	<field name="uos_id"/>
+                	<field name="price_subtotal"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_tax_luxury_form" model="ir.ui.view">
+            <field name="name">tax.luxury.sale.line</field>
+            <field name="model">tax.luxury.sale.line</field>
+            <field name="arch" type="xml">
+                <form string="Luxury Sales Tax" version="7.0">
+                  <group colspan="2" col="4">
+                	<field name="luxury_id" invisible="1"/>
+                	<field name="tax_rate"/>
+                	<field name="tax_reg"/>
+                	<field name="lst"/>
+                  </group>
+                </form>
+           </field>
+        </record>
+        
+	   <record id="view_tax_luxury_tree" model="ir.ui.view">
+            <field name="name">tax.luxury.sale.line</field>
+            <field name="model">tax.luxury.sale.line</field>
+            <field name="arch" type="xml">
+                <tree string="Luxury Sales Tax" editable="bottom">
+                	<field name="luxury_id" invisible="1"/>
+                	<field name="tax_rate"/>
+                	<field name="tax_reg"/>
+                	<field name="lst"/>
+                </tree>
+            </field>
+        </record>
+            
+        <record model="ir.actions.act_window" id="tax_invoice_form">
+			<field name="name">Tax Inovice Form</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">tax.invoice</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_tax_invoice_tree"/>
+		</record>
+		
+		<record id="view_partner_form_inherit11" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field eval="1" name="priority"/>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+            	<xpath expr="////form[@string='Partners']/sheet/group/group/field[@name='website']" position="after">
+            		<field name="tax_reg_number"/>
+            	</xpath>
+            </field>
+        </record>
+            	
+		<report id="report_tax_invoice_demo"
+                string="Tax Invoice"
+                model="tax.invoice"
+                name="tax.invoice.demo"
+                rml="project_costing_sinar/report/tax_invoice_report.rml"
+                auto="False"
+                menu="True" />
+                
+        <report id="report_tax_invoice_indonesia"
+                string="Tax Invoice Indonesia"
+                model="tax.invoice"
+                name="tax.invoice.indonesia"
+                rml="project_costing_sinar/report/tax_invoice_report_indonesia.rml"
+                auto="False"
+                menu="True" />
+                
+		<menuitem action="tax_invoice_form" name="Tax Invoice" id="menu_tax_invoice" parent="account.menu_finance_receivables" sequence="20"/>
+    
+    </data>
+</openerp>

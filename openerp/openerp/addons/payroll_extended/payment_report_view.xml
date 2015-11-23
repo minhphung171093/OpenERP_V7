@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <report id="hrms_payment_by_bank"
+                string="Payment By Bank"
+                model="hr.payslip"
+                name="paymentbybank_receipt"
+                rml="addons/payroll_extended/report/payment_by_bank_report.rml" auto="False" header="False" />
+        
+        <report id="hrms_payroll_summary"
+                string="Payroll Summary"
+                model="hr.payslip"
+                name="payrollsummary_receipt"
+                rml="payroll_extended/report/payroll_summary_report.rml" auto="False" menu="False" header="False" />
+        
+        <report id="hrms_payslip_sample"
+                string="Payslip Sample"
+                model="hr.payslip"
+                name="payslipsample_receipt"
+                rml="addons/payroll_extended/report/payslip_sample_report.rml" auto="False" header="False" />
+        
+        <report id="hrms_paymet_by_cheque"
+                string="Payment By Cheque"
+                model="hr.payslip"
+                name="paymentbycheque_receipt"
+                rml="addons/payroll_extended/report/payment_by_cheque_report.rml" auto="False" header="False" />
+                
+        <report id="ppd_hr_bak_summary_report"
+                string="HR Bank Summary Report"
+                model="hr.payslip"
+                name="ppd_bank_summary_receipt"
+                rml="addons/payroll_extended/report/hr_bank_summary_report.rml" auto="False" header="False" menu="False"/>
+       
+        <report id="ppd_hr_cheque_summary_report"
+                string="HR Cheque Summary Report"
+                model="hr.payslip"
+                name="ppd_cheque_summary_receipt"
+                rml="addons/payroll_extended/report/hr_cheque_summary_report.rml" auto="False" header="False" menu="False"/>
+        
+		<report id="hrms_ir8s_form"
+                string="IR8S Form"
+                model="hr.payslip"
+                name="ppd_ir8s_form_report"
+                menu="False"
+                rml="addons/payroll_extended/report/ir8s_form_report_tmpl.rml" auto="False" header="False" />
+		
+		<report id="hrms_ir8a_form"
+                string="IR8A Form"
+                model="hr.payslip"
+                name="ppd_ir8a_form_report"
+                menu="False"
+                rml="addons/payroll_extended/report/ir8a_form_report_tmpl.rml" auto="False" header="False" />
+
+        <report
+            auto="False"
+            id="hr_payroll.payslip_details_report"
+            model="hr.payslip"
+            name="paylip.details.sing"
+            rml="payroll_extended/report/report_payslip_details.rml"
+            string="PaySlip Details" />
+
+        <report
+            auto="False"
+            id="hr_payroll.payslip_report"
+            model="hr.payslip"
+            name="payslip_sng"
+            rml="payroll_extended/report/report_payslip.rml"
+            string="Employee PaySlip" />
+
+        <report
+            auto="False"
+            id="hr_singapore_payslip_report"
+            model="hr.payslip"
+            name="singaporepayslip"
+            rml="payroll_extended/report/singapore_payslip.rml"
+            string="PaySlip" />
+
+    </data>
+</openerp>

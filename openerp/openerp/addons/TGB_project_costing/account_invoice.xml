@@ -1,0 +1,27 @@
+<openerp>
+    <data>
+
+        <record id="tgb_account_invoice" model="ir.ui.view">
+            <field name="name">TGB account invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="payment_term" position="before">
+                    <group>
+                    <field name="add_discount_percent" attrs="{'readonly':[('discount_added','=',True)]}"/>
+                    <field name="discount_added" invisible="1"/>
+                    <group attrs="{'invisible':[('discount_added','=',True)]}">
+                           <button name="add_percent_discount" states="draft" type="object" string="Add discount"/>
+                    </group>
+                    <group attrs="{'invisible':[('discount_added','=',False)]}">
+                        <button name="remove_percent_discount" states="draft" type="object" string="Remove discount"/>
+                    </group>
+                    </group>
+                    <newline/>
+                </field>
+
+            </field>
+        </record>
+    </data>
+</openerp>

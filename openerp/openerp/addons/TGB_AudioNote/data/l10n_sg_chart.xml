@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="account.account.template" id="account_account_M">
+            <field name="name">Purchase Tax Account M</field>
+            <field name="code">105013</field>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_asset"/>
+            <field name="reconcile" eval="False"/>
+            <field name="parent_id" ref="l10n_sg.account_account_737"/>
+        </record>
+    </data>
+</openerp>

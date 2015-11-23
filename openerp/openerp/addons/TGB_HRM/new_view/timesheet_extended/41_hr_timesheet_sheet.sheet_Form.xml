@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="timesheet_of_roster_form_view" model="ir.ui.view">
+            <field name="name">hr_timesheet_sheet.sheet3.form</field>
+            <field name="model">hr_timesheet_sheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <data><!--                <xpath expr="//form/group[2]" position="attributes">--> <!--                    <attribute name='col'>10</attribute>--> <!--                    <attribute name='colspan'>4</attribute>--> <!--                </xpath>-->
+                    <xpath expr="/form/header/button[@name='done']" position="attributes">
+                        <attribute name="string">Pre-Approved</attribute>
+                        <attribute name="name">final_confirm</attribute>
+                        <attribute name="groups">timesheet_extended.roster_timesheet_manager_group</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='state']" position="attributes">
+                        <attribute name="statusbar_visible">new,confirm,final_confirm,done</attribute>
+                    </xpath>
+                    <xpath expr="/form/header/button[@name='cancel']" position="attributes">
+                        <attribute name="states">confirm,final_confirm</attribute>
+                        <attribute name="groups">timesheet_extended.roster_timesheet_manager_group</attribute>
+                    </xpath>
+                    <xpath expr="/form/header/button[@name='action_set_to_draft']" position="attributes">
+                        <attribute name="groups">timesheet_extended.roster_timesheet_manager_group</attribute>
+                        <attribute name="states">confirm,final_confirm,done</attribute>
+                    </xpath>
+                    <xpath expr="/form/header/button[@name='button_confirm']" position="attributes">
+                        <attribute name="string">Confirm</attribute>
+                    </xpath>
+                    <xpath expr="/form/header/button[@name='cancel']" position="after">
+                        <button name="done" states="final_confirm" type="workflow" icon="terp-camera_test"
+                                string="Approved" groups="timesheet_extended.roster_timesheet_manager_group"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

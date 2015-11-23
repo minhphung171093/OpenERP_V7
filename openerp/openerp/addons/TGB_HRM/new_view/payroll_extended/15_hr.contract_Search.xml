@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_contract_view_search_inherited" model="ir.ui.view">
+            <field name="name">hr.contract.search</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="type">search</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="/search/group[1]/filter[@string='Employee']" position="before">
+                    <filter icon="terp-personal+" domain="[('active_employee','=',True)]" string="Active"/>
+                    <filter icon="gtk-no" string="Inactive" domain="[('active_employee','=',False)]"
+                            help="Inactive Employee"/>
+                    <separator orientation="vertical"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

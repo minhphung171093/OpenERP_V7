@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<openerp>
+    <data>
+        <menuitem name="Recruitment" id="base.menu_crm_case_job_req_main" parent="hr.menu_hr_root" groups="TGB_HRM_extend.tgb_hr"/>
+        <menuitem name="Appraisal" parent="hr.menu_hr_root" id="hr_evaluation.menu_eval_hr" sequence="25" groups="TGB_HRM_extend.tgb_hr"/>
+        <menuitem id="hr_attendance.menu_hr_attendance" name="Attendances" parent="hr.menu_hr_root" sequence="10" groups="TGB_HRM_extend.tgb_hr"/>
+        <menuitem id="hr_attendance.menu_hr_time_tracking" name="Time Tracking" parent="hr.menu_hr_root" sequence="5" groups="TGB_HRM_extend.tgb_hr"/>
+    </data>
+</openerp>

@@ -1,0 +1,9 @@
+==================================================================================
+                 Version ChangeLog (purchase_extended)
+==================================================================================
+		--> 19 January 2013 : Serpent Consulting Services
+			* Added Requirement Start date.
+			* Added Requirement  End date.
+			* Added Requirement start_reg_date.
+			* Added Requirement End_reg_date.
+			* Spelling Correction in this Module(school_event). 

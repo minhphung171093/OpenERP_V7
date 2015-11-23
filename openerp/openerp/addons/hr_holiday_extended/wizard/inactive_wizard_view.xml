@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+	<data>
+			
+		<record id="inactive_status_form" model="ir.ui.view">
+			<field name="name">inactive.status.form</field>
+			<field name="model">inactive.status</field>
+			<field name="arch" type="xml">
+				<form string="Employee Status" version="7.0">
+				    <group>
+					    <field name="inact_date"/>
+					</group>
+					<separator string="Reason" colspan="4" />
+					<group>
+					    <field name="reason" nolabel="1" colspan="4"/>
+					</group>
+                    <separator string="" colspan="4"/>
+                    <footer>
+						<button name="submit" type="object" string="Submit"/>
+						or
+						<button name="cancel" type="object" string="Cancel"/>
+				    </footer>
+				</form>
+			</field>
+		</record>
+		
+			
+		<record id="action_inactive_status" model="ir.actions.act_window">
+            <field name="name">Employee Status</field>
+            <field name="res_model">inactive.status</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+<!--		<act_window id="action_inactive_status_form"-->
+<!--    				key2="client_action_multi"-->
+<!--            		name="Employee Status"-->
+<!--    				res_model="inactive.status"-->
+<!--            		src_model="hr.employee"-->
+<!--    				view_mode="form" -->
+<!--    				target="new" -->
+<!--    				view_type="form" />-->
+	</data>
+</openerp>

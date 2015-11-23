@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Tree view for The Roster Timesheet -->
+        <record model="ir.ui.view" id="roster_timesheet_tree_view">
+            <field name="name">roster.timesheet.tree</field>
+            <field name="model">roster.timesheet</field>
+            <field name="arch" type="xml">
+                <tree string="Roster Timesheet"
+                    colors="red:state=='open';black:state in ('draft', 'cancel','done')" version="7.0">
+                    <field name="employee_id" />
+                    <field name="counter_id" />
+                    <field name="current_date" />
+                    <field name="time_from" />
+                    <field name="time_to" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search view for The Roster Timesheet -->
+        <record model="ir.ui.view" id="roster_timesheet_search_view">
+            <field name="name">roster.timesheet.search</field>
+            <field name="model">roster.timesheet</field>
+            <field name="arch" type="xml">
+                <search string="Roster Planning" version="7.0">
+                    <separator orientation="vertical" />
+                    <filter icon="terp-camera_test" string="Approved"
+                        domain="[('state','=','done')]" help="Approved" />
+                    <separator orientation="vertical" />
+                    <field name="employee_id" />
+                    <field name="counter_id" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Form view for The Roster Timesheet -->
+        <record model="ir.ui.view" id="roster_timesheet_form_view">
+            <field name="name">roster.timesheet.form</field>
+            <field name="model">roster.timesheet</field>
+            <field name="arch" type="xml">
+                <form string="Roster Timesheet" version="7.0">
+                    <sheet>
+                    <group colspan="4" col="4">
+                        <field name="employee_id" />
+                        <field name="counter_id" />
+                    </group>
+                    <group colspan="4" col="6">
+                        <field name="current_date" />
+                        <field name="time_from" />
+                        <field name="time_to" />
+                    </group>
+                    <separator colspan="4" />
+                    <group col="8" colspan="4">
+                        <field name="state" />
+                        <button name="case_reset" string="Reset to Unconfirmed"
+                            states="open,done" type="object" icon="gtk-convert"
+                            groups="timesheet_extended.roster_timesheet_manager_group" />
+                        <button name="case_close" string="Done" states="open" type="object"
+                            icon="gtk-jump-to" groups="timesheet_extended.roster_timesheet_manager_group" />
+                        <button name="case_open" string="Confirm" states="draft"
+                            type="object" icon="gtk-go-forward" />
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Calender view for The Roster Timesheet -->
+        <record id="roster_timesheet_calender_view" model="ir.ui.view">
+            <field name="name">roster.timesheet.calender</field>
+            <field name="model">roster.timesheet</field>
+            <field name="arch" type="xml">
+                <calendar string="Meeting" date_start="time_from"
+                    date_stop="time_to" color="employee_id" version="7.0">
+                    <field name="employee_id" widget="selection" />
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Action Window for opening Calender View whenever Menuitem is Click -->
+        <act_window id="action_roster_timesheet_calender_view"
+            name="Schedule Planning" res_model="roster.timesheet" src_model="roster.timesheet"
+            view_mode="calendar,tree,form" />
+
+        <!-- Action for the calender view of Roster timesheet -->
+        <record model="ir.actions.act_window.view" id="action_roster_timesheet_calendar">
+            <field name="sequence" eval="1" />
+            <field name="view_mode">calendar</field>
+            <field name="view_id" ref="roster_timesheet_calender_view" />
+            <field name="act_window_id" ref="action_roster_timesheet_calender_view" />
+        </record>
+
+        <!-- Action for the tree view of Roster timesheet -->
+        <record model="ir.actions.act_window.view" id="action_roster_timesheet_tree">
+            <field name="sequence" eval="2" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="roster_timesheet_tree_view" />
+            <field name="act_window_id" ref="action_roster_timesheet_calender_view" />
+        </record>
+
+        <!-- Action for the form view of Roster timesheet -->
+        <record model="ir.actions.act_window.view" id="action_roster_timesheet_form">
+            <field name="sequence" eval="3" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="roster_timesheet_form_view" />
+            <field name="act_window_id" ref="action_roster_timesheet_calender_view" />
+        </record>
+
+        <record model="ir.actions.act_window" id="actions_roster_timesheet_id">
+            <field name="name">Meetings</field>
+            <field name="res_model">roster.timesheet</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="view_id" ref="roster_timesheet_calender_view" />
+            <field name="search_view_id" ref="roster_timesheet_search_view" />
+            <field name="help">The Roster Planning/Meeting of The sale Employee</field>
+        </record>
+
+        <!-- Updated states of hr_timesheet_sheet model for changing the work flow -->
+        <record model="ir.ui.view" id="timesheet_of_roster_form_view">
+            <field name="name">hr_timesheet_sheet.sheet3.form</field>
+            <field name="model">hr_timesheet_sheet.sheet</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form" />
+            <field name="arch" type="xml">
+<!--                <xpath expr="//form/group[2]" position="attributes">-->
+<!--                    <attribute name='col'>10</attribute>-->
+<!--                    <attribute name='colspan'>4</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="/form/header/button[@name='done']" position="attributes">
+                    <attribute name='string'>Pre-Approved</attribute>
+                    <attribute name='name'>final_confirm</attribute>
+                    <attribute name='groups'>timesheet_extended.roster_timesheet_manager_group</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name='statusbar_visible'>new,confirm,final_confirm,done</attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='cancel']" position="attributes">
+                    <attribute name='states'>confirm,final_confirm</attribute>
+                    <attribute name='groups'>timesheet_extended.roster_timesheet_manager_group</attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='action_set_to_draft']" position="attributes">
+                    <attribute name='groups'>timesheet_extended.roster_timesheet_manager_group</attribute>
+                    <attribute name='states'>confirm,final_confirm,done</attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='button_confirm']" position="attributes">
+                    <attribute name='string'>Confirm</attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='cancel']" position="after">
+                    <button name="done" states="final_confirm" type="workflow"
+                        icon="terp-camera_test" string="Approved"
+                        groups='timesheet_extended.roster_timesheet_manager_group' />
+                </xpath>
+            </field>
+        </record>
+
+        <!--Menu Item for Roster Timesheet Module Inside (Time Trackinng >>Meetings) -->
+        <menuitem id="roster_timesheet_menu" parent="hr_attendance.menu_hr_time_tracking"
+            action="actions_roster_timesheet_id" icon="terp-go-today" />
+
+    </data>
+</openerp>

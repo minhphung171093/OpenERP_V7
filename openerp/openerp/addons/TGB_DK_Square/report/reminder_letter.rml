@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(612.0,792.0)" title="Test" author="Son Pham" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="498" height="678"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica-Bold" fontSize="12.0" leading="15"/>
+    <paraStyle name="P1" fontName="Helvetica-Bold" fontSize="9.0" leading="11"/>
+    <paraStyle name="P2" fontName="Helvetica" fontSize="12.0" leading="15"/>
+    <paraStyle name="P3" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P5" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="terp_header" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_default_8" fontName="Helvetica" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_default_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="Table Contents" fontName="Helvetica"/>
+    <paraStyle name="Table Heading" fontName="Helvetica" alignment="CENTER"/>
+    <images/>
+  </stylesheet>
+  <story>
+    <para style="terp_default_8">[[repeatIn(objects,'o')]]</para>
+    <para style="terp_default_8">[[ setLang(o.partner_id.lang) ]]</para>
+    <para style="terp_default_8">
+      <font color="white">1 </font>
+    </para>
+    <para style="terp_default_8">
+      <font color="white">1 </font>
+    </para>
+    <blockTable colWidths="294.0,48.0,208.0" style="Table1">
+      <tr>
+        <td>
+          <para style="terp_default_9">[[ (o.partner_id and o.partner_id.title and o.partner_id.title.name) or '' ]] [[ (o.partner_id and o.partner_id.name) or '' ]]</para>
+          <para style="terp_default_9">[[ o.partner_id and display_address(o.partner_id) ]]</para>
+          <para style="P3">EMAIL: [[o.partner_id and o.partner_id.email]]</para>
+        </td>
+        <td>
+          <para style="terp_default_8">
+            <font color="white">11</font>
+          </para>
+        </td>
+        <td>
+          <para style="P3">OUR REF: [[o.ref_no]]</para>
+          <para style="P3">DATE : [[o.date_order]]</para>
+        </td>
+      </tr>
+    </blockTable>
+      <blockTable colWidths="500" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+      <blockTable colWidths="550" style="Table1">
+          <tr>
+              <td>
+                    <para style="P1"><u>RE: RENEWAL 1 YEAR([[o.type and o.type.description or o.type.name]]) AIR-CONDITIONING SERVICE CONTRACT</u></para>
+              </td>
+          </tr>
+      </blockTable>
+
+       <blockTable colWidths="500" style="Table1">
+           <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+           <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+    <blockTable colWidths="550" style="Table1">
+      <tr>
+          <td>
+                <para style="P2">
+                  <font face="Helvetica" size="9.0">Have you forgotten us? This is just a friendly reminder that our records indicate we have not received your Air-con service contract.</font>
+                </para>
+          </td>
+      </tr>
+    </blockTable>
+
+
+      <blockTable colWidths="500" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+<blockTable colWidths="550" style="Table1">
+  <tr>
+      <td>
+          <para style="P2">
+              <font face="Helvetica" size="9.0">We're certain this is just an oversight on your part. I'm sure we will receive your Air-con service contract within the next few days.</font>
+          </para>
+
+      </td>
+  </tr>
+</blockTable>
+
+      <blockTable colWidths="500" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+<blockTable colWidths="550" style="Table1">
+  <tr>
+      <td>
+
+          <para style="P2">
+              <font face="Helvetica" size="9.0">If you have already sent us your service contract, please disregard this reminder. Thank you for your continued business.</font>
+          </para>
+      </td>
+  </tr>
+</blockTable>
+
+      <blockTable colWidths="500" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="500" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr><tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr><tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+    <para style="P2">
+      <font face="Helvetica" size="9.0">Your faithfully,</font>
+    </para>
+    <para style="P2">
+      <font face="Helvetica" size="9.0">[[o.company_id and o.company_id.name]]</font>
+    </para>
+
+      <blockTable colWidths="500" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+     <para style="P2">
+      <font face="Helvetica" size="9.0">[[o.appoint_holder and o.appoint_holder.name]]</font>
+    </para>
+    <para style="P2">
+      <font face="Helvetica" size="9.0">HP: [[o.appoint_holder and o.appoint_holder_phone or removeParentNode('para') ]]</font>
+    </para>
+  </story>
+</document>

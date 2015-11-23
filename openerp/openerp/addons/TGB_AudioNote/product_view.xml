@@ -1,0 +1,117 @@
+<openerp>
+    <data>
+
+        <record id="audionote_product_view" model="ir.ui.view">
+            <field name="name">audionote.product.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="price_extra" position="after">
+                    <field name="tgb_length"/>
+                    <field name="tgb_width"/>
+                    <field name="tgb_size"/>
+                    <field name="tgb_weight"/>
+                    <field name="qty_available"/>
+                    <field name="tgb_brand" string="Brand"/>
+                </field>
+                <field name="type" position="replace">
+                    <field name="type" invisible="1"/>
+                    <field name="tgb_type"/>
+                </field>
+                <field name="list_price" position="after">
+                    <field name="suggested_price"/>
+                </field>
+                <notebook position="inside">
+                    <page string="Retail Price">
+                        <separator string="Yen Price"/>
+                        <field name="yen_price"/>
+                        <separator string="Pound Price"/>
+                        <field name="pound_price"/>
+                        <separator string="USD Price"/>
+                        <field name="usd_price"/>
+                    </page>
+                    <page string="Variants">
+                        <group colspan="1" col="4" attrs="{'invisible':[('is_multi_variants','=',False)]}">
+                            <field name="dimension_type_ids" nolabel="1" colspan="4"/>
+                            <button name="add_all_option" string="Add All Options" type="object" colspan="2"/>
+                            <field name="value_ids" nolabel="1" colspan="4"/>
+                            <field name="variant_model_name" colspan="4"/>
+                            <field name="variant_model_name_separator" colspan="4"/>
+                            <field name="code_generator" colspan="4"/>
+                            <field name="variant_track_production" colspan="4"/>
+                            <field name="variant_track_incoming" colspan="4"/>
+                            <field name="variant_track_outgoing" colspan="4"/>
+                            <field name="do_not_generate_new_variant" colspan="4"/>
+                            <field name="do_not_update_variant" colspan="4"/>
+                            <button name="button_generate_variants" string="Generate / Update Variants" type="object"
+                                    colspan="4"/>
+                        </group>
+                        <field name="variant_ids" string="Variants" nolabel="1" colspan="1">
+                            <tree string="Variants">
+                                <field name="code"/>
+                                <field name="name"/>
+                                <field name="variants" string="Dimension Values"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="audionote_product_tree_view" model="ir.ui.view">
+            <field name="name">audionote.product.tree.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="lst_price" position="after">
+                    <field name="qty_available"/>
+                    <field name="tgb_length"/>
+                    <field name="tgb_width"/>
+                    <field name="tgb_size"/>
+                    <field name="tgb_weight"/>
+                    <field name="tgb_brand"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="tgb_brand_action" model="ir.actions.act_window">
+            <field name="name">Brand</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tgb.brand</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain"></field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem action="tgb_brand_action" id="tgb_brand_menu" parent="base.menu_product" sequence="1" name="Brand"/>
+
+
+        <record id="product.open_view_product_tree1" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="product.product_product_tree_view"/>
+            <field name="act_window_id" ref="product.product_normal_action_sell"/>
+        </record>
+
+        <record id="product.open_view_product_form1" model="ir.actions.act_window.view">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product.product_normal_form_view"/>
+            <field name="act_window_id" ref="product.product_normal_action_sell"/>
+        </record>
+
+        <record id="product.open_view_product_kanban1" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="product.product_kanban_view"/>
+            <field name="act_window_id" ref="product.product_normal_action_sell"/>
+        </record>
+
+
+
+    </data>
+</openerp>

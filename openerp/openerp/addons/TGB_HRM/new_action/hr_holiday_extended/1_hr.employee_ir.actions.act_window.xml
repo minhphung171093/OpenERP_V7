@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="action_view_employee_status_board" model="ir.actions.act_window">
+            <field name="name">Employees</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_employee_alert_tree"/>
+            <field name="context">{'no_past_date_bday' : True}</field>
+            <field name="domain">[ '|',('rem_days','in',[1,2,3,4,5]),'|',('emp_status','=','probation'),'&amp;', ('passport_exp_date','&gt;',time.strftime('%Y-%m-1')),('passport_exp_date','&lt;',(datetime.datetime.today().replace(day=1) + relativedelta(months=1) - relativedelta(days=1)).strftime('%Y-%m-%d'))]</field>
+            <field name="search_view_id" ref=""/>
+            <field name="target">current</field>
+        </record>
+    </data>
+</openerp>

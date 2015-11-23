@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="edit_bank_detail_tree" model="ir.ui.view">
+            <field name="name">Bank Details</field>
+            <field name="model">hr.bank.details</field>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Bank Details" version="7.0">
+                    <group col="4" colspan="2">
+                        <field name="bank_name"/>
+                        <field name="bank_code"/>
+                        <field name="branch_code"/>
+                        <field name="bank_ac_no"/>
+                        <field name="beneficiary_name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

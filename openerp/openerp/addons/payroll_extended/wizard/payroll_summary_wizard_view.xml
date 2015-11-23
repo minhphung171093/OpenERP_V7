@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="view_ihrms_payroll_execl_report_wiz" model="ir.ui.view">
+            <field name="name">view.payroll_excel.export.summay.report.wiz</field>
+            <field name="model">payroll.excel.export.summay</field>
+            <field name="arch" type="xml">
+                <form string="Excel Export" version="7.0">
+                    <group>
+                        <field name="file" colspan="4" filename="name"/>
+                    </group>
+<!--                    <button special="ok" string="Ok" icon="gtk-ok" colspan="2"/>-->
+                    <footer>
+                        <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="payroll_summary_wiz" model="ir.ui.view">
+            <field name="name">payroll.summary.wiz</field>
+            <field name="model">payroll.summary.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Payroll Summary" version="7.0">
+                    <separator string="Employees" colspan="4"/>
+                    <newline/>
+                    <field name="employee_ids" required="1" colspan="4" nolabel="1" context="{'active_test': False}">
+                    <tree string="Employees">
+                            <field name="name"/>
+                            <field name="department_id"/>
+                            <field name="work_email"/>
+                        </tree>
+                    </field>
+                    <group col="8" colspan="6">
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                        <field name="export_report" required="1"/>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                    <button name="print_order" string="Save" type="object" icon="gtk-ok" colspan="2"/>
+                </form>
+            </field>
+        </record>
+        <record id="action_print_order" model="ir.actions.act_window">
+            <field name="name">Payroll</field>
+            <field name="res_model">payroll.summary.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+       </record>
+       
+       <menuitem action="action_print_order" id="menu_print_order" parent="menu_report_payroll1_summary" sequence="2"/>
+       
+       
+       <!-- Payroll Generic Summary Excel Report View -->
+        <record id="payroll_summary_generic_report_wiz" model="ir.ui.view">
+            <field name="name">view.payroll.generic.summary.wizard</field>
+            <field name="model">payroll.generic.summary.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Payroll Generic Summary" version="7.0">
+                    <separator string="Employees" colspan="4"/>
+                    <field name="employee_ids" required="1" colspan="4" nolabel="1" context="{'active_test': False}">
+                    <tree string="Employees">
+                            <field name="name"/>
+                            <field name="department_id"/>
+                            <field name="work_email"/>
+                        </tree>
+                    </field>
+                    <group colspan="4">
+                        <separator string="Salary Rules" colspan="4"/>
+                        <field name="salary_rule_ids" nolabel="1" >
+                            <tree string="Employees">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="category_id"/>
+                                <field name="active"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group col="8" colspan="6">
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                        <field name="export_report" required="1"/>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                    <button name="print_order" string="Save" type="object" icon="gtk-ok" colspan="2"/>
+                </form>
+            </field>
+        </record>
+        <record id="action_print_generic_summaryorder" model="ir.actions.act_window">
+            <field name="name">Generic</field>
+            <field name="res_model">payroll.generic.summary.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+       </record>
+       
+       <menuitem action="action_print_generic_summaryorder" id="menu_print_generic_report" parent="menu_report_payroll1_summary" sequence="5"/>
+       
+       <!-- CPF Text File View -->
+       
+       <record id="view_cpf_rule_text_file_wiz" model="ir.ui.view">
+            <field name="name">view.cpf.rule.text.file.wiz</field>
+            <field name="model">cpf.rule.text.file</field>
+            <field name="arch" type="xml" >
+                <form string="Payroll Summary" version="7.0">
+                    <separator string="Employees" colspan="4"/>
+                    <field name="employee_ids" required="1" colspan="4" nolabel="1" context="{'active_test': False}">
+                        <tree string="Employees" version="7.0">
+                            <field name="name"/>
+                            <field name="department_id"/>
+                            <field name="work_email"/>
+                        </tree>
+                    </field>
+                    <field name="period_id"/>
+                    <field name="include_fwl"/>
+                    <separator string="" colspan="4"/>
+                    <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                    <button name="download_cpf_txt_file" string="Save" type="object" icon="gtk-ok" colspan="2"/>
+                </form>
+            </field>
+        </record>
+        <record id="action_print_cpf_txt_file" model="ir.actions.act_window">
+            <field name="name">Text File</field>
+            <field name="res_model">cpf.rule.text.file</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+       </record>
+       <record id="binary_cpf_txt_wizard_file" model="ir.ui.view">
+            <field name="name">binary.cpf.rule.text.file</field>
+            <field name="model">binary.cpf.text.file.wizard</field>
+            <field name="arch" type="xml">
+                <form string="View CPF txt File" version="7.0">
+                    <field name="cpf_txt_file" filename="name"/>
+                    <separator string="" colspan="4"/>
+                    <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                </form>
+            </field>
+        </record>
+       <menuitem action="action_print_cpf_txt_file" id="menu_print_cpf_txt_file" parent="menu_report_payroll1_cpf" sequence="2"/>
+    </data>
+</openerp>

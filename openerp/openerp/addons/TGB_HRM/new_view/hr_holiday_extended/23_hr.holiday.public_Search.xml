@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_holiday_public_search" model="ir.ui.view">
+            <field name="name">hr.holiday.public.search</field>
+            <field name="model">hr.holiday.public</field>
+            <field name="type">search</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <search string="Search holiday" version="7.0">
+                    <field name="name"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,32 @@
+<openerp>
+    <data>
+        <record id="hr_time_table_tree" model="ir.ui.view">
+            <field name="name">Time Table</field>
+            <field name="model">hr.time.table</field>
+            <field name="arch" type="xml">
+                <tree string="Import Attendance" version="7.0" editable="bottom">
+                    <field name="shift_no"/>
+                    <field name="am_in" widget="float_time"/>
+                    <field name="am_out" widget="float_time"/>
+                    <field name="pm_in" widget="float_time"/>
+                    <field name="pm_out" widget="float_time"/>
+                    <field name="ot_in" widget="float_time"/>
+                    <field name="ot_out" widget="float_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tgb_hr_time_table_action" model="ir.actions.act_window">
+            <field name="name">Time Table Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.time.table</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="hr_time_table_menu" action="tgb_hr_time_table_action" name="HR Time Table"
+                  parent="tgb_attendance_import_menu" sequence="10" groups="base.group_hr_attendance"/>
+
+    </data>
+</openerp>

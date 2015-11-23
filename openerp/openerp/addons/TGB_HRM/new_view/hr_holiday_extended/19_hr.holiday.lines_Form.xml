@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_holiday_lines_form" model="ir.ui.view">
+            <field name="name">hr.holiday.lines.form</field>
+            <field name="model">hr.holiday.lines</field>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Holiday detail" version="7.0">
+                    <group colspan="4" col="4">
+                        <field name="holiday_date" on_change="onchange_holiday_date(holiday_date)"/>
+                        <field name="name"/>
+                        <field name="day"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

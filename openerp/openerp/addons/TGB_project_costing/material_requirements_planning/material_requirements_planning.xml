@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_material_requirements_planning_form_view">
+            <field name="name">material.requirements.planning.form</field>
+            <field name="model">material.requirements.planning</field>
+            <field name="arch" type="xml">
+                <form string="material_requirements_planning" version="7.0">
+                    <sheet>
+                        <group col="4">
+
+                        </group>
+                        <notebook>
+                            <page string="Resource Planning Period">
+                                <field name="resource_planning_period_ids"/>
+                            </page>
+                            <page string="Weekly Resource Requirements">
+                                <field name="weekly_resource_requirement_ids"/>
+                            </page>
+                            <page string="Resource Requirement By MPS Voucher">
+                                <field name="resource_requirement_by_mps_vou_ids"/>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_material_requirements_planning_tree_view">
+            <field name="name">material.requirements.planning.tree</field>
+            <field name="model">material.requirements.planning</field>
+            <field name="arch" type="xml">
+                <tree string="material_requirements_planning">
+
+                </tree>
+            </field>
+        </record>
+        <record id="tgb_construction_material_requirements_planning_action" model="ir.actions.act_window">
+            <field name="name">Material Requirements Planning</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">material.requirements.planning</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+        <menuitem name="Material Requirements Planning"
+                  id="meterial_requirements_planning_menu" parent="menu_construction_manufacturing_menu"
+                  action="tgb_construction_material_requirements_planning_action"/>
+    </data>
+</openerp>

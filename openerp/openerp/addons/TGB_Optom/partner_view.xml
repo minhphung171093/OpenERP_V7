@@ -1,0 +1,31 @@
+<openerp>
+    <data>
+        <record id="view_partner_property_form_falcon_inherit" model="ir.ui.view">
+            <field name="name">res.partner.falcon.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="ref" position="after">
+                    <field name="ic_no"/>
+                    <field name="gender"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="view_partner_property_tree_falcon_inherit" model="ir.ui.view">
+            <field name="name">res.partner.falcon.tree.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="email" position="after">
+                    <field name="ic_no"/>
+                    <field name="gender"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

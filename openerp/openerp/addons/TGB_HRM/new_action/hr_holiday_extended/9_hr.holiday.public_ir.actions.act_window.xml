@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_holiday_public_action" model="ir.actions.act_window">
+            <field name="name">Public Holidays</field>
+            <field name="res_model">hr.holiday.public</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref=""/>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref=""/>
+            <field name="target">current</field>
+        </record>
+    </data>
+</openerp>

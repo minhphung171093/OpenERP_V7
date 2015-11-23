@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_salary_admin_rule_form" model="ir.ui.view">
+            <field name="name">hr.salary.rule.admin.form</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Salary Rules" version="7.0">
+                    <sheet>
+                        <group col="6" colspan="6" groups="base.group_system,base.group_erp_manager">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category_id"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="appears_on_payslip" invisible="1"/>
+                            <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                        </group>
+                        <notebook colspan="6">
+                            <page string="General" groups="base.group_system,base.group_erp_manager">
+                                <group col="4" colspan="6" groups="base.group_system,base.group_erp_manager">
+                                    <separator colspan="4" string="Conditions"/>
+                                    <field name="condition_select"/>
+                                    <newline/>
+                                    <field name="condition_python"
+                                           attrs="{'invisible':[('condition_select','&lt;&gt;','python')], 'required': [('condition_select','=','python')]}"
+                                           colspan="4"/>
+                                    <newline/>
+                                    <field name="condition_range"
+                                           attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/>
+                                    <newline/>
+                                    <field name="condition_range_min" colspan="2"
+                                           attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/>
+                                    <newline/>
+                                    <field name="condition_range_max" colspan="2"
+                                           attrs="{'invisible':[('condition_select','&lt;&gt;','range')], 'required':[('condition_select','=','range')]}"/>
+                                    <newline/>
+                                    <separator colspan="4" string="Computation"/>
+                                    <field name="amount_select"/>
+                                    <newline/>
+                                    <field name="amount_percentage_base"
+                                           attrs="{'invisible':[('amount_select','&lt;&gt;','percentage')], 'required': [('amount_select','=','percentage')]}"/>
+                                    <newline/>
+                                    <field name="quantity"
+                                           attrs="{'invisible':[('amount_select','=','code')], 'required':[('amount_select','!=','code')]}"/>
+                                    <newline/>
+                                    <field name="amount_fix"
+                                           attrs="{'invisible':[('amount_select','&lt;&gt;','fix')], 'required':[('amount_select','=','fix')]}"/>
+                                    <newline/>
+                                    <field name="amount_percentage"
+                                           attrs="{'invisible':[('amount_select','&lt;&gt;','percentage')], 'required':[('amount_select','=','percentage')]}"/>
+                                    <field colspan="4" name="amount_python_compute"
+                                           attrs="{'invisible':[('amount_select','&lt;&gt;','code')], 'required':[('amount_select','=','code')]}"/>
+                                    <separator colspan="4" string="Company contribution"/>
+                                    <field name="register_id"/>
+                                </group>
+                            </page>
+                            <page string="Child Rules" groups="base.group_system,base.group_erp_manager">
+                                <group>
+                                    <field name="parent_rule_id"/>
+                                    <separator colspan="4" string="Children definition"/>
+                                    <field colspan="4" name="child_ids" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Inputs" groups="base.group_system,base.group_erp_manager">
+                                <group>
+                                    <field name="input_ids" colspan="4" nolabel="1">
+                                        <tree string="Input Data" editable="bottom">
+                                            <field name="name"/>
+                                            <field name="code"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="GL Code">
+                                <group>
+                                    <separator colspan="6" string="Salary Rule GL Code"/>
+                                    <field name="hr_salary_rule_glcode_ids" colspan="6" nolabel="1">
+                                        <tree editable="top" string="GL Code" version="7.0">
+                                            <field name="gl_code_id"/>
+                                            <field name="emp_categ_id"/>
+                                            <field name="saved_back_cpf"/>
+                                            <field name="saved_back_salary"/>
+                                            <field name="apply_bank_cheque"/>
+                                            <field name="nagative"/>
+                                        </tree>
+                                        <form string="GL Code" version="7.0">
+                                            <group>
+                                                <field name="gl_code_id"/>
+                                                <field name="emp_categ_id"/>
+                                                <field name="saved_back_cpf"/>
+                                                <field name="saved_back_salary"/>
+                                                <field name="apply_bank_cheque"/>
+                                                <field name="nagative"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Description" groups="base.group_system,base.group_erp_manager">
+                                <group>
+                                    <field name="note" colspan="4" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

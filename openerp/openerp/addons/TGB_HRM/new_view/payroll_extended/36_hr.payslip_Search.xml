@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="hr_payslip_extended_search_view" model="ir.ui.view">
+            <field name="name">hr.payslip.extended.search</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="type">search</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='date_from']" position="after">
+                        <field name="date_to"/>
+                    </xpath>
+                    <xpath expr="/search/filter[@string='Draft']" position="replace">
+                        <filter icon="gtk-no" string="Pay" domain="[('active','=',False)]" help="Inactive Slip"/>
+                        <filter icon="terp-document-new" name="draft" string="Draft" domain="[('state','=','draft')]"
+                                help="Draft Slip"/>
+                    </xpath>
+                    <xpath expr="/search/group[1]/filter[@string='PaySlip Batch']" position="before">
+                        <filter icon="terp-personal+" domain="[('active_employee','=',True)]" string="Active"/>
+                        <filter icon="gtk-no" string="Inactive" domain="[('active_employee','=',False)]"
+                                help="Inactive Employee"/>
+                        <separator orientation="vertical"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

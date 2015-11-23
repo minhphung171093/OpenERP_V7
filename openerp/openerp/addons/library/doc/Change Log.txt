@@ -1,0 +1,10 @@
+===============================================================================
+ Version Change Log
+ Module: library
+===============================================================================
+
+Version 1.0 on 2013-09-20 by Anu Patel
+    * Added groups to menu Card Detail, Book issues, Book Requests for student.
+    * Added record rule in card.detail, book.issue, book.request for student.
+    * Addded group to Button like "Book Issue, Cancel" in book.issue
+    

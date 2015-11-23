@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- PR / WH Payroll Summary Report Wizard View, Action and Menu -->
+        <record id="view_pr_wh_payroll_summary_report_wiz" model="ir.ui.view">
+            <field name="name">view.pr.wh.payroll.summary.report.wiz.form</field>
+            <field name="model">pr.wh.payroll.summary</field>
+            <field name="arch" type="xml">
+                <form string="PR/WH Payroll" version="7.0">
+                    <group>
+	                    <field name="period_from" required="1" attrs="{'invisible':[('is_generate','!=',False)]}"/>
+	                    <field name="is_generate" />
+	                    <field name="name" invisible="1"/>
+	                    <field name="file" filename="name" attrs="{'invisible':[('is_generate','=',False)]}"/>
+	                </group>
+                    <separator string="" colspan="4"/>
+                    <footer>
+	                    <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2" />
+	                    <button name="export_pr_wh_payroll_report" string="Save" type="object" icon="gtk-ok" colspan="2" attrs="{'invisible':[('is_generate','!=',False)]}" />
+	                </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_pr_wh_payroll_summary_report_wiz" model="ir.actions.act_window">
+            <field name="name">PR/WH Payroll</field>
+            <field name="res_model">pr.wh.payroll.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+       </record>
+       <menuitem action="action_pr_wh_payroll_summary_report_wiz" id="menu_pr_wh_payroll_summary" parent="menu_payroll_icrm"/>
+
+    </data>
+</openerp>

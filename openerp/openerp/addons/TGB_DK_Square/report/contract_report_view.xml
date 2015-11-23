@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--<report auto="False" id="report_dk_contract_page_1" model="dk.contract" name="dk.contract.page1"-->
+                <!--rml="TGB_DK_Square/report/contract_page1.rml" string="Page 1"-->
+                <!--usage="default"/>-->
+        <!--<report auto="False" id="report_dk_contract_page_2" model="dk.contract" name="dk.contract.page2"-->
+                <!--rml="TGB_DK_Square/report/contract_page2.rml" string="Page 2"-->
+                <!--usage="default"/>-->
+        <!--<report auto="False" id="report_dk_contract_page_3" model="dk.contract" name="dk.contract.page3"-->
+                <!--rml="TGB_DK_Square/report/contract_page3.rml" string="Page 3"-->
+                <!--usage="default"/>-->
+
+
+        <report auto="False" id="report_dk_contract_all" model="dk.contract" name="dk.contract.all"
+                rml="TGB_DK_Square/report/contract_all.rml" string="Contract"
+                usage="default"/>
+
+
+
+
+        <!--<report auto="False" id="report_dk_contract_page_1_dot_matrix" model="dk.contract" name="dk.contract.page1.dotmatrix"-->
+                <!--rml="TGB_DK_Square/report/contract_page1.rml" string="Page 1 dot Matrix" header="False" usage="default"/>-->
+
+        <!--<report auto="False" id="report_dk_contract_page_2_dot_matrix" model="dk.contract" name="dk.contract.page2.dotmatrix"-->
+                <!--rml="TGB_DK_Square/report/contract_page2.rml" string="Page 2 dot Matrix" header="False" usage="default"/>-->
+
+        <!--<report auto="False" id="report_dk_contract_page_3_dot_matrix" model="dk.contract" name="dk.contract.page3.dotmatrix"-->
+                <!--rml="TGB_DK_Square/report/contract_page3.rml" string="Page 3 dot Matrix" header="False" usage="default"/>-->
+
+        <report auto="False" id="report_dk_contract_all_dot_matrix" model="dk.contract" name="dk.contract.all.dotmatrix"
+                rml="TGB_DK_Square/report/contract_all.rml" string="Contract dot Matrix"  header="False"
+                usage="default"/>
+
+        <report auto="False" id="report_dk_contract_renewal_all" model="dk.contract" name="dk.contract.renewal.all"
+                rml="TGB_DK_Square/report/contract_renewal_all.rml" string="Contract Renewal"
+                usage="default"/>
+
+        <report auto="False" id="report_dk_contract_renew_all" model="dk.contract" name="dk.contract.renew.all"
+                rml="TGB_DK_Square/report/contract_renew_all.rml" string="Contract Reminder"  header="False"
+                usage="default"/>
+
+       <!-- <report auto="False" id="report_dk_contract_reminder_letter" model="dk.contract" name="dk.reminder.letter"
+                rml="TGB_DK_Square/report/reminder_letter.rml" string="Reminder Letter"  header="False"
+                usage="default"/> -->
+
+
+
+    </data>
+</openerp>

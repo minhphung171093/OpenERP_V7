@@ -1,0 +1,28 @@
+<openerp>
+    <data>
+        <record id="view_move_picking_tree_TGB" model="ir.ui.view">
+            <field name="name">stock.move.tree.TGB</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="place"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_move_form_TGB" model="ir.ui.view">
+            <field name="name">stock.move.form.TGB</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="sale_line_id" position="after">
+                    <field name="place"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_package_booking_calendar" model="ir.ui.view">
+            <field name="name">Service Booking</field>
+            <field name="model">package.booking</field>
+            <field name="arch" type="xml">
+                <calendar string="DK Appointment" date_start="date" color="user_id">
+                    <field name="date"/>
+                            <field string="Customer" name="partner_id"
+                                groups="base.group_user" context="{'search_default_customer':1, 'show_address': 1}"
+                                options='{"always_reload": True}'
+                                domain="[('customer', '=', True)]"/>
+                            <field name="user_id"/>
+                            <field name="contract_id"/>
+                            <field name="location_of_service"/>
+                </calendar>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="saicoms_package_booking_form">
+            <field name="name">package.booking.form</field>
+            <field name="model">package.booking</field>
+            <field name="arch" type="xml">
+                <form string="DK Appointment" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="date" colspan="1"/>
+                            <field string="Customer" name="partner_id" colspan="1"
+                                groups="base.group_user" context="{'search_default_customer':1, 'show_address': 1}"
+                                options='{"always_reload": True}'
+                                domain="[('customer', '=', True)]"/>
+                            <field name="location_of_service"/>
+                            <field name="user_id" colspan="1"/>
+                            <field name="contract_id" colspan="1"/>
+                            <newline/>
+                            <field name="note" colspan="4"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="saicoms_package_booking_tree">
+            <field name="name">package.booking.form</field>
+            <field name="model">package.booking</field>
+            <field name="arch" type="xml">
+                <tree string="DK Appointment" version="7.0">
+                    <field name="date"/>
+                    <field string="Customer" name="partner_id"
+                        domain="[('customer', '=', True)]"/>
+                    <field name="user_id"/>
+                    <field name="contract_id"/>
+                    <field name="location_of_service"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_package_booking" model="ir.actions.act_window">
+            <field name="name">Appointment</field>
+            <field name="res_model">package.booking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,form,tree</field>
+            <field name="view_id" ref="view_package_booking_calendar"/>
+        </record>
+
+        <menuitem action="action_package_booking" id="menu_saicoms_pos_package_booking"
+                  parent="menu_dk_square_contract_management" sequence="10"
+                   />
+
+    </data>
+</openerp>

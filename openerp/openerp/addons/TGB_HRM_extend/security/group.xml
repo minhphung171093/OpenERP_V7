@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- Create Manage Group and Inherit Hr Manager Group -->
+        <record id="tgb_hr" model="res.groups">
+            <field name="name">TGB HR</field>
+            <field name="category_id" ref="base.module_category_human_resources"/>
+        </record>
+
+    </data>
+</openerp>

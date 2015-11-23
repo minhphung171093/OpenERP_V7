@@ -1,0 +1,110 @@
+<openerp>
+    <data>
+        <record id="view_order_form_audionote_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.audionote.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <xpath
+                        expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='product_id']"
+                        position="after">
+                    <field name="suggested_price"/>
+                    <field name="tgb_length" invisible="1"/>
+                </xpath>
+                <xpath
+                        expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='price_subtotal']"
+                        position="after">
+                    <field name="subtotal_template" on_change="subtotal_template_change(subtotal_template,tax_id,product_uom_qty,product_id,parent.partner_id,discount,parent.pricelist_id.currency_id)" invisible="1"/>
+                    <field name="total_temp" on_change="total_temp_change(total_temp,tax_id,product_uom_qty,product_id,parent.partner_id,discount,parent.pricelist_id.currency_id)"/>
+                </xpath>
+
+                <xpath
+                        expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='price_subtotal']"
+                        position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+
+
+                <!--<xpath-->
+                        <!--expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='price_unit']"-->
+                        <!--position="replace">-->
+                    <!--<field name="price_unit" on_change="price_unit_change2(price_unit,tax_id,product_uom_qty,product_id,parent.partner_id,discount,parent.pricelist_id.currency_id)"/>-->
+                <!--</xpath>-->
+
+                <!--<xpath-->
+                        <!--expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='discount']"-->
+                        <!--position="replace">-->
+                    <!--<field name="discount" groups="sale.group_discount_per_so_line" on_change="price_unit_change2(price_unit,tax_id,product_uom_qty,product_id,parent.partner_id,discount,parent.pricelist_id.currency_id)"/>-->
+                <!--</xpath>-->
+
+
+
+                <!--<xpath-->
+                        <!--expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='price_unit']"-->
+                        <!--position="replace">-->
+                    <!--<field name="price_unit" on_change="price_unit_change(price_unit,price_taxed,tax_id,product_uom_qty,product_id,parent.partner_id)"/>-->
+                    <!--<field name="price_taxed" on_change="taxed_price_change(price_taxed,price_unit,tax_id)"/>-->
+                <!--</xpath>-->
+
+                 <!--<xpath-->
+                        <!--expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='price_unit']"-->
+                        <!--position="after">-->
+                     <!--<field name="inclusive" on_change="inclusive_change(inclusive,tax_id)"/>-->
+                <!--</xpath>-->
+
+                <!--<xpath-->
+                        <!--expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='price_subtotal']"-->
+                        <!--position="after">-->
+                    <!--<field name="taxed_subtotal"/>-->
+                <!--</xpath>-->
+
+                <xpath
+                        expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree/field[@name='tax_id']"
+                        position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath
+                        expr="//notebook//page[@string='Order Lines']//field[@name='order_line']//tree[@string='Sales Order Lines']"
+                        position="attributes">
+                </xpath>
+                <field name="amount_untaxed" position="replace">
+                    <field name="amount_untaxed" widget='monetary' string="Untaxed Amount"
+                           options="{'currency_field': 'currency_id'}"/>
+                </field>
+
+                <notebook position="inside">
+                    <page string="Sale Deposit">
+                        <field name="sale_deposit_ids"/>
+                    </page>
+                </notebook>
+
+                <field name = "user_id" position="replace"/>
+                <field name = "partner_shipping_id" position="after">
+                    <field name="user_id"/>
+                </field>
+
+                <field name="state" position="before">
+                    <button name="make_deposit" string="Make deposit" type="object" attrs="{'invisible': [('invoice_exists', '=', True)]}"/>
+                    <button name="action_register_payment" string="Register Payment" type="object" class="oe_highlight"
+                            attrs="{'invisible': True}" groups="base.group_user"/>
+                    <button name="deposit_trans_to_payment" string="Transfer Deposit" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('invoice_exists', '=', False)]}" groups="base.group_user" invisible="1"/>
+                    <button name="register_payment" string="Register Payments" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('invoice_exists', '=', False)]}" groups="base.group_user"/>
+                </field>
+
+                <field name="invoice_exists" position="replace">
+                    <field name="invoice_exists" invisible="1"/>
+                </field>
+
+                <field name = "amount_total" position="after">
+                    <field name="amount_deposit"/>
+                    <field name="amount_balance"/>
+                </field>
+
+            </field>
+        </record>
+    </data>
+</openerp>

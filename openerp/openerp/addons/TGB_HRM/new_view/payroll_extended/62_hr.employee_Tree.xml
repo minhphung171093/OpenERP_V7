@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_hr_employee_small_form" model="ir.ui.view">
+            <field name="name">view.hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_holidays.hr_holidays_leaves_assign_tree_view"/>
+            <field name="type">tree</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="remaining_leaves" position="replace"/>
+            </field>
+        </record>
+    </data>
+</openerp>

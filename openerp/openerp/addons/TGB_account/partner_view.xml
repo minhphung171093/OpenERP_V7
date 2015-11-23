@@ -1,0 +1,16 @@
+<openerp>
+    <data>
+        <record id="view_partner_property_form_TGB_inherit" model="ir.ui.view">
+            <field name="name">res.partner.TGB.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority">36</field>
+            <field name="arch" type="xml">
+                <field name="title" position="after">
+                    <field name="company_registry" attrs="{'invisible': [('is_company','=', False)]}"/>
+                    <field name="gst_registry" attrs="{'invisible': [('is_company','=', False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

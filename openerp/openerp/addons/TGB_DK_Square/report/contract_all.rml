@@ -1,0 +1,1005 @@
+<?xml version="1.0"?>
+<document filename="Contract.pdf">
+<template title="Test" author="Son Pham" allowSplitting="20">
+    <pageTemplate id="first">
+        <frame id="first" x1="0.7cm" y1="-4.0cm" height="27.7cm" width="19.0cm"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+      <blockTableStyle id="Table5">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+  <blockTableStyle id="table_round_1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEAFTER" colorName="#000000" start="0,0" stop="0,0"/>
+    </blockTableStyle>
+   <blockTableStyle id="table_round_2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEAFTER" colorName="#000000" start="1,0" stop="1,0"/>
+    </blockTableStyle>
+
+      <blockTableStyle id="table_round_3">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEAFTER" colorName="#000000" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,0" stop="-1,0"/>
+    </blockTableStyle>
+
+      <blockTableStyle id="TableNoSpace">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <blockBottomPadding length="2" start="0,0" stop="-1,-1"/>
+      <blockTopPadding length="2" start="0,0" stop="-1,-1"/>
+    </blockTableStyle>
+
+
+
+
+
+
+      <blockTableStyle id="Table2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table3">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table4">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+
+      <blockTableStyle id="Table4_underline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+          <lineStyle kind="LINEBELOW" colorName="#000000" start="0,3" stop="0,3"/>
+          <lineStyle kind="LINEBELOW" colorName="#000000" start="2,3" stop="2,3"/>
+          <blockLeftPadding length="0" start="0,0" stop="-1,-1"/>
+    </blockTableStyle>
+
+
+      <blockTableStyle id="Table1_underline">
+      <blockLeftPadding length="0" start="0,0" stop="-1,-1"/>
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+          <lineStyle kind="LINEBELOW" colorName="#000000" start="0,1" stop="0,1"/>
+    </blockTableStyle>
+
+
+    <blockTableStyle id="Table6">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" fontName="Helvetica-Bold" fontSize="10.0" leading="15"/>
+      <paraStyle name="P1" fontName="Arial" fontSize="10.0" leading="11"/>
+    <paraStyle name="P1_p2" fontName="Helvetica-Bold" fontSize="9.0" leading="11"/>
+    <paraStyle name="P2" fontName="Arial" fontSize="12.0" leading="15"/>
+      <paraStyle name="P2_p2" fontName="Helvetica-Bold" fontSize="9.0" leading="11"/>
+    <paraStyle name="P3" fontName="Arial" fontSize="11.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" fontName="Arial" fontSize="11.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P5" fontName="Arial" alignment="CENTER"/>
+    <paraStyle name="Standard" fontName="Arial"/>
+    <paraStyle name="Heading" fontName="Arial" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Arial" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Arial" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Arial" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Arial"/>
+    <paraStyle name="terp_header" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_default_8" fontName="Arial" fontSize="9.0" leading="10" alignment="LEFT" spaceBefore="1.0" spaceAfter="1.0"/>
+    <paraStyle name="terp_default_9" fontName="Arial" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="0.0" spaceAfter="1.0"/>
+    <paraStyle name="terp_default_9_bold" fontName="Helvetica-Bold" fontSize="10.0" leading="13" alignment="LEFT" spaceBefore="0.0" spaceAfter="1.0"/>
+    <paraStyle name="Table Contents" fontName="Arial"/>
+    <paraStyle name="Table Heading" fontName="Arial" alignment="CENTER"/>
+      <paraStyle name="P4_p3" fontName="Helvetica-Bold" fontSize="10.0" leading="15"/>
+      <paraStyle name="P1_right" fontName="Arial" fontSize="10.0" leading="11" alignment="CENTER"/>
+      <paraStyle name="P1_right2" fontName="Arial" fontSize="10.0" leading="11" alignment="RIGHT"/>
+    <images/>
+  </stylesheet>
+  <story>
+    <para style="terp_default_8">[[repeatIn(objects,'o')]]</para>
+    <para style="terp_default_8">[[ setLang(o.partner_id.lang) ]]</para>
+    <para style="terp_default_8">
+
+      <font color="white">1 </font>
+    </para>
+    <para style="terp_default_8">
+      <font color="white">1 </font>
+    </para>
+    <blockTable colWidths="300.0,40.0,130.0" style="Table1">
+      <tr>
+        <td>
+          <para style="terp_default_9">[[ (o.partner_id and o.partner_id.title and o.partner_id.title.name) or '' ]] [[ (o.partner_id and o.partner_id.name) or '' ]]</para>
+          <para style="terp_default_9">[[ o.partner_id and display_address(o.partner_id) ]]</para>
+          <para style="terp_default_9">ATTN: [[o.attn_id.name or removeParentNode('para')]]</para>
+        </td>
+        <td>
+          <para style="terp_default_8">
+            <font color="white">11</font>
+          </para>
+        </td>
+        <td>
+          <para style="terp_default_9">OUR REF: [[o.ref_no]]</para>
+          <para style="terp_default_9">DATE : [[formatLang(o.date_order,date=True)]]</para>
+        </td>
+      </tr>
+    </blockTable>
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                    <para style="terp_default_9_bold"><u>RE: PROPOSED 1 YEAR([[o.type and o.type.description or o.type.name]]) AIR-CONDITIONING SERVICE CONTRACT</u></para>
+              </td>
+          </tr>
+      </blockTable>
+
+       <blockTable colWidths="470" style="Table1">
+           <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+           <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="470" style="Table1">
+           <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+           <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+
+    <blockTable colWidths="470" style="Table1">
+      <tr>
+          <td>
+                <para style="terp_default_9">
+                  We refer to abovementioned and have pleasesure to enclosed here with our Air-conditioning Service &amp; Maintenance Contact for your kind acceptance.
+                </para>
+          </td>
+      </tr>
+    </blockTable>
+
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+    <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+            <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+        <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+
+      </blockTable>
+
+
+<blockTable colWidths="470" style="Table1">
+  <tr>
+      <td>
+          <para style="terp_default_9">
+              A [[o.type and o.type.description or o.type.name]] Air-conditioning Service will be provided to you upon your confirmation on the attached Service Contract.
+          </para>
+
+      </td>
+  </tr>
+</blockTable>
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+<blockTable colWidths="470" style="Table1">
+  <tr>
+      <td>
+
+          <para style="terp_default_9">
+              We trust that our proposal will meet your requirements &amp; we assure to serve you with our best at all time.
+          </para>
+      </td>
+  </tr>
+</blockTable>
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+<blockTable colWidths="470" style="Table1">
+  <tr>
+      <td>
+          <para style="terp_default_9">
+              Thank you &amp; have a nice day.
+          </para>
+
+      </td>
+  </tr>
+</blockTable>
+
+      <blockTable colWidths="470" rowHeights="50" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="150,120,199" style="Table1_underline" rowHeights="40">
+          <tr>
+              <td>
+                  <para style="terp_default_9">
+                      Your faithfully,
+                    </para>
+                    <para style="terp_default_9">
+                      [[o.company_id and o.company_id.name]]
+                    </para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <image width="130" height="30">[[ o.appoint_holder.image or removeParentNode('image') ]]
+                    </image>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+
+
+          <tr>
+              <td>
+                  <para style="terp_default_9">
+                      [[o.appoint_holder and o.appoint_holder.name]]
+                    </para>
+                    <para style="terp_default_9">
+                      HP: [[o.appoint_holder and o.appoint_holder_phone or removeParentNode('para') ]]
+                    </para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+       <condPageBreak height="20cm"/>
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+         <blockTable colWidths="300.0,40.0,130.0" style="Table1">
+      <tr>
+        <td>
+          <para style="terp_default_9">[[ (o.partner_id and o.partner_id.title and o.partner_id.title.name) or '' ]] [[ (o.partner_id and o.partner_id.name) or '' ]]</para>
+          <para style="terp_default_9">[[ o.partner_id and display_address(o.partner_id) ]]</para>
+          <para style="terp_default_9">ATTN: [[o.attn_id.name or removeParentNode('para')]]</para>
+          <para style="P10">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="terp_default_8">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="terp_default_9">OUR REF: [[o.ref_no]]</para>
+          <para style="terp_default_9">DATE : [[formatLang(o.date_order,date=True)]]</para>
+        </td>
+      </tr>
+    </blockTable>
+      <blockTable colWidths="470.0" style="Table5">
+              <tr>
+                  <td>
+                      <para style="terp_default_9_bold"><u>RE: PROPOSED 1 YEAR ([[o.type.description or o.type.name]]) AIR-CONDITIONING SERVICE CONTRACT</u></para>
+                </td>
+              </tr>
+        </blockTable>
+
+      <blockTable colWidths="470.0" style="Table5">
+              <tr>
+                  <td>
+                      <para style="terp_default_9">[[o.company_id and o.company_id.name]] agrees to provide [[o.type.description or o.type.name]] service &amp; maintenance of air-conditioning contract of <b>S$ [[o.amount or '0']]</b> [[o.per_annum]] [[check_inclusive(o)]]</para>
+                </td>
+              </tr>
+        </blockTable>
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="terp_default_9_bold"><u>[[o.dk_subject]]</u></para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="470" style="Table1" rowHeights="115">
+          <tr>
+              <td>
+                  <para style="terp_default_9">[[o.contract_term]]</para>
+              </td>
+          </tr>
+      </blockTable>
+
+
+    <blockTable colWidths="150.0,20,300.0" style="Table3">
+      <tr>
+        <td>
+          <para style="terp_default_9_bold">Contract period from</para>
+        </td>
+          <td>
+          <para style="terp_default_9">:</para>
+        </td>
+        <td>
+          <para style="terp_default_9"> <u>[[period_name_get(o.start_date2.code)]]</u> to <u>[[period_name_get(o.exp_date2.code)]]</u></para>
+        </td>
+      </tr>
+        <tr>
+             <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+            <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+            <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+        </tr>
+      </blockTable>
+
+       <blockTable colWidths="150.0,20,300.0" style="Table3">
+      <tr>
+        <td>
+          <para style="terp_default_9_bold">Person to Contact</para>
+        </td>
+          <td>
+          <para style="terp_default_9">:</para>
+        </td>
+        <td>
+          <para style="terp_default_9"> <u>[[o.contact_person_id]]</u></para>
+        </td>
+      </tr>
+           <tr>
+             <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+            <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+            <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+        </tr>
+
+           </blockTable>
+
+
+       <blockTable colWidths="150.0,20,300.0" style="Table3">
+      <tr>
+        <td>
+          <para style="terp_default_9_bold">Contact No</para>
+        </td>
+          <td>
+          <para style="terp_default_9">:</para>
+        </td>
+        <td>
+          <para style="terp_default_9"> <u>[[o.contact_person_phone]]</u></para>
+        </td>
+      </tr>
+           <tr>
+             <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+            <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+            <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+        </tr>
+           </blockTable>
+       <blockTable colWidths="150.0,20,300.0" style="Table3">
+      <tr>
+        <td>
+          <para style="terp_default_9_bold">Location of service</para>
+        </td>
+          <td>
+          <para style="terp_default_9">:</para>
+        </td>
+        <td>
+          <para style="terp_default_9"><u>[[get_location_of_service(o,o.location_of_service)]]</u></para>
+        </td>
+      </tr>
+           <tr>
+             <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+            <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+            <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+        </tr>
+    </blockTable>
+
+      <blockTable colWidths="150.0,20,300.0" style="Table3">
+      <tr>
+        <td>
+          <para style="terp_default_9_bold">Email</para>
+        </td>
+          <td>
+          <para style="terp_default_9">:</para>
+        </td>
+        <td>
+          <para style="terp_default_9"> <u>[[o.contact_email]]</u></para>
+        </td>
+      </tr>
+    </blockTable>
+
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+    <blockTable colWidths="150,120,199" style="Table4_underline">
+      <tr>
+        <td>
+          <para style="terp_default_9">Your faithfully,</para>
+            <para style="terp_default_9">[[o.company_id and o.company_id.name]]</para>
+        </td>
+          <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+        <td>
+          <para style="terp_default_9">Accepted and confirmed by:</para>
+        </td>
+      </tr>
+        <tr>
+            <td>
+                <image width="130" height="30">[[ o.appoint_holder.image or removeParentNode('image') ]]
+                    </image>
+            </td>
+            <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+            <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+            <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+            <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+            <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+            <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+        </tr>
+      <tr>
+        <td>
+          <para style="terp_default_9">[[o.appoint_holder and o.appoint_holder.name]]</para>
+          <para style="terp_default_9">HP: [[o.appoint_holder and o.appoint_holder_phone or removeParentNode('para') ]]</para>
+        </td>
+          <td>
+                <para style="P3"><font color="white"> </font></para>
+            </td>
+        <td>
+          <para style="terp_default_9">Company chop &amp; signatory</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P6">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="470.0" style="table_round_1">
+      <tr>
+        <td>
+          <para style="terp_default_9">I/ I/WE, ACCEPTED &amp; CONFIRMED ABOVE AIRCON SERVICE &amp; MAINTENANCE CONTRACT AND ENCLOSED HERE WITH MY/OUR CHEQUE WITH FULL PAYMENT TO DK SQUARE ENGINEERING </para>
+        </td>
+      </tr>
+    </blockTable>
+      <blockTable colWidths="300,170.0" style="table_round_2">
+          <tr>
+              <td>
+                    <para style="terp_default_9_bold">CONTRACT REF: [[o.ref_no]]                         </para>
+              </td>
+              <td>
+                  <para style="terp_default_9_bold">DATE: [[formatLang(o.date_order,date=True)]]</para>
+              </td>
+          </tr>
+    </blockTable>
+    <blockTable colWidths="150,150,170.0" style="table_round_3">
+      <tr>
+        <td>
+          <para style="P1_p2">BANK/CHEQUE NO:[[o.dk_bank_cheque_no]] </para>
+        </td>
+          <td>
+              <para style="P1_p2">$[[o.dk_bank_cheque_amount ]]</para>
+          </td>
+        <td>
+          <para style="P8">DATE: [[formatLang(o.dk_bank_date,date=True)]]</para>
+        </td>
+      </tr>
+    </blockTable>
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+      <blockTable colWidths="470.0" style="Table5">
+              <tr>
+                  <td>
+                      <para style="terp_default_9_bold">
+                          Please sign and return duplicate copy with full payment to our Office early so as to avoid delayed service.
+                        </para>
+                  </td>
+              </tr>
+        </blockTable>
+      <condPageBreak height="20cm"/>
+
+
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="470" style="Table1">
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+      <blockTable colWidths="300.0,50.0,120.0" style="Table1">
+      <tr>
+        <td>
+          <para style="terp_default_9">[[ (o.partner_id and o.partner_id.title and o.partner_id.title.name) or '' ]] [[ (o.partner_id and o.partner_id.name) or '' ]]</para>
+          <para style="terp_default_9">[[ o.partner_id and display_address(o.partner_id) ]]</para>
+          <para style="P3">ATTN: [[o.attn_id.name or removeParentNode('para')]]</para>
+        </td>
+        <td>
+          <para style="terp_default_8">
+            <font color="white"> </font>
+          </para>
+        </td>
+        <td>
+          <para style="P9">OUR REF: [[o.ref_no]]</para>
+          <para style="P9">DATE : [[formatLang(o.date_order,date=True)]]</para>
+        </td>
+      </tr>
+    </blockTable>
+      <blockTable colWidths="470.0" style="TableNoSpace">
+              <tr>
+                  <td>
+                      <para style="P4_p3"><u>[[o.company_id and o.company_id.name]] agrees to :- </u></para>
+                </td>
+              </tr>
+        </blockTable>
+    <blockTable colWidths="30.0,440" style="TableNoSpace">
+      <tr>
+        <td>
+          <para style="P1">*</para>
+        </td>
+         <td>
+          <para style="P1">Provide [[o.type and o.type.description or o.type.name]] routine maintenance service of air-conditioning system as listing in the breakdown of air-conditioning system</para>
+        </td>
+      </tr>
+        <tr>
+        <td>
+          <para style="P1">*</para>
+        </td>
+         <td>
+          <para style="P1">A service chit will be issued if there is any comments during each routine service or attending  of emergency breakdown call. </para>
+        </td>
+      </tr>
+        <tr>
+        <td>
+          <para style="P1">*</para>
+        </td>
+         <td>
+          <para style="P1">Any recommendations for needed repairs will be submitted to you for approval within 7 days of detection</para>
+        </td>
+      </tr>
+    <tr>
+        <td>
+          <para style="P1">*</para>
+        </td>
+         <td>
+          <para style="P1">Instruct the operator, the proper operation of the equipment.</para>
+        </td>
+      </tr>
+    <tr>
+        <td>
+          <para style="P1">*</para>
+        </td>
+         <td>
+          <para style="P4_p3">SCOPE OF WORK :-</para>
+        </td>
+      </tr>
+    </blockTable>
+      <blockTable colWidths="50.0,420" style="TableNoSpace">
+          <tr>
+              <td>
+                    <para style="P1_right">1)</para>
+              </td>
+              <td>
+                    <para style="P1">Check all fan bearing and lubricant where necessary.</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right">2)</para>
+              </td>
+              <td>
+                    <para style="P1">Check motor bearing and add grease where necessary.</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right">3)</para>
+              </td>
+              <td>
+                    <para style="P1">Check cleanliness of condenser coil flushing of condenser with water or use blower where necessary.</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right">4)</para>
+              </td>
+              <td>
+                    <para style="P1">Check, wash and clean filters.</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right">5)</para>
+              </td>
+              <td>
+                    <para style="P1">Check refrigeration system.</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right">6)</para>
+              </td>
+              <td>
+                    <para style="P1">Check refrigeration control and test safety devices.</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right">7)</para>
+              </td>
+              <td>
+                    <para style="P1">Check that routine operation of electrical control.</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right">8)</para>
+              </td>
+              <td>
+                    <para style="P1">Check cooling coil, drain pipe and clear choke where necessary.</para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="30.0,440" style="TableNoSpace">
+         <tr>
+        <td>
+          <para style="P1">*</para>
+        </td>
+         <td>
+          <para style="P4_p3"> <u>Terms &amp; Conditions</u></para>
+        </td>
+      </tr>
+          <tr>
+              <td>
+                  <para style="P1">*</para>
+              </td>
+              <td>
+                  <para style="P1">Breakdown call will be attended DURING office hours at no charge .(I .e. Mon - Fri 9.00am to 5.30pm, sat 9.00am to 3.00pm ) any major repairs, reconditioning / alteration to  machine, chemical cleaning, the replacement of part (s) or charge gas will be additional charges.</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P1">*</para>
+              </td>
+              <td>
+                  <para style="P1">IF require emergency attendant after office hours, the charge is:-</para>
+              </td>
+          </tr>
+      </blockTable>
+      <blockTable colWidths="40.0,430" style="TableNoSpace" >
+          <tr>
+              <td>
+                    <para style="P1_right2">a)</para>
+              </td>
+              <td>
+                    <para style="P1"> Mon-Fri (after 6.00ppm to 10.30pm), Sat (after 3.00pm to 10.30pm) @ S$ 80/ per call</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right2">b)</para>
+              </td>
+              <td>
+                    <para style="P1">Mon-Sat (after 10.30pm to 8.00 am) @ S$ 150/ per call</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                    <para style="P1_right2">c)</para>
+              </td>
+              <td>
+                    <para style="P1">Sun &amp; public holiday @ S$ 150/ per call.</para>
+              </td>
+          </tr>
+      </blockTable>
+
+      <blockTable colWidths="30.0,440" style="TableNoSpace">
+         <tr>
+        <td>
+          <para style="P1">*</para>
+        </td>
+         <td>
+          <para style="P1"> An Administration fee of <b>S$60.00</b> will be imposed in the event of termination of contract</para>
+        </td>
+      </tr>
+          <tr>
+              <td>
+                  <para style="P1">*</para>
+              </td>
+              <td>
+                  <para style="P1">This agreement is strictly for Original subscribers only and is not transferable to a third party or to a change of Location..</para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <para style="P1">*</para>
+              </td>
+              <td>
+                  <para style="P1">The contract is for the duration as spelt out in this agreement, notwithstanding the number of servicing done.</para>
+              </td>
+          </tr>
+      </blockTable>
+
+    <blockTable colWidths="150,120,199" style="Table1_underline" rowHeights="40">
+          <tr>
+              <td>
+                  <para style="P2">
+                      <font face="Helvetica" size="9.0">Your faithfully,</font>
+                    </para>
+                    <para style="P2">
+                      <font face="Helvetica" size="9.0">[[o.company_id and o.company_id.name]]</font>
+                    </para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <image width="130" height="30">[[ o.appoint_holder.image or removeParentNode('image') ]]
+                    </image>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+
+          <tr>
+              <td>
+                  <para style="P2">
+                      <font face="Helvetica" size="9.0">[[o.appoint_holder and o.appoint_holder.name]]</font>
+                    </para>
+                    <para style="P2">
+                      <font face="Helvetica" size="9.0">HP: [[o.appoint_holder and o.appoint_holder_phone or removeParentNode('para') ]]</font>
+                    </para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+              <td>
+                  <para style="P3"><font color="white"> </font></para>
+              </td>
+          </tr>
+      </blockTable>
+  </story>
+</document>

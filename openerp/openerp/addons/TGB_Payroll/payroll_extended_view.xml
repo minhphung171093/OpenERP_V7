@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="TGB_hr_payslip_extended_form_view">
+            <field name="name">TGB.hr.payslip.extended.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Daily Detail">
+                        <group>
+                            <field name="tgb_hr_payroll_detail_ids" nolabel ="1"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

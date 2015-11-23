@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_scheduler_form_view">
+            <field name="name">project.scheduler.form</field>
+            <field name="model">project.scheduler</field>
+            <field name="arch" type="xml">
+                <form string="Project Scheduler" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="project_no"/>
+                            <field name="revision_no"/>
+                            <field name="customer"/>
+                            <field name="customer_name"/>
+                            <field name="customer_no"/>
+                            <field name="customer_revision_no"/>
+                            <newline/>
+                            <field name="bill_type"/>
+                            <newline/>
+                            <field name="prompt_po_value"/>
+                            <newline/>
+                        </group>
+                        <notebook>
+                            <page string="Header">
+                                <group col="4">
+                                    <field name="estimate_date"/>
+                                    <field name="customer_contact"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="project_class"/>
+                                    <field name="project_category"/>
+                                    <field name="currency"/>
+                                    <field name="sales_tax"/>
+                                    <field name="retention_required"/>
+                                    <field name="max_retention_amt"/>
+                                    <field name="sales_person"/>
+                                    <field name="sales_manager"/>
+                                    <field name="customer_po_no"/>
+                                    <field name="reference_no"/>
+                                    <field name="default_loading_location"/>
+                                    <field name="commission_group"/>
+                                    <field name="ship_to_address"/>
+                                    <field name="ship_to_contact"/>
+                                    <field name="requested_shipment_date"/>
+                                    <field name="default_shm_priority"/>
+                                    <field name="subject"/>
+                                </group>
+                            </page>
+                            <page string="Inventory">
+                                <group>
+                                    <field name="project_scheduler_inventory_ids"/>
+                                </group>
+                            </page>
+                            <page string="Services">
+                                <group>
+                                    <field name="project_scheduler_service_ids"/>
+                                </group>
+                            </page>
+                            <page string="Remarks">
+                                <group col="2">
+                                    <field name="internal_remarks"/>
+                                    <field name="external_remarks"/>
+                                </group>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_project_scheduler_tree_view">
+            <field name="name">project.scheduler.tree</field>
+            <field name="model">project.scheduler</field>
+            <field name="arch" type="xml">
+                <tree string="Project Scheduler">
+                    <field name="project_no"/>
+                    <field name="customer"/>
+                    <field name="customer_name"/>
+                    <field name="customer_po_no"/>
+                    <field name="sales_manager"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="subject"/>
+                </tree>
+            </field>
+        </record>
+        <record id="tgb_construction_project_scheduler_action" model="ir.actions.act_window">
+            <field name="name">Project Scheduler</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.scheduler</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Project Scheduler"
+                  id="project_scheduler_menu" parent="menu_construction_project_costing_menu"
+                  action="tgb_construction_project_scheduler_action"/>
+    </data>
+</openerp>

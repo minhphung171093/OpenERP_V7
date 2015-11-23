@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_hr_salary_rule_gl_code_inherits" model="ir.ui.view">
+            <field name="name">hr.salary.rule.gl.code.inherits</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="appears_on_payslip" position="replace">
+                        <field name="appears_on_payslip" invisible="1"/>
+                    </field>
+                    <xpath expr="//page[@string='Inputs']" position="after">
+                        <page string="GL Code">
+                            <separator colspan="6" string="Salary Rule GL Code"/>
+                            <field name="hr_salary_rule_glcode_ids" colspan="6" nolabel="1">
+                                <tree editable="top" string="GL Code">
+                                    <field name="gl_code_id"/>
+                                    <field name="emp_categ_id"/>
+                                    <field name="saved_back_cpf"/>
+                                    <field name="saved_back_salary"/>
+                                    <field name="apply_bank_cheque"/>
+                                    <field name="nagative"/>
+                                </tree>
+                                <form string="GL Code" version="7.0">
+                                    <group>
+                                        <field name="gl_code_id"/>
+                                        <field name="emp_categ_id"/>
+                                        <field name="saved_back_cpf"/>
+                                        <field name="saved_back_salary"/>
+                                        <field name="apply_bank_cheque"/>
+                                        <field name="nagative"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

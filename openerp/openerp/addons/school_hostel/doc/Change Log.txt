@@ -1,0 +1,9 @@
+===============================================================================
+ Version Change Log
+ Module: exam
+===============================================================================
+
+Version 1.0 on 2013-09-19 by Anu Patel
+    * Added groups to all menu.
+    * Added csv for field level access rights.
+    * Added record rule  for student.

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+
+        <report
+            auto="False"
+            id="TGB_payslip_details_report"
+            model="hr.payslip"
+            name="TGB.paylip.details"
+            rml="TGB_Payroll/report/TGB_report_payslip_details.rml"
+            string="PaySlip Daily Details" />
+
+    </data>
+</openerp>

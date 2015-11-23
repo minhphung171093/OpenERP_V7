@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_requisition_summary_form_view">
+            <field name="name">requisition.summary.form</field>
+            <field name="model">requisition.summary</field>
+            <field name="arch" type="xml">
+                <form string="Requisition Summary" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="purchase_requisition_no"/>
+                            <field name="copy_from"/>
+                            <field name="copy"/>
+                            <field name="requestor"/>
+                        </group>
+                        <notebook>
+                            <page string="Header">
+                                <group col="2">
+                                    <field name="purchase_requisition_date"/>
+                                    <field name="reference_no"/>
+                                    <field name="subject_header"/>
+                                </group>
+
+                            </page>
+                            <page string="Shipment">
+                                <group col="4">
+                                    <field name="shipment_mode"/>
+                                    <field name="shipment_term"/>
+                                    <field name="port_of_loading"/>
+                                    <field name="country_of_loading"/>
+                                    <field name="port_of_discharge"/>
+                                    <field name="country_of_discharge"/>
+                                    <field name="port_final_destination"/>
+                                    <field name="country_final_destination"/>
+                                    <field name="ship_through"/>
+                                    <field name="default_to_location"/>
+                                    <field name="no_of_shipment"/>
+                                </group>
+
+                            </page>
+                            <page string="Detail">
+                                <group col="4">
+                                    <field name="required_shipment_date"/>
+                                    <newline/>
+                                    <field name="requisition_summary_detail_ids" colspan="8" nolabel="1"/>
+                                    <newline/>
+                                    <seperator string="Allocation Details"/>
+                                    <newline/>
+                                    <field name="allocation_detail_ids" colspan="8" nolabel="1"/>
+                                    <newline/>
+                                    <field name="origin_voucher_no"/>
+                                    <field name="customer_id"/>
+                                    <field name="customer_po_no"/>
+                                    <field name="customer_item_no"/>
+                                    <field name="customer_so_no"/>
+                                    <field name="subject_detail"/>
+                                    <field name="source_pp_no"/>
+                                    <field name="pp_partial_no"/>
+                                    <field name="finished_good"/>
+                                    <field name="own_inventory"/>
+                                    <field name="production_due_date"/>
+                                    <field name="required_shipment_date"/>
+                                </group>
+                            </page>
+                            <page string="Remarks">
+                                <group col="2">
+                                    <field name="internal_remarks_code"/>
+                                    <field name="internal_remarks"/>
+                                    <field name="external_remarks_code"/>
+                                    <field name="external_remarks"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="tgb_construction_requisition_summary_tree_view">
+            <field name="name">requisition.summary.tree</field>
+            <field name="model">requisition.summary</field>
+            <field name="arch" type="xml">
+                <tree string="Requisition Summary">
+                    <field name="purchase_requisition_no"/>
+                    <field name="purchase_requisition_date"/>
+                    <field name="customer_id"/>
+                    <field name="origin_voucher_no"/>
+                    <field name="source_pp_no"/>
+                    <field name="requestor"/>
+                    <field name="reference_no"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+        <record id="tgb_construction_requisition_summary_action" model="ir.actions.act_window">
+            <field name="name">Requisition Summary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">requisition.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Requisition Summary"
+                  id="requisition_summary_menu" parent="menu_construction_purchase_requisition_menu"
+                  action="tgb_construction_requisition_summary_action"/>
+
+
+    </data>
+</openerp>

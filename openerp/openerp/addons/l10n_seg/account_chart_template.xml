@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="singapore_account_chart_template" model="account.chart.template">
+            <field name="name">Singapore Basic Chart of Account</field>
+            <field name="visible" eval="True" />
+            <field name="complete_tax_set" eval="False" />
+        </record>
+
+        <record id="singapore_account_chart_template_basic_value" model="ir.values">
+            <field name="name">Singapore PCMN</field>
+            <field name="model">account.chart.template</field>
+            <field name="key">default</field>
+            <field name="res_id" ref="singapore_account_chart_template"/>
+            <field name="value" ref="base.EUR"/>
+        </record>
+
+    </data>
+</openerp>

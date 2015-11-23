@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.actions.act_window" id="timesheet_extended.actions_roster_timesheet_id">
+            <field name="name">Schedules</field>
+            <field name="res_model">roster.timesheet</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="view_id" ref="timesheet_extended.roster_timesheet_calender_view"/>
+            <field name="search_view_id" ref="timesheet_extended.roster_timesheet_search_view"/>
+            <field name="help">The Roster Planning/Meeting of The sale Employee</field>
+        </record>
+
+        <menuitem id="timesheet_extended.roster_timesheet_menu" parent="hr_attendance.menu_hr_time_tracking"
+                  name="Schedules" action="timesheet_extended.actions_roster_timesheet_id" icon="terp-go-today"/>
+
+    </data>
+</openerp>

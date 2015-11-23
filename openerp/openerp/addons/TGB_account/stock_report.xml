@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="TGB_report_picking_list_out" model="stock.picking.out" name="stock.picking.list.out"
+                string="Delivery Slip" rml="TGB_account/report/TGB_picking.rml"/>
+    </data>
+</openerp>

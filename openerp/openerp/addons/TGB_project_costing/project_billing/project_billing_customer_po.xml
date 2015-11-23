@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_billing_customer_po_form_view">
+        <field name="name">project.billing.customer.po.form</field>
+        <field name="model">project.billing.customer.po</field>
+        <field name="arch" type="xml">
+            <form string="project_billing_customer_po" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="customer_po_no"/>
+                    <field name="seq_no"/>
+                    <field name="customer_po_date"/>
+                    <field name="material"/>
+                    <field name="document_no"/>
+                    <field name="reference"/>
+                    <field name="cumulative_amt"/>
+                    <field name="project_billing_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_project_billing_customer_po_tree_view">
+        <field name="name">project.billing.customer.po.tree</field>
+        <field name="model">project.billing.customer.po</field>
+        <field name="arch" type="xml">
+            <tree string="project_billing_customer_po">
+                <field name="customer_po_no"/>
+                <field name="seq_no"/>
+                <field name="customer_po_date"/>
+                <field name="material"/>
+                <field name="document_no"/>
+                <field name="reference"/>
+                <field name="cumulative_amt"/>
+                <field name="project_billing_id"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_project_billing_customer_po_action" model="ir.actions.act_window">
+            <field name="name">project_billing_customer_po</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.billing.customer.po</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

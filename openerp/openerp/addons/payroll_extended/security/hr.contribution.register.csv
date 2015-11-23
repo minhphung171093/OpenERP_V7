@@ -1,0 +1,10 @@
+id,company_id/id,register_glcode_ids/id,note,name
+__export__.hr_contribution_register_4,base.main_company,,,CPF - MBMF
+__export__.hr_contribution_register_5,base.main_company,,,CPF - SINDA
+__export__.hr_contribution_register_6,base.main_company,,,CPF - CDAC
+__export__.hr_contribution_register_7,base.main_company,,,CPF - ECF
+__export__.hr_contribution_register_8,base.main_company,,,CPF - SDL
+__export__.hr_contribution_register_9,base.main_company,,,CPF - FWL
+__export__.hr_contribution_register_10,base.main_company,,,CPF
+__export__.hr_contribution_register_12,base.main_company,,,BASIC
+__export__.hr_contribution_register_13,base.main_company,,,BONUS

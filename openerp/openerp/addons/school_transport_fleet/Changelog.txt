@@ -1,0 +1,6 @@
+==================================================================================
+ Version ChangeLog (school_transport_fleet)
+==================================================================================
+1.2  --> 17 January 2013 : Serpent Consulting Services
+        * Migrated school_transport_fleet from 6.1 to 7.0.
+        

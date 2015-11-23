@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_ihrms_payslip_sample_excel_file" model="ir.ui.view">
+            <field name="name">view.payslip.sample.excel.file</field>
+            <field name="model">payslip.sample.excel.file</field>
+            <field name="arch" type="xml">
+                <form string="Excel Export" version="7.0">
+                    <group>
+                        <field name="file" colspan="4" filename="name"/>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <footer>
+                        <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+       <record id="view_payslip_sample_wiz_form" model="ir.ui.view">
+            <field name="name">view.payslip.sample.wiz.form</field>
+            <field name="model">payslip.sample.wiz</field>
+            <field name="arch" type="xml">
+                <form string="View Bank Summary" version="7.0">
+                    <separator string="Employees" colspan="4" />
+                    <field name="employee_ids" required="1" nolabel="1" colspan="4" context="{'active_test': False}">
+                        <tree string="Employees">
+                            <field name="name"/>
+                            <field name="department_id"/>
+                            <field name="work_email"/>
+                        </tree>
+                    </field>
+                    <group>
+                    <field name="period_id" required="1"/>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <footer>
+                    <button special="cancel" string="Cancel" icon="gtk-cancel" colspan="2"/>
+                    <button name="print_payslip_sample_excel_report" string="Save" type="object" icon="gtk-ok" colspan="2"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_print_payslip_sample_report" model="ir.actions.act_window">
+            <field name="name">Export Payslip</field>
+            <field name="res_model">payslip.sample.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+       </record>
+    <menuitem action="action_print_payslip_sample_report" id="menu_payslip_sample_excel_file" parent="menu_report_payroll1_misc" sequence="2"/>
+    </data>
+</openerp>

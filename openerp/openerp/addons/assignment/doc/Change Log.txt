@@ -1,0 +1,9 @@
+===============================================================================
+ Version Change Log
+ Module: assignment
+===============================================================================
+
+Version 1.0 on 2013-09-23 by Anu Patel
+    * Added groups to menus.
+    * Added groups to Buttons.
+    * Added record rule for student.

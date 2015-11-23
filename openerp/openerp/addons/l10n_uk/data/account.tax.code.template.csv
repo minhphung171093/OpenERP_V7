@@ -1,0 +1,13 @@
+"id","name","code","parent_id:id","notprintable","sign"
+0,"SG GOVT GST",0,,,1
+40,"Nett GST to be paid/claimed",40,0,"FALSE",1
+50,"Total value of sales excluding GST",50,0,"FALSE",0
+60,"Total value of purchases excluding GST",60,0,"FALSE",0
+10,"GST to be paid for Sales",10,40,"FALSE",1
+11,"Sales - Standard rated GST to be paid",11,10,"FALSE",1
+12,"Sales - Zero rated GST to be paid",12,10,"FALSE",1
+13,"Sales - Exempt GST to be paid",13,10,"FALSE",1
+30,"GST to be claimed on Purchases",30,40,"FALSE",-1
+31,"Purchases - Standard rated GST to be Claimed",31,30,"FALSE",-1
+32,"Purchases - Zero rated GST to be Claimed",32,30,"FALSE",-1
+33,"Purchases - Exempt GST to be Claimed",33,30,"FALSE",-1

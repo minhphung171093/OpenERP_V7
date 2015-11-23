@@ -1,0 +1,27 @@
+<openerp>
+    <data>
+
+        <menuitem name="DK Square Contract Management"
+                  id="menu_dk_square_contract"/>
+
+        <menuitem name="Invoices"
+                  id="menu_dk_square_sale_management" parent="menu_dk_square_contract" sequence="1"/>
+
+        <menuitem name="Contract"
+                  id="menu_dk_square_contract_management" parent="menu_dk_square_contract" sequence="2"/>
+
+        <menuitem name="Customers"
+                  id="menu_dk_square_customer_management" parent="menu_dk_square_contract" sequence="3"/>
+
+        <menuitem name="Reports"
+                  id="menu_dk_square_report_management" parent="menu_dk_square_contract" sequence="4"/>
+
+        <menuitem name="Settings"
+                  id="menu_dk_square_configuration" parent="menu_dk_square_contract" sequence="5"/>
+
+
+
+
+
+    </data>
+</openerp>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+            <record id="act_hr_construction_timesheet_sheet_form" model="ir.actions.act_window">
+            <field name="name">Timesheets</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr_timesheet_sheet.sheet</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="False"/>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="hr_timesheet_sheet.view_hr_timesheet_sheet_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_hr_timesheet_sheet_sheet_2_hr_analytic_timesheet">
+            <field name="context">{}</field>
+            <field name="name">Timesheet Activities</field>
+            <field name="res_model">hr.analytic.timesheet</field>
+            <field name="src_model">hr_timesheet_sheet.sheet</field>
+        </record>
+
+
+
+        <menuitem action="act_hr_construction_timesheet_sheet_form" id="menu_act_construction_hr_timesheet_sheet_all_form" parent="menu_construction_human_resources_menu"
+             sequence="2" groups="base.group_hr_user"/>
+
+        <menuitem action="hr_timesheet_sheet.act_hr_timesheet_sheet_form" id="menu_act_hr_timesheet_sheet_form" parent="menu_construction_human_resources_menu"
+             sequence="2" groups="base.group_hr_user"/>
+
+        <menuitem action="act_hr_timesheet_sheet_sheet_2_hr_analytic_timesheet" id="menu_act_hr_timesheet_sheet_activities" parent="menu_construction_human_resources_menu"
+             sequence="2" groups="base.group_hr_user"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,282 @@
+<?xml version="1.0" ?>
+<openerp>
+        <data>
+
+    <menuitem name="Hostel Addmission" id="student_hostel_menu" parent="school.menu_ems" sequence="2"/>
+
+            <!-- Student Registration view -->
+    <record model="ir.ui.view" id="hostel_registration_form_view">
+        <field name="name">Students Registration</field>
+        <field name="model">student.hostel.registration</field>
+        <field name="arch" type="xml">
+            <form string="Students Registration Information" version="7.0">
+              
+                <header>
+                        <button name="registration_confirm" states="free" string="Confirm Registration" icon="gtk-execute" type="object"/>
+                        <button name="registration_cancel" states="confirmed" string="Cancel Registration" icon="gtk-cancel" type="object"/>
+                        <button name="registration_admission" states="confirmed" string="Student Admission" icon="gtk-execute" type="object"/>
+                        <button name="patient_discharge" states="done" string="Discharge Student" icon="gtk-go-forward" type="object"/>                 
+                        <field name="state" readonly="1" widget="statusbar" nolabel="1"/>
+                </header>
+                 <sheet width="200">
+                <separator string="Hostel Management"/>
+                <group colspan="4">
+                    <group colspan="2">
+                        <field name="reg_code" required="1" placeholder="Registration Code"/>      
+                        <field name="user_id" required="1" placeholder="Student Name"/>    
+                    </group>
+                    <group colspan="2">
+                        <field name="bed" required="1" placeholder= "Room Detail"/> 
+                   </group> 
+                    <newline/>
+                    
+                    <group colspan="4">
+                        <field name="admission_date" placeholder = "Admission Date" required="1"/>
+                        <field name="discharge_date" placeholder="Descharge Date" required="1"/>
+                        <field name="rector"/>
+                    </group>                    
+                    <group colspan="4">                 
+                        <field name="info" colspan="4"/>
+                    </group>
+                </group>
+                <newline/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+            <!-- Hostel Rooms Information -->
+    <record model="ir.ui.view" id="hostel_rooms_form_view">
+        <field name="name">Hostel Rooms Details</field>
+        <field name="model">student.hostel.rooms</field>
+        <field name="arch" type="xml">
+            <form string="Health Center Ward"  version="7.0">
+               <sheet style="width: 10%%,height:10%%">
+                <group>
+                <field name="name" required="1" placeholder="Name"/>
+                 <field name="institution" placeholder="Medical Center"/>
+              <!--   <field name="building"></field> -->
+                <field name="floor" placeholder="Floor No"/>
+                <field name="private"/>
+                </group>
+                <!-- <field name="unit"></field> -->
+                <newline/>
+                <group colspan="4">
+                    <field name="number_of_beds" placeholder="No Of Beds"/>
+                    <field name="gender" placeholder="Gender"/>
+                    <field name="telephone"/>
+                    <field name="ac"/>
+                    <field name="private_bathroom"/>
+                    <field name="guest_sofa"/>
+                    <field name="tv"/>
+                    <field name="internet"/>
+                    <field name="refrigerator"/>
+                    <field name="microwave"/>
+                    <field name="state" placeholder="Beds Available"/>
+                </group>
+                <newline/>
+                <field name="extra_info" colspan="4"/>
+               </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Hostel Room Tree View -->
+    <record model="ir.ui.view" id="hoste_room_tree">
+        <field name="name">Hostel Room type Details</field>
+        <field name="model">student.hostel.rooms</field>
+            <field name="arch" type="xml">
+                <tree string='Hostel Room Details'>
+                   <field name="name"></field>
+                    <field name="number_of_beds"></field>
+                     <field name="gender"></field> 
+                    <field name="institution"></field> 
+                    <field name="state"></field> 
+                </tree>
+            </field>
+    </record>
+    <!-- Hostel Room Action View -->
+    <record model="ir.actions.act_window" id="hostel_action_form_hostel_room">
+        <field name="name">Hostel Rooms Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">student.hostel.rooms</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="hoste_room_tree"/>
+    </record>
+
+    <record id="view_medical_health_center_ward_search" model="ir.ui.view">
+        <field name="name">medical.hospital.ward.select</field>
+        <field name="model">student.hostel.rooms</field>
+        <field name="arch" type="xml">
+            <search string="Search Health Center Wards">
+                <separator orientation="vertical"/>
+                    <field name="name" select="1"/>
+                    <field name="number_of_beds" select="1"/>
+                    <field name="gender" select="1"/> 
+                    <field name="state" select="1"/> 
+                     <field name="institution" select="1"/> 
+                <newline/>
+            </search>
+        </field>
+    </record>
+    <!-- Student Registration Tree View -->
+    <record model="ir.ui.view" id="hostel_registration_tree">
+        <field name="name">Patient Registration Info</field>
+        <field name="model">student.hostel.registration</field>
+            <field name="arch" type="xml">
+                <tree  string='Admission Refgister Of Hostel'>
+                    <field name="reg_code"></field>
+                    <field name="user_id"></field>
+                    <field name="admission_date"></field>
+                    <field name="discharge_date"></field>
+                    <field name="bed"></field> 
+                    <field name="state"></field> 
+                </tree>
+            </field>
+    </record>
+
+    <!-- Student Registration Search View -->
+    <record id="view_medical_inpatient_registration_filter" model="ir.ui.view">
+        <field name="name">student.hostel.registration.select</field>
+        <field name="model">student.hostel.registration</field>
+        <field name="arch" type="xml">
+            <search string="Search Hostel Information">
+                <separator orientation="vertical"/>
+                    <field name="reg_code"/>
+                     <field name="user_id" /> 
+                     <field name="admission_date"/> 
+                    <field name="bed" select="1"/>
+                <newline/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Student Registration  Calendar View -->
+    <record id="view_hostel_Student" model="ir.ui.view">
+        <field name="name">student.hostel.calendar</field>
+        <field name="model">student.hostel.registration</field>
+        <field name="arch" type="xml">
+            <calendar string="Admission Details" color="user_id" date_start="admission_date" date_stop="discharge_date">
+                <field name="bed"/>
+                <field name="user_id"/>
+            </calendar>
+        </field>
+    </record>
+    
+    <!-- Student Registration Action view -->
+    <record model="ir.actions.act_window" id="student_hostel_action_form">
+        <field name="name">Student Hostel Administration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">student.hostel.registration</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_id" ref="hostel_registration_tree"/>
+    </record>
+    
+    <!-- Hostel Building form view -->
+    <record model="ir.ui.view" id="medical_hospital_building_view">
+        <field name="name">Hostel Building</field>
+        <field name="model">student.hostel.building</field>
+        <field name="arch" type="xml">
+            <form string="Building">
+                <field name="name" required="1"></field>
+                <field name="institution"></field> 
+                <field name="code"></field>
+                <newline/>
+                <field name="extra_info" colspan="4"></field>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Hostel Building tree view -->
+    <record model="ir.ui.view" id="hostel_building_tree">
+        <field name="name">Hostel Building Info</field>
+        <field name="model">student.hostel.building</field>
+        <field name="arch" type="xml">
+                <tree string='Health Center Building Info'>
+                    <field name="name"></field>
+                    <field name="institution"></field>  
+                </tree>
+            </field>
+    </record>
+    
+    <!-- Action of Hostel Building -->
+    <record model="ir.actions.act_window" id="student_action_form_hostel_building">
+        <field name="name">Health Center Buildings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">student.hostel.building</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="hostel_building_tree"/>
+    </record>
+    
+    <!-- Menu Items  -->
+ 
+   
+	<menuitem name="Hostel Addmission Details" action="student_hostel_action_form" id="admission_sub_menu" parent="student_hostel_menu" />
+    <menuitem name="Hostel Management"  id="hostel_management_menu" parent="school.menu_configuration"/>
+    <menuitem name="Room" action="hostel_action_form_hostel_room" id="hostel_room_menu" parent="hostel_management_menu"/>
+	
+	
+	
+
+
+
+    <!-- Student hostel Bed information form view -->
+    <record model="ir.ui.view" id="hostel_student_bed_view">
+        <field name="name">Bed</field>
+        <field name="model">student.hostel.bed</field>
+        <field name="arch" type="xml">
+            <form string="Bed">
+                 <field name="name" required="1">
+                </field> 
+                <field name="ward"></field>
+                <field name="bed_type"></field>
+                <field name="telephone_number"></field>
+                <field name="state"></field>
+                <newline/>
+                <group colspan="4">
+                    <field name="extra_info"></field>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Student hostel Bed information tree view -->
+    <record model="ir.ui.view" id="hostel_student_bed_tree">
+        <field name="name">Health Center Bed Info</field>
+        <field name="model">student.hostel.bed</field>
+            <field name="arch" type="xml">
+                <tree string='Health Center Bed Info'>
+                   <!--  <field name="name"></field>  -->
+                    <field name="ward"></field>
+                    <field name="state"></field>
+                </tree>
+            </field>
+    </record>
+    
+        <!-- Action of student hostel bed information -->
+        <record model="ir.actions.act_window" id="hostel_action_form_bed">
+        <field name="name">Student Hostel beds</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">student.hostel.bed</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="hostel_student_bed_tree"/>
+    </record>
+
+    <!-- Student hostel bad information search view -->
+    <record id="view_student_hostel_bed_search" model="ir.ui.view">
+        <field name="name">student.hostel.bed.select</field>
+        <field name="model">student.hostel.bed</field>
+        <field name="arch" type="xml">
+            <search string="Search Student hostel Beds">
+                <separator orientation="vertical"/>
+                  <field name="name" select="1"/> 
+                  <field name="ward" select="1"/>
+                  <field name="state" select="1"/>
+            <newline/>
+            </search>
+        </field>
+    </record>
+    
+    </data>
+</openerp>
+

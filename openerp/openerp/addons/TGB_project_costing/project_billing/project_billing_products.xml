@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="tgb_construction_project_billing_products_form_view">
+        <field name="name">project.billing.product.form</field>
+        <field name="model">project.billing.product</field>
+        <field name="arch" type="xml">
+            <form string="project_billing_products" version="7.0">
+            <sheet>
+                <group col="4">
+                    <field name="type"/>
+                    <field name="product_id"/>
+                    <field name="remark"/>
+                    <field name="qty"/>
+                    <field name="uom_id"/>
+                    <field name="unit_price"/>
+                    <field name="disc_per"/>
+                    <field name="dis_amount"/>
+                    <field name="total_amount"/>
+                    <field name="budgeted_unit_cost"/>
+                    <field name="mark_up_per"/>
+                    <field name="quoted_amount"/>
+                    <field name="project_billing_id"/>
+                    
+                </group>
+                   <notebook>
+                        
+                    </notebook>
+                   </sheet>
+             </form>
+         </field>
+    </record>
+    
+        <record model="ir.ui.view" id="tgb_construction_project_billing_products_tree_view">
+        <field name="name">project.billing.product.tree</field>
+        <field name="model">project.billing.product</field>
+        <field name="arch" type="xml">
+            <tree string="project_billing_products">
+                <field name="type"/>
+                <field name="product_id"/>
+                <field name="remark"/>
+                <field name="qty"/>
+                <field name="uom_id"/>
+                <field name="unit_price"/>
+                <field name="disc_per"/>
+                <field name="dis_amount"/>
+                <field name="total_amount"/>
+                <field name="budgeted_unit_cost"/>
+                <field name="mark_up_per"/>
+                <field name="quoted_amount"/>
+                <field name="project_billing_id"/>
+                
+            </tree>
+        </field>
+    </record>
+        <record id="tgb_construction_project_billing_products_action" model="ir.actions.act_window">
+            <field name="name">project_billing_products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.billing.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    
+     </data>
+</openerp>

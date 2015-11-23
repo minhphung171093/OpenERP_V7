@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Menu Catagory Of Roster Planning  & Timesheet Management -->
+        <record model="ir.module.category" id="roster_planning_category_menu">
+            <field name="name">Roster Planning</field>
+            <field name="sequence">1</field>
+        </record>
+        <record model="ir.module.category" id="timesheet_management_category_menu">
+            <field name="name">Timsheet Management</field>
+            <field name="sequence">2</field>
+        </record>
+        
+        <!--  Roster Planning User and Manager Group -->
+        <record id="group_roster_plannig_user" model="res.groups">
+            <field name="name">Roster Plannig / User</field>
+            <field name="category_id" ref="roster_planning_category_menu" />
+        </record>
+
+        <record id="roster_timesheet_user_group" model="res.groups">
+            <field name="name">Timesheet / User</field>
+            <field name="category_id" ref="timesheet_management_category_menu" />
+        </record>
+        <record id="roster_timesheet_manager_group" model="res.groups">
+            <field name="name">Timesheet / Manager</field>
+            <field name="category_id" ref="timesheet_management_category_menu" />
+            <field name="implied_ids"
+                eval="[(4, ref('timesheet_extended.roster_timesheet_user_group'))]" />
+        </record>
+        <record id="group_roster_plannig_manager" model="res.groups">
+            <field name="name">Roster Planning / Manager</field>
+            <field name="category_id" ref="roster_planning_category_menu" />
+            <field name="implied_ids"
+                eval="[(4, ref('timesheet_extended.group_roster_plannig_user')),(4, ref('timesheet_extended.roster_timesheet_manager_group'))]" />
+        </record>
+        
+        
+        <!--  Rule for Access Roster Planning by Roster Manager -->
+        <record id="roster_plannig_access_for_roster_planning_manager_rule"
+            model="ir.rule">
+            <field name="name">Roster Planning Manager</field>
+            <field name="model_id"
+                search="[('model','=','roster.timesheet')]" model="ir.model" />
+            <field eval="True" name="global" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"
+                eval="[(4, ref('group_roster_plannig_manager'))]" />
+        </record>
+
+        <!--  Rule for Access Roster Planning by Roster User  -->
+        <record id="roster_plannig_access_for_roster_planning_user_rule" model="ir.rule">
+            <field name="name">Roster Planning User</field>
+            <field name="model_id"
+                search="[('model','=','roster.timesheet')]" model="ir.model" />
+            <field eval="True" name="global" />
+            <field name="groups"
+                eval="[(4, ref('group_roster_plannig_user'))]" />
+        </record>
+        
+          <!--  Rule for Access Timesheet by Roster Manager -->
+        <record id="timesheet_access_for_roster_planning_manager_rule"
+            model="ir.rule">
+            <field name="name">Roster Planning Manager</field>
+            <field name="model_id"
+                search="[('model','=','hr_timesheet_sheet.sheet')]" model="ir.model" />
+            <field eval="True" name="global" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"
+                eval="[(4, ref('group_roster_plannig_manager'))]" />
+        </record>
+
+        <!--  Rule for Access Timesheet by Roster User -->
+        <record id="timesheet_access_for_roster_planning_user_rule" model="ir.rule">
+            <field name="name">Roster Planning User</field>
+            <field name="model_id"
+                search="[('model','=','hr_timesheet_sheet.sheet')]" model="ir.model" />
+            <field eval="True" name="global" />
+            <field name="groups"
+                eval="[(4, ref('group_roster_plannig_user'))]" />
+        </record>
+        
+        <!--  Rule for Access Roster Planning by Timesheet Manager -->
+        <record id="roster_plannig_access_for_timesheet_manager_rule"
+            model="ir.rule">
+            <field name="name">Timesheet Management Manager</field>
+            <field name="model_id"
+                search="[('model','=','roster.timesheet')]" model="ir.model" />
+            <field eval="True" name="global" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"
+                eval="[(4, ref('roster_timesheet_manager_group'))]" />
+        </record>
+
+        <!--  Rule for Access Roster Planning by Timesheet User -->
+        <record id="roster_plannig_access_for_timesheet_user_rule" model="ir.rule">
+            <field name="name">Timesheet Management User</field>
+            <field name="model_id"
+                search="[('model','=','roster.timesheet')]" model="ir.model" />
+            <field eval="True" name="global" />
+            <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
+            <field name="groups"
+                eval="[(4, ref('roster_timesheet_user_group'))]" />
+        </record>
+        
+         <!--  Rule for Access Timesheet by Timesheet Manager -->
+        <record id="timesheet_access_for_timesheet_manager_rule"
+            model="ir.rule">
+            <field name="name"> Timesheet Management Manager</field>
+            <field name="model_id"
+                search="[('model','=','hr_timesheet_sheet.sheet')]" model="ir.model" />
+            <field eval="True" name="global" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"
+                eval="[(4, ref('roster_timesheet_manager_group'))]" />
+        </record>
+
+        <!--  Rule for Access Timesheet by Timesheet User -->
+        <record id="timesheet_access_for_timesheet_user_rule" model="ir.rule">
+            <field name="name">Timesheet Management User</field>
+            <field name="model_id"
+                search="[('model','=','hr_timesheet_sheet.sheet')]" model="ir.model" />
+            <field eval="True" name="global" />
+            <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
+            <field name="groups"
+                eval="[(4, ref('roster_timesheet_user_group'))]" />
+        </record>
+
+    </data>
+</openerp>

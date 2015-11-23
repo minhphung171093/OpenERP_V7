@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+
+        <report auto="False"
+                id="public_holiday_report"
+                model="hr.holiday.public"
+                name="ppm.public.holidays"
+                rml="addons/ppm_hr2/report/public_holiday_report.rml"
+                string="Public holiday Report"
+                menu="True" 
+                />
+        <report id="employee_info_report"
+                model="hr.employee"
+                name="ihrms.hr.employee"
+                rml="addons/hr_holiday_extended/report/employee_info_report.rml"
+                string="Employee's information"
+                header="False"/>
+
+     </data>
+</openerp>

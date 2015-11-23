@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="inactive_status_form" model="ir.ui.view">
+            <field name="name">inactive.status.form</field>
+            <field name="model">inactive.status</field>
+            <field name="type">form</field>
+            <field eval="16" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Employee Status" version="7.0">
+                    <group>
+                        <field name="inact_date"/>
+                    </group>
+                    <separator string="Reason" colspan="4"/>
+                    <group>
+                        <field name="reason" nolabel="1" colspan="4"/>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <footer>
+                        <button name="submit" type="object" string="Submit"/>
+                        or
+                        <button name="cancel" type="object" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
