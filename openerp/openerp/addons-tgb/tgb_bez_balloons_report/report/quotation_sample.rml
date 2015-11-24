@@ -197,7 +197,7 @@
           <para style="terp_default_LEFT_10">Date:</para>
         </td>
         <td>
-          <para style="terp_default_LEFT_10">[[ o.date ]]</para>
+          <para style="terp_default_LEFT_10">[[ convert_date(o.date) ]]</para>
         </td>
         <td>
           <para style="terp_default_LEFT_10">Ready Time:</para>
