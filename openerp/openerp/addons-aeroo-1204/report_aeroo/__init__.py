@@ -47,5 +47,3 @@ import translate
 import report_xml
 import report_aeroo
 import wizard
-from . import report_controller
-from . import report

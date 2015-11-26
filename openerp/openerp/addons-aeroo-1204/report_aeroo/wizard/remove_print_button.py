@@ -29,23 +29,14 @@
 #
 ##############################################################################
 
-from openerp import pooler
-from openerp.tools.translate import _
-from openerp.osv import osv
-from openerp.osv import fields
+import pooler
+from tools.translate import _
+from osv import osv
+from osv import fields
 
 def ir_del(cr, uid, id):
     obj = pooler.get_pool(cr.dbname).get('ir.values')
     return obj.unlink(cr, uid, [id])
-
-def _reopen(self, res_id, model):
-    return {'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'view_type': 'form',
-            'res_id': res_id,
-            'res_model': self._name,
-            'target': 'new',
-    }
 
 class aeroo_remove_print_button(osv.osv_memory):
     '''
@@ -54,9 +45,7 @@ class aeroo_remove_print_button(osv.osv_memory):
     _name = 'aeroo.remove_print_button'
     _description = 'Remove print button'
 
-    def default_get(self, cr, uid, fields_list, context=None):
-        values = {}
-
+    def _check(self, cr, uid, context):
         report = self.pool.get(context['active_model']).browse(cr, uid, context['active_id'], context=context)
         if report.report_wizard:
             act_win_obj = self.pool.get('ir.actions.act_window')
@@ -64,28 +53,25 @@ class aeroo_remove_print_button(osv.osv_memory):
             for act_win in act_win_obj.browse(cr, uid, act_win_ids, context=context):
                 act_win_context = eval(act_win.context, {})
                 if act_win_context.get('report_action_id')==report.id:
-                    values['state'] = 'remove'
-                    break;
-            else:
-                values['state'] = 'no_exist'
+                    data['report_action_id'] = act_win.id
+                    return 'remove'
+            return 'no_exist'
         else:
             ids = self.pool.get('ir.values').search(cr, uid, [('value','=',report.type+','+str(report.id))])
             if not ids:
-	            values['state'] = 'no_exist'
+	            return 'no_exist'
             else:
-	            values['state'] = 'remove'
-
-        return values
+	            return 'remove'
 
     def do_action(self, cr, uid, ids, context):
-        this = self.browse(cr, uid, ids[0], context=context)
-        report = self.pool.get(context['active_model']).browse(cr, uid, context['active_id'], context=context)
-        if report.report_wizard:
-            report._unset_report_wizard()
-        event_id = self.pool.get('ir.values').search(cr, uid, [('value','=','ir.actions.report.xml,%d' % context['active_id'])])[0]
-        res = ir_del(cr, uid, event_id)
-        this.write({'state':'done'}, context=context)
-        return _reopen(self, this.id, this._model)
+        data = self.read(cr, uid, ids[0], context=context)
+        report = self.pool.get(context['active_model']).read(cr, uid, context['active_id'], ['report_wizard'], context=context)
+        if report['report_wizard']:
+            self.pool.get('ir.actions.act_window').unlink(cr, uid, data['report_action_id'], context=context)
+        else:
+            event_id = self.pool.get('ir.values').search(cr, uid, [('value','=','ir.actions.report.xml,%d' % context['active_id'])])[0]
+            res = ir_del(cr, uid, event_id)
+        return self.write(cr, uid, ids, {'state':'done'}, context=context)
     
     _columns = {
         'state':fields.selection([
@@ -96,5 +82,8 @@ class aeroo_remove_print_button(osv.osv_memory):
         ],'State', select=True, readonly=True),
     }
 
-aeroo_remove_print_button()
+    _defaults = {
+        'state': _check,
+        
+    }
 

@@ -20,24 +20,24 @@
 #
 ##############################################################################
 
+import netsvc
 import os
 import logging
-from openerp import pooler
-from openerp import tools
-from openerp.tools.translate import trans_parse_rml, trans_parse_xsl, trans_parse_view
+import pooler
+import re
+import tools
+from tools.translate import trans_parse_rml, trans_parse_xsl
+try:
+    from tools.translate import trans_parse_view
+except ImportError, e:
+    from tools.translate import extract_translatable_view_strings as trans_parse_view # for workability with OE7.0 revision 4874
+import itertools
 import fnmatch
 from os.path import join
 from lxml import etree
-from openerp.tools import misc
-from openerp.tools.misc import UpdateableStr
-from openerp.tools import osutil
-from babel.messages import extract
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
-from aeroolib.plugins.opendocument import Template, OOSerializer
-import base64
+from tools import misc
+from tools.misc import UpdateableStr
+from tools import osutil
 
 _logger = logging.getLogger(__name__)
 
@@ -196,25 +196,6 @@ def extend_trans_generate(lang, modules, cr):
                 trans_ids = trans_obj.search(cr, uid, [('type', '=', 'report'),('res_id', '=', obj.id)])
                 for t in trans_obj.read(cr, uid, trans_ids, ['name','src']):
                     push_translation(module, "report", t['name'], xml_name, t['src'])
-                if obj.in_format in ['oo-odt', 'oo-ods']\
-                        and obj.report_sxw_content:
-                    template_io = StringIO()
-                    template_io.write(
-                            base64.decodestring(obj.report_sxw_content))
-                    serializer = OOSerializer(template_io)
-                    basic = Template(source=template_io, serializer=serializer)
-                    def push_oo_translations(nodes):
-                        for node in nodes:
-                            if not isinstance(node, tuple):
-                                continue
-                            if node[0] == 'TEXT':
-                                push_translation(
-                                        module, obj.report_type, name, 0,
-                                        node[1], [str(node[2][2])])
-                            if node[0] == 'SUB':
-                                for n in node[1]:
-                                    push_oo_translations(n)
-                    push_oo_translations(basic.stream)
             ##############################
             else:
                 if obj.report_rml:
@@ -333,11 +314,8 @@ def extend_trans_generate(lang, modules, cr):
         if module:
             src_file = open(fabsolutepath, 'r')
             try:
-                for extracted in extract.extract(extract_method, src_file,
-                                                 keywords=extract_keywords):
-                    # Babel 0.9.6 yields lineno, message, comments
-                    # Babel 1.3 yields lineno, message, comments, context
-                    lineno, message, comments = extracted[:3] 
+                for lineno, message, comments in extract.extract(extract_method, src_file,
+                                                                 keywords=extract_keywords):
                     push_translation(module, trans_type, display_path, lineno,
                                      encode(message), comments + extra_comments)
             except Exception:
@@ -374,5 +352,5 @@ def extend_trans_generate(lang, modules, cr):
     return out
 
 import sys
-sys.modules['openerp.tools.translate'].trans_generate = extend_trans_generate
+sys.modules['tools.translate'].trans_generate = extend_trans_generate
 

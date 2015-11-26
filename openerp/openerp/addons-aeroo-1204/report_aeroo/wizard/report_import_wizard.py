@@ -29,10 +29,10 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
-from openerp.osv import fields
-from openerp.tools import convert_xml_import
-from openerp.tools.translate import _
+from osv import osv
+from osv import fields
+from tools import convert_xml_import
+from tools.translate import _
 import base64
 import lxml.etree
 import zipfile
@@ -82,7 +82,7 @@ class report_aeroo_import(osv.osv_memory):
         report = report_obj.browse(cr, uid, report_id, context=context)
         event_id = self.pool.get('ir.values').set_action(cr, uid, report.report_name, 'client_print_multi', report.model, 'ir.actions.report.xml,%d' % report_id)
         if report.report_wizard:
-            report._set_report_wizard(report.id)
+            report._set_report_wizard()
 
         mod_obj = self.pool.get('ir.model.data')
         act_obj = self.pool.get('ir.actions.act_window')

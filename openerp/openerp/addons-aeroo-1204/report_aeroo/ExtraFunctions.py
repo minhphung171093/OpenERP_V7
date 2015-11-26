@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2009-2013 Alistek Ltd (http://www.alistek.com) All Rights Reserved.
+# Copyright (c) 2009-2012 Alistek Ltd (http://www.alistek.com) All Rights Reserved.
 #                    General contacts <info@alistek.com>
 #
 # WARNING: This program as such is intended to be used by professional
@@ -31,54 +31,20 @@
 ##############################################################################
 
 from barcode import barcode
-from openerp.tools import translate
-#from currency_to_text import currency_to_text
-from ctt_objects import supported_language
+from tools import translate
+from currency_to_text import currency_to_text
 import base64
 import StringIO
 from PIL import Image
-from openerp import pooler
+import pooler
 import time
-from openerp.osv.orm import browse_null, browse_record
-from openerp.report import report_sxw
-from openerp.tools.translate import _
-from openerp import netsvc
-from openerp.tools.safe_eval import safe_eval as eval
+import osv
+from report import report_sxw
+from tools.translate import _
+import netsvc
+from tools.safe_eval import safe_eval as eval
 from aeroolib.plugins.opendocument import _filter
-
-try:
-    from docutils.examples import html_parts # use python-docutils library
-except ImportError, e:
-    rest_ok = False
-else:
-    rest_ok = True
-try:
-    import markdown
-    from markdown import Markdown # use python-markdown library
-    from markdown.inlinepatterns import AutomailPattern
-    
-    class AutomailPattern_mod (AutomailPattern, object):
-        def __init__(self, *args, **kwargs):
-            super(AutomailPattern_mod, self).__init__(*args, **kwargs)
-
-        def handleMatch(self, m):
-            el = super(AutomailPattern_mod, self).handleMatch(m)
-            href = ''.join([chr(int(a.replace(markdown.AMP_SUBSTITUTE+'#', ''))) for a in el.get('href').split(';') if a])
-            el.set('href', href)
-            return el
-    
-    markdown.inlinepatterns.AutomailPattern = AutomailPattern_mod # easy hack for correct displaying in Joomla
-
-except ImportError, e:
-    markdown_ok = False
-else:
-    markdown_ok = True
-try:
-    from mediawiki import wiki2html # use python-mediawiki library
-except ImportError, e:
-    wikitext_ok = False
-else:
-    wikitext_ok = True
+import re
 
 def domain2statement(domain):
     statement=''
@@ -96,6 +62,56 @@ def domain2statement(domain):
              statement+=operator or ' and'
         operator=False
     return statement
+
+def split(l, counts):
+    """
+
+    >>> split("hello world", [])
+    ['hello world']
+    >>> split("hello world", [1])
+    ['h', 'ello world']
+    >>> split("hello world", [2])
+    ['he', 'llo world']
+    >>> split("hello world", [2,3])
+    ['he', 'llo', ' world']
+    >>> split("hello world", [2,3,0])
+    ['he', 'llo', ' wo', 'rld']
+    >>> split("hello world", [2,-1,3])
+    ['he', 'llo world']
+
+    """
+    res = []
+    saved_count = len(l) # count to use when encoutering a zero
+    for count in counts:
+        if not l:
+            break
+        if count == -1:
+            break
+        if count == 0:
+            while l:
+                res.append(l[:saved_count])
+                l = l[saved_count:]
+            break
+        res.append(l[:count])
+        l = l[count:]
+        saved_count = count
+    if l:
+        res.append(l)
+    return res
+
+intersperse_pat = re.compile('([^0-9]*)([^ ]*)(.*)')
+
+def intersperse(string, counts, separator=''):
+    """
+
+    See the asserts below for examples.
+
+    """
+    left, rest, right = intersperse_pat.match(string).groups()
+    def reverse(s): return s[::-1]
+    splits = split(reverse(rest), counts)
+    res = separator.join(map(reverse, reverse(splits)))
+    return left + res + right, len(splits) > 0 and len(splits) -1 or 0
 
 class ExtraFunctions(object):
     """ This class contains some extra functions which
@@ -148,29 +164,43 @@ class ExtraFunctions(object):
             'html_escape': self._html_escape,
             'http_prettyuri': self._http_prettyuri,
             'http_builduri': self._http_builduri,
-            'text_markdown': markdown_ok and self._text_markdown or \
-                self._text_plain('"markdown" format is not supported! Need to be installed "python-markdown" package.'),
-            'text_restruct': rest_ok and self._text_restruct or \
-                self._text_plain('"reStructuredText" format is not supported! Need to be installed "python-docutils" package.'),
-            'text_wiki': wikitext_ok and self._text_wiki or \
-                self._text_plain('"wikimarkup" format is not supported! Need to be installed "python-mediawiki" package.'),
-            'text_markup': self._text_markup,
             '__filter': self.__filter, # Don't use in the report template!
+            
+            #Thanh adds more functions
+            'extended_format_number': self._extended_format_number,
         }
-
+    
+    def _extended_format_number(self, value, digits=0, thousands_sep=',', decimal_point='.'):
+        if value:
+            grouping = "[3,3,3,3,3,3]"
+            eval_grouping = eval(grouping)
+            percent = '%.'+str(digits)+'f'
+            formatted = percent % value
+            seps = 0
+            parts = formatted.split('.')
+            parts[0], seps = intersperse(parts[0], eval_grouping, thousands_sep)
+            formatted = decimal_point.join(parts)
+            while seps:
+                sp = formatted.find(' ')
+                if sp == -1: break
+                formatted = formatted[:sp] + formatted[sp+1:]
+                seps -= 1
+            return formatted
+        return value
+    
     def __filter(self, val):
-        if isinstance(val, browse_null):
+        if isinstance(val, osv.orm.browse_null):
             return ''
-        elif isinstance(val, browse_record):
+        elif isinstance(val, osv.orm.browse_record):
             return val.name_get({'lang':self._get_lang()})[0][1]
         return _filter(val)
 
     def _perm_read(self, cr, uid):
         def get_log(obj, field=None):
             if field:
-                return obj.perm_read()[0][field]
+                return obj.perm_read(self.uid, [obj.id])[0][field]
             else:
-                return obj.perm_read()[0]
+                return obj.perm_read(self.uid, [obj.id])[0]
         return get_log
 
     def _get_report_xml(self):
@@ -214,8 +244,7 @@ class ExtraFunctions(object):
 
     def _currency2text(self, currency):
         def c_to_text(sum, currency=currency, language=None):
-            #return unicode(currency_to_text(sum, currency, language or self._get_lang()), "UTF-8")
-            return unicode(supported_language.get(language or self._get_lang()).currency_to_text(sum, currency), "UTF-8")
+            return unicode(currency_to_text(sum, currency, language or self._get_lang()), "UTF-8")
         return c_to_text
 
     def _translate_text(self, source):
@@ -280,7 +309,7 @@ class ExtraFunctions(object):
         return localspace['value_list']
 
     def _get_name(self, obj):
-        if obj.__class__== browse_record:
+        if obj.__class__==osv.orm.browse_record:
             return self.pool.get(obj._table_name).name_get(self.cr, self.uid, [obj.id], {'lang':self._get_lang()})[0][1]
         elif type(obj)==str: # only for fields in root record
             model = self.context['model']
@@ -558,32 +587,4 @@ class ExtraFunctions(object):
         for pair in d.iteritems():
             result += '&%s=%s' % pair
         return result
-
-    def _text_restruct(self, text):
-        output = html_parts(unicode(text), doctitle=False)
-        return output['body']
-
-    def _text_markdown(self, text):
-        md = Markdown()
-        return md.convert(text)
-
-    def _text_wiki(self, text):
-        return wiki2html(text, True)
-
-    def _text_plain(self, msg):
-        def text_plain(text):
-            netsvc.Logger().notifyChannel('report_aeroo', netsvc.LOG_INFO, msg)
-            return text
-        return text_plain
-
-    def _text_markup(self, text):
-        lines = text.splitlines()
-        first_line = lines.pop(0)
-        if first_line=='text/x-markdown':
-            return self._text_markdown('\n'.join(lines))
-        elif first_line=='text/x-wiki':
-            return self._text_wiki('\n'.join(lines))
-        elif first_line=='text/x-rst':
-            return self._text_rest('\n'.join(lines))
-        return text
 

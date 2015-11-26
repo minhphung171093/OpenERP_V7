@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2008-2013 Alistek Ltd (http://www.alistek.com) All Rights Reserved.
+# Copyright (c) 2008-2012 Alistek Ltd (http://www.alistek.com) All Rights Reserved.
 #                    General contacts <info@alistek.com>
 #
 # WARNING: This program as such is intended to be used by professional
@@ -30,39 +30,24 @@
 #
 ##############################################################################
 
-from openerp.osv import fields
-from openerp.osv import osv
-from openerp import netsvc
-from openerp import tools
+from osv import fields
+from osv import osv
+import netsvc
+import tools
 import os, base64
-import urllib2
-
-_url = 'http://www.alistek.com/aeroo_banner/v7_0_report_aeroo.png'
 
 class report_aeroo_installer(osv.osv_memory):
     _name = 'report.aeroo.installer'
     _inherit = 'res.config.installer'
-    _logo_image = None
 
     def _get_image(self, cr, uid, context=None):
-        if self._logo_image:
-            return self._logo_image
+        path = os.path.join('report_aeroo','config_pixmaps','module_banner.png')
+        image_file = file_data = tools.file_open(path,'rb')
         try:
-            im = urllib2.urlopen(_url.encode("UTF-8"))
-            if im.headers.maintype!='image':
-                raise TypeError(im.headers.maintype)
-        except Exception, e:
-            path = os.path.join('report_aeroo','config_pixmaps','module_banner.png')
-            image_file = file_data = tools.file_open(path,'rb')
-            try:
-                file_data = image_file.read()
-                self._logo_image = base64.encodestring(file_data)
-                return self._logo_image
-            finally:
-                image_file.close()
-        else:
-            self._logo_image = base64.encodestring(im.read())
-            return self._logo_image
+            file_data = image_file.read()
+            return base64.encodestring(file_data)
+        finally:
+            image_file.close()
 
     def _get_image_fn(self, cr, uid, ids, name, args, context=None):
         image = self._get_image(cr, uid, context)

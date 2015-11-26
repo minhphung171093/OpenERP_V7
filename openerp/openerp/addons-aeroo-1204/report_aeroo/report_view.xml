@@ -37,11 +37,13 @@
                                     <field name="report_rml" string="Template path" attrs="{'invisible': [('tml_source','&lt;&gt;','file')],'required': [('tml_source','=','file')]}"/>
                                 </group>
                             </group>
-                            <separator string="Stylesheet" colspan="4"/>
-                            <group colspan="4" col="8">
-                                <field name="styles_mode" colspan="2"/>
-                                <group colspan="6">
-                                    <field name="stylesheet_id" attrs="{'invisible': [('styles_mode','&lt;&gt;','specified')]}"/>
+                            <group attrs="{'invisible': [('in_format','=','genshi-raw')]}" colspan="4">
+                                <separator string="Stylesheet" colspan="4"/>
+                                <group colspan="4" col="8">
+                                    <field name="styles_mode" colspan="2"/>
+                                    <group colspan="6">
+                                        <field name="stylesheet_id" attrs="{'invisible': [('styles_mode','&lt;&gt;','specified')]}"/>
+                                    </group>
                                 </group>
                             </group>
                             <group attrs="{'invisible': [('in_format','&lt;&gt;','genshi-raw')]}" colspan="4" col="8">
@@ -73,13 +75,9 @@
                         <page string="Advanced">
                             <group colspan="4" col="6">
                                 <field name="content_fname"/>
-                                <field name="replace_report_id" domain="[('model','=',model),('id','&lt;&gt;',active_id)]"/>
                                 <field name="preload_mode" attrs="{'invisible': ['|',('in_format','=','genshi-raw'),('tml_source','=','parser')]}"/>
                                 <field name="fallback_false" attrs="{'invisible': [('in_format','=','genshi-raw')]}"/>
                                 <field name="active"/>
-                                <field name="deferred"/>
-                                <field name="deferred_limit" attrs="{'invisible':['|',('deferred','=','off'),('deferred','=',False)]}"/>
-                                <newline/>
                                 <field name="xml_id" colspan="6"/>
                             </group>
                         </page>
@@ -113,10 +111,14 @@
             <field name="model">ir.actions.report.xml</field>
             <field name="arch" type="xml">
                 <search string="Report xml">
-                    <field name="name"
-                        filter_domain="['|', '|', '|', '|', ('name','ilike',self), ('model','ilike',self), ('type','ilike',self), ('report_name','ilike',self), ('report_type','ilike',self)]"
-                        string="Report"/>
-                    <filter name="active" string="Inactive" domain="[('active','=',False)]"/>
+                    <group col="10" colspan="4">
+                        <field name="name"/>
+                        <field name="model"/>
+                        <field name="in_format"/>
+                        <field name="out_format"/>
+                        <field name="active"/>
+                    </group>
+                    <newline/>
                     <group expand="0" string="Group By" colspan="4">
                         <filter string="Template Mime-type" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'in_format'}"/>
                         <filter string="Output Mime-type" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'out_format'}"/>
@@ -130,22 +132,16 @@
         <record id="act_aeroo_print_actions_view_form" model="ir.ui.view">
             <field name="name">aeroo.print_actions.form</field>
             <field name="model">aeroo.print_actions</field>
- 	    <field name="priority">16</field>
             <field name="arch" type="xml">
-                <form string="Printing Options" >
-                    <field name="state" invisible="1"/>
-                    <group states="draft">
-                        <field name="out_format" attrs="{'readonly':[('out_format_code','=','genshi-raw')]}" on_change="onchange_out_format(out_format)"/>
-                        <field name="out_format_code" invisible="1"/>
+                <form string="Printing Options" version="7.0">
+                    <group>
+                        <field name="out_format"/>
                         <field name="copies"/>
                     </group>
-                    <group states="confirm" expand="1" colspan="4">
-                        <field name="message" colspan="4" nolabel="1" readonly="1"/>
-                    </group>
-                        <button icon="gtk-yes" name="start_deferred" string="_Yes" type="object" states="confirm"/>
-                        <button icon="gtk-no" name="simple_print" string="_No" type="object" states="confirm"/>
+                    <footer>
                         <button icon="gtk-cancel" special="cancel" string="_Cancel" type="object"/>
-                        <button icon="gtk-print" name="to_print" string="_Print" type="object" states="draft"/>
+                        <button icon="gtk-print" name="to_print" string="_Print" type="object"/>
+                    </footer>
                 </form>
             </field>
         </record>
@@ -154,13 +150,15 @@
             <field name="name">aeroo.print_by_action.form</field>
             <field name="model">aeroo.print_by_action</field>
             <field name="arch" type="xml">
-                <form string="Test the report" >
+                <form string="Test the report" version="7.0">
                    <group>
                         <field name="name"/>
                         <field name="object_ids" default_focus="1"/>
                    </group>
+                    <footer>
                         <button icon="gtk-close" special="cancel" string="Close" type="object"/>
                         <button icon="gtk-print" name="to_print" string="Print" type="object" default_focus="1"/>
+                    </footer>
                 </form>
             </field>
         </record>
@@ -169,9 +167,8 @@
             <field name="name">aeroo.report_import.form</field>
             <field name="model">aeroo.report_import</field>
             <field name="arch" type="xml">
-                <form string="Install Aeroo Report" >
+                <form string="Install Aeroo Report" version="7.0">
                     <group colspan="4" fill="0" states="draft">
-                        <label string="This wizard installs prepackaged reports developed for Aeroo Reports engine." colspan="4"/>
                         <field name="file" colspan="4"/>
                     </group>
                     <group colspan="4" states="info" expand="1">
@@ -179,9 +176,11 @@
                         <field name="info" nolabel="1" width="320" height="200"/>
                         <separator colspan="4"/>
                     </group>
+                    <footer>
                         <button icon="gtk-close" special="cancel" string="Close" type="object"/>
                         <button icon="gtk-go-forward" name="next" string="Next" type="object" default_focus="1" states="draft"/>
                         <button icon="gtk-execute" name="install_report" string="Install" type="object" default_focus="1" states="info"/>
+                    </footer>
                     <field name="state" invisible="1"/>
                 </form>
             </field>
@@ -301,7 +300,7 @@
     </record>
 
     <record model="ir.actions.act_window.view" id="act_aeroo_report_xml_form_view">
-        <field name="sequence" eval="1"/>
+        <field name="sequence" eval="2"/>
         <field name="view_mode">form</field>
         <field name="view_id" ref="act_report_xml_view1"/>
         <field name="act_window_id" ref="action_aeroo_report_xml_tree"/>

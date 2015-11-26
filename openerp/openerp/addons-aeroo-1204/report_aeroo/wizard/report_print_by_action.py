@@ -30,8 +30,8 @@
 ##############################################################################
 
 
-from openerp.osv import osv
-from openerp.osv import fields
+from osv import osv
+from osv import fields
 
 class report_print_by_action(osv.osv_memory):
     _name = 'aeroo.print_by_action'

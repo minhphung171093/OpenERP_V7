@@ -32,7 +32,7 @@
 
 { 
     'name': 'Aeroo Reports - OpenOffice Helper Addon',
-    'version': '1.2',
+    'version': '1.1',
     'category': 'Generic Modules/Aeroo Reporting',
     'description': """
 Aeroo Reports OpenOffice.org helper adds following features:

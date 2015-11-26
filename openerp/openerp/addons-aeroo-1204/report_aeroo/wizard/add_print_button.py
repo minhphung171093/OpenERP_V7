@@ -29,23 +29,14 @@
 #
 ##############################################################################
 
-from openerp import pooler
-from openerp.tools.translate import _
-from openerp.osv import osv
-from openerp.osv import fields
+import pooler
+from tools.translate import _
+from osv import osv
+from osv import fields
 
 special_reports = [
     'printscreen.list'
 ]
-
-def _reopen(self, res_id, model):
-    return {'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'view_type': 'form',
-            'res_id': res_id,
-            'res_model': self._name,
-            'target': 'new',
-    }
 
 class aeroo_add_print_button(osv.osv_memory):
     '''
@@ -75,14 +66,14 @@ class aeroo_add_print_button(osv.osv_memory):
 	            return 'exist'
 
     def do_action(self, cr, uid, ids, context):
-        this = self.browse(cr, uid, ids[0], context=context)
+        data = self.browse(cr, uid, ids[0], context=context)
         report = self.pool.get(context['active_model']).browse(cr, uid, context['active_id'], context=context)
         event_id = self.pool.get('ir.values').set_action(cr, uid, report.report_name, 'client_print_multi', report.model, 'ir.actions.report.xml,%d' % context['active_id'])
         if report.report_wizard:
-            report._set_report_wizard(report.id)
-        this.write({'state':'done'}, context=context)
-        if not this.open_action:
-            return _reopen(self, this.id, this._model)
+            report._set_report_wizard()
+        data.write({'state':'done'}, context=context)
+        if not data.open_action:
+            return ids
 
         mod_obj = pooler.get_pool(cr.dbname).get('ir.model.data')
         act_obj = pooler.get_pool(cr.dbname).get('ir.actions.act_window')
@@ -109,6 +100,4 @@ class aeroo_add_print_button(osv.osv_memory):
         'state': _check,
         
     }
-
-aeroo_add_print_button()
 

@@ -13,9 +13,17 @@
 #
 
 DEFAULT_OPENOFFICE_PORT = 8100
+DEFAULT_OPENOFFICE_PATH = [
+    "C:\Program Files\OpenOffice.org 3\Basis\program",
+    "C:\Program Files\OpenOffice.org 3\program",
+    "C:\Program Files\OpenOffice.org 3\URE\bin"]
+
+DEFAULT_OPENOFFICE_PATH_AMD64 = [
+    "C:\Program Files (x86)\OpenOffice.org 3\Basis\program",
+    "C:\Program Files (x86)\OpenOffice.org 3\program",
+    "C:\Program Files (x86)\OpenOffice.org 3\URE\bin"]
 
 ################## For CSV documents #######################
-# Field Separator (1), 	Text Delimiter (2), 	Character Set (3), 	Number of First Line (4)
 CSVFilterOptions = "59,34,76,1"
 # ASCII code of field separator
 # ASCII code of text delimiter
@@ -28,13 +36,20 @@ from os.path import abspath
 from os.path import isfile
 from os.path import splitext
 import sys
-import time
-import subprocess
-import logging
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+from StringIO import StringIO
+
+if sys.platform=='win32':
+    import _winreg
+    import platform
+    try:
+        key = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment')
+        python_path = _winreg.QueryValueEx(key, "PYTHONPATH")[0].split(';')
+        if python_path:
+            sys.path.extend(python_path)
+        else:
+            sys.path.extend(platform.machine()=='x86' and DEFAULT_OPENOFFICE_PATH or DEFAULT_OPENOFFICE_PATH_AMD64)
+    except WindowsError, e:
+        sys.path.extend(platform.machine()=='x86' and DEFAULT_OPENOFFICE_PATH or DEFAULT_OPENOFFICE_PATH_AMD64)
 
 import uno
 import unohelper
@@ -45,9 +60,7 @@ from com.sun.star.beans import UnknownPropertyException
 from com.sun.star.lang import IllegalArgumentException
 from com.sun.star.io import XOutputStream
 from com.sun.star.io import IOException
-from openerp.tools.translate import _
-
-logger = logging.getLogger(__name__)
+from tools.translate import _
 
 class DocumentConversionException(Exception):
 
@@ -88,10 +101,9 @@ class OutputStreamWrapper(unohelper.Base, XOutputStream):
 
 class DocumentConverter:
    
-    def __init__(self, host='localhost', port=DEFAULT_OPENOFFICE_PORT, ooo_restart_cmd=None):
+    def __init__(self, host='localhost', port=DEFAULT_OPENOFFICE_PORT):
         self._host = host
         self._port = port
-        self._ooo_restart_cmd = ooo_restart_cmd
         self.localContext = uno.getComponentContext()
         self.serviceManager = self.localContext.ServiceManager
         self._resolver = self.serviceManager.createInstanceWithContext("com.sun.star.bridge.UnoUrlResolver", self.localContext)
@@ -100,15 +112,7 @@ class DocumentConverter:
         except IllegalArgumentException, exception:
             raise DocumentConversionException("The url is invalid (%s)" % exception)
         except NoConnectException, exception:
-            if self._restart_ooo():
-                # We try again once
-                try:
-                    self._context = self._resolver.resolve("uno:socket,host=%s,port=%s;urp;StarOffice.ComponentContext" % (host, port))
-                except NoConnectException, exception:
-                    raise DocumentConversionException("Failed to connect to OpenOffice.org on host %s, port %s. %s" % (host, port, exception))
-            else:
-                raise DocumentConversionException("Failed to connect to OpenOffice.org on host %s, port %s. %s" % (host, port, exception))
-
+            raise DocumentConversionException("Failed to connect to OpenOffice.org on host %s, port %s. %s" % (host, port, exception))
         except ConnectionSetupException, exception:
             raise DocumentConversionException("Not possible to accept on a local resource (%s)" % exception)
 
@@ -202,21 +206,4 @@ class DocumentConverter:
             prop.Value = args[key]
             props.append(prop)
         return tuple(props)
-
-    def _restart_ooo(self):
-        if not self._ooo_restart_cmd:
-            logger.warning('No LibreOffice/OpenOffice restart script configured')
-            return False
-        logger.info('Restarting LibreOffice/OpenOffice background process')
-        try:
-            logger.info('Executing restart script "%s"' % self._ooo_restart_cmd)
-            retcode = subprocess.call(self._ooo_restart_cmd, shell=True)
-            if retcode == 0:
-                logger.warning('Restart successfull')
-                time.sleep(4) # Let some time for LibO/OOO to be fully started
-            else:
-                logger.error('Restart script failed with return code %d' % retcode)
-        except OSError, e:
-            logger.error('Failed to execute the restart script. OS error: %s' % e)
-        return True
 

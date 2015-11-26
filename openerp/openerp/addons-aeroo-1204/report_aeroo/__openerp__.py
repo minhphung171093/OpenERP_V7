@@ -24,7 +24,7 @@
 
 {
     'name': 'Aeroo Reports',
-    'version': '1.2',
+    'version': '1.1',
     'category': 'Generic Modules/Aeroo Reporting',
     'description': """
 Aeroo Reports for OpenERP is a comprehensive reporting engine based on Aeroo Library.
@@ -68,7 +68,7 @@ Reporting engine features:
     'author': 'Alistek Ltd, Simone Orsi - Domsense',
     'website': 'http://www.alistek.com',
     'complexity': "easy",
-    'depends': ['base', 'report', 'base_field_serialized'],
+    'depends': ['base'],
     "init_xml" : [],
     'update_xml': ["installer.xml", "report_view.xml", "data/report_aeroo_data.xml", "wizard/add_print_button_view.xml", "wizard/remove_print_button_view.xml", "security/ir.model.access.csv"],
     "license" : "GPL-3 or any later version",
