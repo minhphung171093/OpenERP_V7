@@ -207,7 +207,7 @@
     <blockTable colWidths="41.0,175.0,155.0,170.0" style="Table1">
       <tr>
         <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
+          <para style="terp_default_LEFT_10"><b>To:</b></para>
         </td>
         <td>
           <para style="terp_default_LEFT_10"><b>[[ o.partner_id.name ]]</b></para>
@@ -298,7 +298,7 @@
           <para style="terp_default_LEFT_10"><b>[[ o.deliver_to ]]</b></para>
         </td>
         <td>
-          <para style="terp_default_CENTER_10">[[ get_jobs_person(o.origin) ]]</para>
+          <para style="terp_default_CENTER_10"><font color="white">_</font></para>
           <para style="terp_default_CENTER_10"><font color="white">_</font></para>
           <para style="terp_default_CENTER_10"><font color="white">_</font></para>
         </td>
@@ -390,101 +390,6 @@
         </td>
       </tr>
     </blockTable>
-    <blockTable colWidths="61.0,200.0,70.0,105.0,105.0" style="Table2">
-      <tr>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><b>Balloon Color:</b></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-      </tr>
-    </blockTable>
-    <blockTable colWidths="61.0,200.0,70.0,105.0,105.0" style="Table2">
-      <tr>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><b>[[ o.balloon_color ]]</b></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-      </tr>
-    </blockTable>
-    <blockTable colWidths="61.0,200.0,70.0,105.0,105.0" style="Table2">
-      <tr>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-      </tr>
-    </blockTable>
-    <blockTable colWidths="61.0,200.0,70.0,105.0,105.0" style="Table2">
-      <tr>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><b>Artwork:</b></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-      </tr>
-    </blockTable>
-    <blockTable colWidths="61.0,200.0,70.0,105.0,105.0" style="Table2">
-      <tr>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><b>[[ o.artwork ]]</b></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-        <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
-        </td>
-      </tr>
-    </blockTable>
     <blockTable colWidths="61.0,270.0,105.0,105.0" style="Table7">
       <tr>
         <td>
@@ -501,7 +406,7 @@
         </td>
       </tr>
     </blockTable>
-    <blockTable colWidths="61.0,100.0,100.0,175.0,105.0" style="Table3">
+    <blockTable colWidths="1.0,1.0,259.0,175.0,105.0" style="Table3">
        <tr>
         <td>
            <para style="terp_default_CENTER_10"><font color="white">_</font></para>
@@ -510,7 +415,7 @@
            <para style="terp_default_LEFT_10"><font color="white">_</font></para>
         </td>
         <td>
-          <para style="terp_default_CENTER_10"><font color="white">_</font></para>
+          <para style="terp_default_LEFT_10"><b>Balloon Colour: [[ o.balloon_color ]]</b></para>
         </td>
         <td>
           <para style="terp_default_RIGHT_10">Subtotal</para>
@@ -539,7 +444,7 @@
         </td>
       </tr>
     </blockTable>
-    <blockTable colWidths="61.0,100.0,100.0,175.0,105.0" style="Table3">
+    <blockTable colWidths="1.0,1.0,259.0,175.0,105.0" style="Table3">
        <tr>
         <td>
            <para style="terp_default_CENTER_10"><font color="white">_</font></para>
@@ -548,10 +453,10 @@
            <para style="terp_default_LEFT_10"><font color="white">_</font></para>
         </td>
         <td>
-          <para style="terp_default_CENTER_10"><font color="white">_</font></para>
+          <para style="terp_default_LEFT_10"><b>Artwork: [[ o.artwork ]]</b></para>
         </td>
         <td>
-          <para style="terp_default_RIGHT_10"><font color="white"> </font></para>
+          <para style="terp_default_RIGHT_10"><b>Total</b></para>
         </td>
         <td>
           <para style="terp_default_CENTER_10">[[ formatLang(o.amount_total, digits=get_digits(dp='Account'), currency_obj=o.currency_id) ]]</para>

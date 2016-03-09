@@ -207,7 +207,7 @@
     <blockTable colWidths="41.0,175.0,155.0,170.0" style="Table1">
       <tr>
         <td>
-          <para style="terp_default_LEFT_10"><font color="white">_</font></para>
+          <para style="terp_default_LEFT_10"><b>To: </b></para>
         </td>
         <td>
           <para style="terp_default_LEFT_10"><b>[[ o.partner_id.name ]]</b></para>
@@ -282,7 +282,7 @@
     <blockTable colWidths="341.0,200.0" style="Table5">
       <tr>
         <td>
-          <para style="terp_default_LEFT_10"><b></b></para>
+          <para style="terp_default_LEFT_10"><b>Address for delivery:</b></para>
         </td>
         <td>
           <para style="terp_default_CENTER_10"><b>Jobs Person</b></para>
@@ -295,10 +295,10 @@
           <para style="terp_default_LEFT_10"><font color="white"> </font></para>
         </td>
         <td>
-          <para style="terp_default_LEFT_10"><b></b></para>
+          <para style="terp_default_LEFT_10">[[ o.deliver_to ]]</para>
         </td>
         <td>
-          <para style="terp_default_CENTER_10">[[ get_jobs_person(o.origin) ]]</para>
+          <para style="terp_default_CENTER_10"><font color="white">_</font></para>
           <para style="terp_default_CENTER_10"><font color="white">_</font></para>
           <para style="terp_default_CENTER_10"><font color="white">_</font></para>
         </td>

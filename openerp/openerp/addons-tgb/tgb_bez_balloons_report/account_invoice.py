@@ -51,7 +51,7 @@ class account_invoice(osv.osv):
             'datas': datas,
             'nodestroy' : True
         }
-        
+
     _columns = {
         'appointment': fields.char('Appointment', size=1024),
         'ready_by': fields.char('Ready By', size=1024),
@@ -59,8 +59,53 @@ class account_invoice(osv.osv):
         'artwork': fields.char('Artwork', size=1024),
         'customer_po': fields.char('Customer PO', size=1024),
         'balloon_color': fields.char('Balloon Color', size=1024),
+        'tax_id': fields.many2one('account.tax', 'Taxes', readonly=True, states={'draft':[('readonly',False)]}),
+        'discount': fields.float('Discount (%)', digits_compute= dp.get_precision('Discount'), readonly=True, states={'draft':[('readonly',False)]}),
     }
-        
+    
+    def create(self, cr, uid, vals, context=None):
+        new_id = super(account_invoice, self).create(cr, uid, vals, context)
+        invoice = self.browse(cr, uid, new_id)
+        if 'tax_id' not in vals or not vals.get('tax_id', False):
+            tax_id = False
+            for line in invoice.invoice_line:
+                if line.invoice_line_tax_id:
+                    tax_id = line.invoice_line_tax_id[0].id
+                    break
+            if tax_id:
+                self.write(cr, uid, [invoice.id], {'tax_id':tax_id})
+        else:
+            invoice_line_ids = [l.id for l in invoice.invoice_line]
+            self.pool.get('account.invoice.line').write(cr, uid, invoice_line_ids, {'invoice_line_tax_id': [(6,0,[vals['tax_id']])]})
+            self.button_reset_taxes(cr, uid, [new_id], context)
+            
+        if 'discount' not in vals or not vals.get('discount', False):
+            discount = False
+            for line in invoice.invoice_line:
+                if line.discount:
+                    discount = line.discount
+                    break
+            if tax_id:
+                self.write(cr, uid, [invoice.id], {'discount':discount})
+            
+        return new_id
+    
+    def write(self, cr, uid, ids, vals, context=None):
+        new_write = super(account_invoice, self).write(cr, uid, ids, vals, context)
+        if vals.get('tax_id', False):
+            for invoice in self.browse(cr, uid, ids, context):
+                invoice_line_ids = [l.id for l in invoice.invoice_line]
+                self.pool.get('account.invoice.line').write(cr, uid, invoice_line_ids, {'invoice_line_tax_id': [(6,0,[vals['tax_id']])]})
+                self.button_reset_taxes(cr, uid, [invoice.id], context)
+                
+        if vals.get('discount', False):
+            for invoice in self.browse(cr, uid, ids, context):
+                invoice_line_ids = [l.id for l in invoice.invoice_line]
+                self.pool.get('account.invoice.line').write(cr, uid, invoice_line_ids, {'discount': vals['discount']})
+                self.button_reset_taxes(cr, uid, [invoice.id], context)
+                
+        return new_write
+    
 account_invoice()
 
 
