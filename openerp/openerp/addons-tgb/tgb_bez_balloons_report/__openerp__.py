@@ -27,6 +27,7 @@
     'depends': ['web','account','sale','stock'],
     'data': [
         'report_view.xml',
+        'report/cash_sales_sample_aeroo_view.xml',
         'partner_view.xml',
         'sale_view.xml',
         'stock_view.xml',

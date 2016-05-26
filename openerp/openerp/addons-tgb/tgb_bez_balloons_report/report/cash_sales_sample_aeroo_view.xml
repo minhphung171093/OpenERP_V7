@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+<!-- Invoice -->
+	    <record id="cash_sales_sample_aeroo" model="ir.actions.report.xml">
+	        <field name="name">cash_sales_sample_aeroo</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">account.invoice</field>
+	        <field name="report_name">cash_sales_sample_aeroo</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">tgb_bez_balloons_report/report/cash_sales_sample_aeroo.py</field>
+	        <field name="report_rml">tgb_bez_balloons_report/report/cash_sales_sample_aeroo.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		<report 
+			auto="False" 
+			menu="True"
+			id="cash_sales_sample_aeroo"
+			model="account.invoice"
+			name="cash_sales_sample_aeroo"
+	        string="Cash Sales Sample"
+	        rml="tgb_bez_balloons_report/report/cash_sales_sample_aeroo.ods"/>
+        
+	</data>
+</openerp>

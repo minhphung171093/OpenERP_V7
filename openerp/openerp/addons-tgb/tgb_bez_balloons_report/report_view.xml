@@ -29,7 +29,7 @@
                 rml="tgb_bez_balloons_report/report/delivery_order_sample.rml" string="Delivery Order Sample"
                 usage="default" header="False"/>
                 
-        <report auto="False" menu="True" id="report_cash_sales_sample" model="account.invoice" name="cash_sales_sample"
+        <report auto="False" menu="False" id="report_cash_sales_sample" model="account.invoice" name="cash_sales_sample"
                 rml="tgb_bez_balloons_report/report/cash_sales_sample.rml" string="Cash Sales Sample"
                 usage="default" header="False"/>
                 
